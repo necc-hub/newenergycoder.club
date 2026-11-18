@@ -55,7 +55,7 @@
 
 - **ROBOCON 2024/2025 机器人控制系统**：全开源的竞赛机器人解决方案
 - **模块化嵌入式基线工程**：STM32 HAL + RT-Thread 的开箱即用模板
-- **NEC 官网**：https://github.com/newenergycoder/newenergycoder.club （本站，MIT 协议）
+- **NEC 官网**：https://github.com/necc-hub/newenergycoder.club （本站，MIT 协议）
 
 ## 常见问题
 

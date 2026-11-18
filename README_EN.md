@@ -10,7 +10,9 @@ This repository contains the official website of New Energy Coder Club. It is bu
 
 - Live site: [https://newenergycoder.club](https://newenergycoder.club)
 - Main repository: [https://github.com/necc-hub/newenergycoder.club](https://github.com/necc-hub/newenergycoder.club)
-- Historical archive repository: [https://gitee.com/darrenpig/new_energy_coder_club](https://gitee.com/darrenpig/new_energy_coder_club)
+- Gitee mirror: [https://gitee.com/darrenpig/newenergycoder.club](https://gitee.com/darrenpig/newenergycoder.club)
+- AtomGit mirror: [https://atomgit.com/cnec/newenergycoder.club](https://atomgit.com/cnec/newenergycoder.club)
+- Historical archive repository (not a website mirror): [https://gitee.com/darrenpig/new_energy_coder_club](https://gitee.com/darrenpig/new_energy_coder_club)
 
 ## Overview
 

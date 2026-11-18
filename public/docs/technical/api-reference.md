@@ -401,7 +401,7 @@ project = api.projects.create({
 如有API使用问题，请通过以下方式联系我们：
 
 - 邮箱：api-support@newenergycoder.club
-- GitHub Issues：https://github.com/Darrenpig/new_energy_coder_club/issues
+- GitHub Issues：https://github.com/necc-hub/newenergycoder.club/issues
 - 技术交流群：加入我们的微信群或QQ群
 
 ---
