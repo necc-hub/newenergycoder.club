@@ -80,7 +80,7 @@ export const getAspectRatioOptions = (t: any): { value: AspectRatio; label: stri
   { value: 'aspect-[21/9]', label: t.displayRatio.aspectRatios.ultrawide }
 ]
 
-// DisplayRatioPage 组件
+// 显示比例选择（原 DisplayRatioPage 演示页已移除，保留于此的说明仅供实现参考）
 // ├── useState 管理 selectedRatio 状态（默认：'aspect-[3/4]'）
 // ├── 通过 PageLayout 传递属性
 // │   ├── showAspectRatio={true}

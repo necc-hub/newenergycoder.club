@@ -7,7 +7,6 @@ import {
   LearningStage,
   ResourceType,
   DifficultyLevel,
-  LearningStep,
   LearningResource
 } from '../types/learning';
 
