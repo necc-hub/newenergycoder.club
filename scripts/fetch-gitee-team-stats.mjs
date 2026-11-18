@@ -72,8 +72,13 @@ const EMAIL_IDENTITY_MAP = {
   '14654084+xia-wangxi@user.noreply.gitee.com': '夏汪禧',
   '15125077+yinzihao-pika-pikaqiu@user.noreply.gitee.com': '殷子豪',
   '342297745@qq.com': '吴洛斌',
-  '14913760+pony17@user.noreply.gitee.com': 'Pony17',
-  '2142088244@qq.com': 'Elowen',
+  // 徐海婷（2025-2026 运营组 maintainer）的历史署名 Elowen / sleepinnnnnnnnnnng
+  '2142088244@qq.com': '徐海婷',
+  'sleepinnnnnnnnnnng@users.noreply.github.com': '徐海婷',
+  // 刘英琪（2024-2025 赛季队长）的历史署名 Pony17
+  '14913760+pony17@user.noreply.gitee.com': '刘英琪',
+  // 张旺旺（早期创始人）的历史署名张奕泽
+  '3455480283@qq.com': '张旺旺',
   '15989091+xu-haiting@user.noreply.gitee.com': '徐海婷',
   '15726950+guo--tongtong@user.noreply.gitee.com': '郭童童',
   '14948512+ylt123456789@user.noreply.gitee.com': '杨力滔',
@@ -137,7 +142,7 @@ const EMAIL_IDENTITY_MAP = {
   '16592676+meng--jie@user.noreply.gitee.com': '孟洁',
   '16592703+yue-tianjun@user.noreply.gitee.com': '岳添俊',
   '16587537+zhj070331@user.noreply.gitee.com': '庄皓钧',
-  '3455480283@qq.com': '张奕泽',
+  // 已归并到张旺旺（早期创始人）名下，见上方 EMAIL_IDENTITY_MAP
   '15197938+ccah-1@user.noreply.gitee.com': '陈家辉',
   '16604030+qiqis-melody@user.noreply.gitee.com': '陈琦',
   '14443780+gu-shuteng@user.noreply.gitee.com': '顾舒腾',

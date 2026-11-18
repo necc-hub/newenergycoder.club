@@ -217,7 +217,7 @@ export const designers: TeamMember[] = [
   },
   {
     name: '李一楠',
-    role: '运营组长',
+    role: '运营组 Maintainer（2024-2025 届）',
     bio: '为NEC小队宣传以及主持，负责团队运营和对外宣传工作。',
     image: 'https://cdn.newenergycoder.club/images/src/image/designer/李一楠.jpg',
     tags: ['团队运营', '宣传策划', '活动主持', 'NEC小队', '对外联络', '品牌推广']
@@ -246,6 +246,35 @@ export const designers: TeamMember[] = [
 ];
 
 export const contributors: TeamMember[] = [
+  {
+    name: '夏汪禧',
+    role: '仓库早期维护者',
+    bio: '仓库早期维护者，2024-2025 期间深度参与基线工程与竞赛资料整理',
+    image: 'https://api.dicebear.com/7.x/initials/svg?seed=%E5%A4%8F%E6%B1%AA%E7%A6%A7',
+    tags: ['仓库维护', '嵌入式', 'ROBOCON', '基线工程'],
+    gitee: 'https://gitee.com/xia-wangxi'
+  },
+  {
+    name: '洪嘉悦',
+    role: 'Contributor',
+    bio: '机械设计制造，CURC2027 机构 SIG 机械组成员',
+    image: 'https://cdn.newenergycoder.club/images/src/image/contributors/洪嘉悦.jpg',
+    tags: ['机械设计', '机械制造', 'CURC2027', 'ROBOCON']
+  },
+  {
+    name: '刘小榆',
+    role: 'Contributor',
+    bio: 'AI agent skill 开源，基于 stm32 开发等',
+    image: 'https://cdn.newenergycoder.club/images/src/image/contributors/刘小榆.jpg',
+    tags: ['AI Agent', 'STM32', '嵌入式', '开源']
+  },
+  {
+    name: '蔡睿杰',
+    role: 'Contributor',
+    bio: 'RC 排球机器人设计装配',
+    image: 'https://cdn.newenergycoder.club/images/src/image/contributors/蔡睿杰.jpg',
+    tags: ['机械设计', '机器人', 'RC', '装配']
+  },
   { name: '严文颖', role: 'Contributor', bio: '数据库，运营', image: 'https://cdn.newenergycoder.club/images/src/image/contributors/严文颖.jpg' },
   {
     name: '余浩铭',
@@ -338,8 +367,8 @@ export const contributors: TeamMember[] = [
   { name: '徐康', role: '3D打印与建模贡献者', bio: '3D打印，建模', image: 'https://cdn.newenergycoder.club/images/src/image/contributors/徐康.jpg' },
   {
     name: '徐海婷',
-    role: '财务管理专员',
-    bio: '聚焦财务流程、数据支撑，助力团队行稳致远',
+    role: '运营组 Maintainer（2025-2026）',
+    bio: '2025-2026 赛季运营组 maintainer，前届由李一楠担任；同时负责财务流程与数据支撑',
     image: 'https://cdn.newenergycoder.club/images/src/image/contributors/徐海婷.jpg',
     tags: ['财务管理', '预算控制', '风险防控', '数据分析', '流程优化', '成本管控']
   },
