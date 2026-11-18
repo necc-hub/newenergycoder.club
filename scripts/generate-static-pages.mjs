@@ -279,7 +279,7 @@ function baseJsonLd(page) {
       logo: { '@type': 'ImageObject', url: DEFAULT_OG_IMAGE, width: 1200, height: 630 },
       description:
         '面向 ROBOCON 等机器人竞赛与真实工程项目的开源开发者社区，以模块化工程基线、新手友好贡献路径、线上协作 × A416 线下实验室为核心特色。',
-      sameAs: ['https://gitee.com/nec-community', 'https://github.com/newenergycoder'],
+      sameAs: ['https://gitee.com/nec-community', 'https://github.com/necc-hub'],
     },
     {
       '@context': 'https://schema.org',

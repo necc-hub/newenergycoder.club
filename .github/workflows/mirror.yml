@@ -2,17 +2,23 @@ name: Mirror to Gitee & AtomGit
 
 on:
   push:
-    branches: ["**"]
+    branches: ["main"]
     tags: ["**"]
   workflow_dispatch:
 
+# Serialize all mirror pushes; cancelling midway can leave mirrors out of sync.
 concurrency:
-  group: mirror-${{ github.ref }}
-  cancel-in-progress: true
+  group: mirror-newenergycoder-club
+  cancel-in-progress: false
 
 jobs:
   mirror:
+    # Never let a fork or a renamed copy overwrite the official mirrors.
+    if: github.repository == 'necc-hub/newenergycoder.club'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
     env:
       GIT_LFS_SKIP_PUSH: "1"
     steps:
@@ -20,12 +26,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Push to Gitee (new_energy_coder_club)
+      # Fast-forward-only: diverged mirrors fail instead of being overwritten.
+      # new_energy_coder_club is a separate historical archive, not a mirror.
+      - name: Push to Gitee (newenergycoder.club)
         run: |
-          REMOTE="https://darrenpig:${{ secrets.GITEE_TOKEN }}@gitee.com/darrenpig/new_energy_coder_club.git"
-          git push --force "$REMOTE" "refs/remotes/origin/*:refs/heads/*" "refs/tags/*:refs/tags/*"
+          REMOTE="https://darrenpig:${{ secrets.GITEE_TOKEN }}@gitee.com/darrenpig/newenergycoder.club.git"
+          git push "$REMOTE" "refs/remotes/origin/main:refs/heads/main" "refs/tags/*:refs/tags/*"
 
       - name: Push to AtomGit (newenergycoder.club)
         run: |
           REMOTE="https://Darrenpig:${{ secrets.ATOMGIT_TOKEN }}@atomgit.com/cnec/newenergycoder.club.git"
-          git push --force "$REMOTE" "refs/remotes/origin/*:refs/heads/*" "refs/tags/*:refs/tags/*"
+          git push "$REMOTE" "refs/remotes/origin/main:refs/heads/main" "refs/tags/*:refs/tags/*"

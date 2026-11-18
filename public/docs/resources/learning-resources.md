@@ -523,6 +523,6 @@ toc: true
 
 ---
 
-**持续更新中...** 如果您发现优质资源，欢迎 [提交建议](https://github.com/Darrenpig/new_energy_coder_club/issues) 帮助完善这个列表！
+**持续更新中...** 如果您发现优质资源，欢迎 [提交建议](https://github.com/necc-hub/newenergycoder.club/issues) 帮助完善这个列表！
 
-**需要帮助？** [查看学习指南](/docs/getting-started) 或 [加入学习小组](https://github.com/Darrenpig/new_energy_coder_club/discussions)
+**需要帮助？** [查看学习指南](/docs/getting-started) 或 [加入学习小组](https://github.com/necc-hub/newenergycoder.club/discussions)

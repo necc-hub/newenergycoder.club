@@ -10,7 +10,9 @@
 
 - 线上地址: [https://newenergycoder.club](https://newenergycoder.club)
 - 主仓库: [https://github.com/necc-hub/newenergycoder.club](https://github.com/necc-hub/newenergycoder.club)
-- 历史归档仓库: [https://gitee.com/darrenpig/new_energy_coder_club](https://gitee.com/darrenpig/new_energy_coder_club)
+- Gitee 镜像: [https://gitee.com/darrenpig/newenergycoder.club](https://gitee.com/darrenpig/newenergycoder.club)
+- AtomGit 镜像: [https://atomgit.com/cnec/newenergycoder.club](https://atomgit.com/cnec/newenergycoder.club)
+- 历史归档仓库（不接收官网镜像）: [https://gitee.com/darrenpig/new_energy_coder_club](https://gitee.com/darrenpig/new_energy_coder_club)
 
 ## 项目概览
 

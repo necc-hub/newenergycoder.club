@@ -25,8 +25,8 @@ lastModified: 2024-12-19
 
 #### 1. 克隆项目
 ```bash
-git clone https://github.com/Darrenpig/new_energy_coder_club.git
-cd club-platform
+git clone https://github.com/necc-hub/newenergycoder.club.git
+cd newenergycoder.club
 ```
 
 #### 2. 安装依赖
