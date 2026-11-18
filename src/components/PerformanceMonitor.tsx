@@ -29,11 +29,18 @@ const getRating = (name: string, value: number): 'good' | 'needs-improvement' | 
   return 'poor';
 };
 
+// Google Analytics gtag 全局函数（非标准 API，按需声明）
+declare global {
+  interface Window {
+    gtag?: (command: string, eventName: string, params: Record<string, unknown>) => void;
+  }
+}
+
 // 发送性能数据到分析服务
 const sendToAnalytics = (metric: Metric) => {
   // 发送到 Vercel Analytics
   if (typeof window !== 'undefined' && 'gtag' in window) {
-    (window as any).gtag('event', metric.name, {
+    window.gtag?.('event', metric.name, {
       event_category: 'Web Vitals',
       event_label: metric.id,
       value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
@@ -60,7 +67,7 @@ const getCLS = (onPerfEntry: (metric: Metric) => void) => {
   let sessionValue = 0;
   let sessionEntries: PerformanceEntry[] = [];
 
-  const entryHandler = (entry: any) => {
+  const entryHandler = (entry: PerformanceEntry & { hadRecentInput?: boolean; value?: number }) => {
     if (!entry.hadRecentInput) {
       const firstSessionEntry = sessionEntries[0];
       const lastSessionEntry = sessionEntries[sessionEntries.length - 1];
@@ -98,7 +105,7 @@ const getCLS = (onPerfEntry: (metric: Metric) => void) => {
 
 const getFID = (onPerfEntry: (metric: Metric) => void) => {
   const observer = new PerformanceObserver((list) => {
-    list.getEntries().forEach((entry: any) => {
+    list.getEntries().forEach((entry: PerformanceEntry & { processingStart?: number }) => {
       onPerfEntry({
         name: 'FID',
         value: entry.processingStart - entry.startTime,
@@ -116,7 +123,7 @@ const getFID = (onPerfEntry: (metric: Metric) => void) => {
 const getLCP = (onPerfEntry: (metric: Metric) => void) => {
   const observer = new PerformanceObserver((list) => {
     const entries = list.getEntries();
-    const lastEntry = entries[entries.length - 1] as any;
+    const lastEntry = entries[entries.length - 1];
 
     onPerfEntry({
       name: 'LCP',
@@ -133,7 +140,7 @@ const getLCP = (onPerfEntry: (metric: Metric) => void) => {
 
 const getFCP = (onPerfEntry: (metric: Metric) => void) => {
   const observer = new PerformanceObserver((list) => {
-    list.getEntries().forEach((entry: any) => {
+    list.getEntries().forEach((entry: PerformanceEntry) => {
       if (entry.name === 'first-contentful-paint') {
         onPerfEntry({
           name: 'FCP',
@@ -151,7 +158,7 @@ const getFCP = (onPerfEntry: (metric: Metric) => void) => {
 };
 
 const getTTFB = (onPerfEntry: (metric: Metric) => void) => {
-  const navigationEntry = performance.getEntriesByType('navigation')[0] as any;
+  const navigationEntry = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
   if (navigationEntry) {
     const ttfb = navigationEntry.responseStart - navigationEntry.requestStart;
     onPerfEntry({
@@ -178,7 +185,7 @@ export const PerformanceMonitor: React.FC = () => {
 
     // 监控资源加载性能
     const resourceObserver = new PerformanceObserver((list) => {
-      list.getEntries().forEach((entry: any) => {
+      list.getEntries().forEach((entry: PerformanceEntry) => {
         if (entry.duration > 1000) { // 超过1秒的资源
           console.warn('Slow resource:', entry.name, entry.duration + 'ms');
         }
@@ -189,7 +196,7 @@ export const PerformanceMonitor: React.FC = () => {
 
     // 监控长任务
     const longTaskObserver = new PerformanceObserver((list) => {
-      list.getEntries().forEach((entry: any) => {
+      list.getEntries().forEach((entry: PerformanceEntry) => {
         console.warn('Long task detected:', entry.duration + 'ms');
       });
     });

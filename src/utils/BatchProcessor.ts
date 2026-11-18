@@ -37,7 +37,7 @@ export interface BatchProcessorResult<R> {
   failures: Array<{
     batchIndex: number;
     error: Error;
-    items: any[];
+    items: unknown[];
   }>;
   /** 处理统计 */
   stats: {
@@ -256,13 +256,26 @@ class Semaphore {
   }
 }
 
+/** 链接批处理输入项（字段按调用方而定，url/text 为常见形态） */
+export interface LinkInput {
+  url?: string;
+  text?: string;
+  [key: string]: unknown;
+}
+
+/** 转换后的链接 */
+export interface TransformedLink extends LinkInput {
+  processed: boolean;
+  processedAt: string;
+}
+
 /**
  * 链接批处理器
  * 专门用于处理链接相关的批量操作
  */
 export class LinkBatchProcessor {
   private validationProcessor: BatchProcessor<string, boolean>;
-  private transformProcessor: BatchProcessor<any, any>;
+  private transformProcessor: BatchProcessor<LinkInput, TransformedLink>;
 
   constructor() {
     // 链接验证批处理器
@@ -295,11 +308,11 @@ export class LinkBatchProcessor {
     });
 
     // 链接转换批处理器
-    this.transformProcessor = new BatchProcessor({
+    this.transformProcessor = new BatchProcessor<LinkInput, TransformedLink>({
       batchSize: 20,
       batchDelay: 50,
       maxConcurrency: 2,
-      processor: async (links: any[]) => {
+      processor: async (links: LinkInput[]) => {
         // 批量转换链接
         return links.map(link => ({
           ...link,
@@ -325,9 +338,9 @@ export class LinkBatchProcessor {
    * 批量转换链接
    */
   async transformLinks(
-    links: any[], 
+    links: LinkInput[], 
     _onProgress?: (processed: number, total: number) => void
-  ): Promise<BatchProcessorResult<any>> {
+  ): Promise<BatchProcessorResult<TransformedLink>> {
     return this.transformProcessor.process(links);
   }
 

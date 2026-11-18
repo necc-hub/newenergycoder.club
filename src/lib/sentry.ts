@@ -55,11 +55,11 @@ export const initSentry = () => {
 };
 
 // 手动捕获错误的工具函数
-export const captureError = (error: Error, context?: Record<string, any>) => {
+export const captureError = (error: Error, context?: Record<string, unknown>) => {
   Sentry.withScope((scope) => {
     if (context) {
       Object.keys(context).forEach(key => {
-        scope.setTag(key, context[key]);
+        scope.setTag(key, String(context[key]));
       });
     }
     Sentry.captureException(error);

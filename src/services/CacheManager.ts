@@ -65,7 +65,7 @@ interface CacheStats {
  * 缓存管理器类
  */
 export class CacheManager {
-  private memoryCache = new Map<string, CacheItem<any>>();
+  private memoryCache = new Map<string, CacheItem<unknown>>();
   private config: CacheConfig;
   private stats: CacheStats;
   private cleanupTimer?: NodeJS.Timeout;
@@ -121,7 +121,7 @@ export class CacheManager {
   /**
    * 检查缓存项是否过期
    */
-  private isExpired(item: CacheItem<any>): boolean {
+  private isExpired(item: CacheItem<unknown>): boolean {
     return Date.now() > item.expiresAt;
   }
 
@@ -287,7 +287,7 @@ export class CacheManager {
           try {
             const stored = localStorage.getItem(key);
             if (stored) {
-              const item: CacheItem<any> = JSON.parse(stored);
+              const item: CacheItem<unknown> = JSON.parse(stored);
               if (this.isExpired(item)) {
                 keysToRemove.push(key);
               }

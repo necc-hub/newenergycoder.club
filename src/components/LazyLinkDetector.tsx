@@ -54,10 +54,10 @@ interface ErrorBoundaryState {
 }
 
 class LinkDetectorErrorBoundary extends React.Component<
-  React.PropsWithChildren<{}>,
+  React.PropsWithChildren<Record<never, never>>,
   ErrorBoundaryState
 > {
-  constructor(props: React.PropsWithChildren<{}>) {
+  constructor(props: React.PropsWithChildren<Record<never, never>>) {
     super(props);
     this.state = { hasError: false };
   }

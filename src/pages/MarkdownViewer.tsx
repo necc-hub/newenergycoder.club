@@ -21,7 +21,7 @@ import {
   Clock,
   BarChart3
 } from 'lucide-react';
-import { DEFAULT_MARKDOWN_CONFIG } from '@/types/markdown';
+import { DEFAULT_MARKDOWN_CONFIG, type MarkdownStats, type MarkdownHistoryEntry } from '@/types/markdown';
 
 // 示例Markdown内容
 const EXAMPLE_CONTENT = `# Markdown 编辑器演示
@@ -105,7 +105,7 @@ $$
 
 // 统计信息展示组件
 interface StatsDisplayProps {
-  stats: any;
+  stats: MarkdownStats;
   className?: string;
 }
 
@@ -142,7 +142,7 @@ function StatsDisplay({ stats, className }: StatsDisplayProps) {
             <div className="flex justify-between">
               <span className="text-sm text-muted-foreground">标题</span>
               <Badge variant="outline">
-                {Object.values(stats.headings).reduce((a: number, b: any) => a + Number(b), 0).toString()}
+                {Object.values(stats.headings).reduce((a: number, b: number) => a + Number(b), 0).toString()}
               </Badge>
             </div>
             <div className="flex justify-between">
@@ -161,7 +161,7 @@ function StatsDisplay({ stats, className }: StatsDisplayProps) {
         </div>
         
         {/* 标题层级分布 */}
-        {Object.values(stats.headings).some((count: any) => Number(count) > 0) && (
+        {Object.values(stats.headings).some((count: number) => Number(count) > 0) && (
           <div className="space-y-2">
             <Separator />
             <h4 className="text-sm font-medium">标题分布</h4>
@@ -184,7 +184,7 @@ function StatsDisplay({ stats, className }: StatsDisplayProps) {
 
 // 历史记录组件
 interface HistoryPanelProps {
-  history: any[];
+  history: MarkdownHistoryEntry[];
   onRestore: (id: string) => void;
   onClear: () => void;
   className?: string;
@@ -391,7 +391,7 @@ export function MarkdownViewer() {
         {/* 右侧边栏 */}
         {showSidebar && (
           <div className="w-80 border-l border-border bg-muted/30">
-            <Tabs value={sidebarTab} onValueChange={(value: any) => setSidebarTab(value)} className="h-full flex flex-col">
+            <Tabs value={sidebarTab} onValueChange={(value: string) => setSidebarTab(value as 'stats' | 'history' | 'help')} className="h-full flex flex-col">
               <TabsList className="grid w-full grid-cols-3 m-2">
                 <TabsTrigger value="stats" className="text-xs">
                   <BarChart3 className="h-3 w-3 mr-1" />

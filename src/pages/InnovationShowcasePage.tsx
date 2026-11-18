@@ -254,10 +254,11 @@ export function InnovationShowcasePage() {
         case 'date':
           comparison = new Date(a.lastUpdated).getTime() - new Date(b.lastUpdated).getTime();
           break;
-        case 'maturity':
+        case 'maturity': {
           const maturityOrder = [TechnologyMaturity.RESEARCH, TechnologyMaturity.PROTOTYPE, TechnologyMaturity.PILOT, TechnologyMaturity.COMMERCIAL];
           comparison = maturityOrder.indexOf(a.maturity) - maturityOrder.indexOf(b.maturity);
           break;
+        }
         case 'category':
           comparison = a.category.localeCompare(b.category);
           break;
@@ -382,7 +383,7 @@ export function InnovationShowcasePage() {
                         name="sortBy"
                         aria-label="排序方式"
                         value={filters.sortBy}
-                        onChange={(e) => setFilters(prev => ({ ...prev, sortBy: e.target.value as any }))}
+                        onChange={(e) => setFilters(prev => ({ ...prev, sortBy: e.target.value as InnovationFilters['sortBy'] }))}
                         className="px-3 py-2 border rounded-md bg-background"
                       >
                         <option value="name">按名称排序</option>

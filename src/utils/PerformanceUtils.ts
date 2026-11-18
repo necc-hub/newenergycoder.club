@@ -3,10 +3,17 @@
  * 提供防抖、节流、批处理、懒加载等性能优化功能
  */
 
+/** Chrome 专有的 performance.memory API（未纳入标准 lib.dom） */
+interface PerformanceMemory {
+  usedJSHeapSize: number;
+  totalJSHeapSize: number;
+  jsHeapSizeLimit: number;
+}
+
 /**
  * 防抖函数类型
  */
-type DebouncedFunction<T extends (...args: any[]) => any> = {
+type DebouncedFunction<T extends (...args: never[]) => unknown> = {
   (...args: Parameters<T>): void;
   cancel: () => void;
   flush: () => void;
@@ -15,7 +22,7 @@ type DebouncedFunction<T extends (...args: any[]) => any> = {
 /**
  * 节流函数类型
  */
-type ThrottledFunction<T extends (...args: any[]) => any> = {
+type ThrottledFunction<T extends (...args: never[]) => unknown> = {
   (...args: Parameters<T>): void;
   cancel: () => void;
 };
@@ -79,17 +86,18 @@ export class PerformanceUtils {
    * @param immediate - 是否立即执行
    * @returns 防抖后的函数
    */
-  static debounce<T extends (...args: any[]) => any>(
+  static debounce<T extends (...args: never[]) => unknown>(
     func: T,
     delay: number,
     immediate = false
   ): DebouncedFunction<T> {
     let timeoutId: NodeJS.Timeout | null = null;
     let lastArgs: Parameters<T> | null = null;
-    let lastThis: any = null;
+    let lastThis: unknown = null;
 
-    const debounced = function (this: any, ...args: Parameters<T>) {
+    const debounced = function (this: unknown, ...args: Parameters<T>) {
       lastArgs = args;
+      // eslint-disable-next-line @typescript-eslint/no-this-alias -- 保存 this 供延迟执行时恢复上下文
       lastThis = this;
 
       const callNow = immediate && !timeoutId;
@@ -135,7 +143,7 @@ export class PerformanceUtils {
    * @param options - 节流选项
    * @returns 节流后的函数
    */
-  static throttle<T extends (...args: any[]) => any>(
+  static throttle<T extends (...args: never[]) => unknown>(
     func: T,
     delay: number,
     options: { leading?: boolean; trailing?: boolean } = {}
@@ -144,11 +152,12 @@ export class PerformanceUtils {
     let timeoutId: NodeJS.Timeout | null = null;
     let lastCallTime = 0;
     let lastArgs: Parameters<T> | null = null;
-    let lastThis: any = null;
+    let lastThis: unknown = null;
 
-    const throttled = function (this: any, ...args: Parameters<T>) {
+    const throttled = function (this: unknown, ...args: Parameters<T>) {
       const now = Date.now();
       lastArgs = args;
+      // eslint-disable-next-line @typescript-eslint/no-this-alias -- 保存 this 供尾部执行时恢复上下文
       lastThis = this;
 
       if (!lastCallTime && !leading) {
@@ -313,7 +322,7 @@ export class PerformanceUtils {
   /**
    * 性能监控装饰器
    */
-  static measurePerformance<T extends (...args: any[]) => any>(
+  static measurePerformance<T extends (...args: never[]) => unknown>(
     func: T,
     name?: string
   ): T {
@@ -403,9 +412,9 @@ export class PerformanceUtils {
   /**
    * 内存使用情况监控
    */
-  static getMemoryUsage(): any {
+  static getMemoryUsage(): PerformanceMemory | null {
     if (typeof performance !== 'undefined' && 'memory' in performance) {
-      return (performance as any).memory;
+      return (performance as { memory: PerformanceMemory }).memory;
     }
     return null;
   }
@@ -428,7 +437,7 @@ export class PerformanceUtils {
         timeRemaining: () => Math.max(0, 50 - (Date.now() - start)),
         didTimeout: false,
       });
-    }, 1) as any;
+    }, 1) as unknown as number;
   }
 
   /**

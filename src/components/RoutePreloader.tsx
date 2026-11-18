@@ -92,7 +92,9 @@ const preloadRoute = async (path: string) => {
 const useIntelligentPreload = () => {
   useEffect(() => {
     // 检查网络状况
-    const connection = (navigator as any).connection;
+    const connection = (navigator as Navigator & {
+      connection?: { effectiveType?: string; saveData?: boolean };
+    }).connection;
     const isSlowConnection = connection && (
       connection.effectiveType === 'slow-2g' ||
       connection.effectiveType === '2g' ||

@@ -300,13 +300,14 @@ export class LinkTransformer {
         }
         break;
       
-      case LinkType.FILE:
+      case LinkType.FILE: {
         const fileExt = this.getFileExtension(url);
         const fileIcon = this.getFileIcon(fileExt);
         if (fileIcon && !enhancedText.includes(fileIcon)) {
           enhancedText = `${fileIcon} ${enhancedText}`;
         }
         break;
+      }
     }
     
     return enhancedText;

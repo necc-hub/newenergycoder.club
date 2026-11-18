@@ -135,7 +135,7 @@ export class DocumentLoader {
    */
   private parseYAML(yamlStr: string): DocumentFrontMatter {
     const lines = yamlStr.split('\n');
-    const result: any = {};
+    const result: Record<string, string | string[]> = {};
     
     for (const line of lines) {
       const trimmed = line.trim();
@@ -161,7 +161,7 @@ export class DocumentLoader {
       result[key] = value;
     }
     
-    return result as DocumentFrontMatter;
+    return result as unknown as DocumentFrontMatter;
   }
 
   /**
@@ -239,7 +239,7 @@ export class DocumentLoader {
   /**
    * 搜索文档
    */
-  async searchDocuments(_query: string, _category?: string): Promise<any[]> {
+  async searchDocuments(_query: string, _category?: string): Promise<unknown[]> {
     // 这里可以实现更复杂的搜索逻辑
     // 目前返回空数组，后续可以扩展
     return [];

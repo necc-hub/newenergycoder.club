@@ -58,7 +58,7 @@ interface FloatingControlsProps {
  * getAspectRatioOptions(t) → map渲染 → 用户点击 → setSelectedAspectRatio → 
  * → localStorage存储 → 应用到document.documentElement.className
  */
-export const getAspectRatioOptions = (t: any): { value: AspectRatio; label: string }[] => [
+export const getAspectRatioOptions = (t: { displayRatio: { aspectRatios: Record<string, string>; aspectRatioLabel: string } }): { value: AspectRatio; label: string }[] => [
   // 正方形比例 - 适用于头像、图标等需要等宽高的元素
   { value: 'aspect-square', label: t.displayRatio.aspectRatios.square },
   

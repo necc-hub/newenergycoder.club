@@ -163,7 +163,14 @@ export class PerformanceMonitor {
   }
 
   // 通用指标观察器
-  private observeMetric(type: string, callback: (entry: any) => void) {
+  private observeMetric(
+    type: string,
+    callback: (entry: PerformanceEntry & {
+      processingStart?: number;
+      hadRecentInput?: boolean;
+      value?: number;
+    }) => void
+  ) {
     if (typeof window !== 'undefined' && 'PerformanceObserver' in window) {
       try {
         const observer = new PerformanceObserver((list) => {
@@ -187,8 +194,8 @@ export class PerformanceMonitor {
   // 发送指标到分析服务
   private sendMetricToAnalytics(name: string, value: number) {
     // 这里可以集成到 Vercel Analytics 或其他分析服务
-    if (typeof window !== 'undefined' && (window as any).va) {
-      (window as any).va('track', 'Performance', {
+    if (typeof window !== 'undefined' && (window as { va?: (cmd: string, ev: string, params: Record<string, unknown>) => void }).va) {
+      (window as { va?: (cmd: string, ev: string, params: Record<string, unknown>) => void }).va('track', 'Performance', {
         metric: name,
         value: Math.round(value),
         url: window.location.pathname
@@ -198,8 +205,8 @@ export class PerformanceMonitor {
 
   // 发送导航指标
   private sendNavigationMetrics(metrics: Record<string, number>) {
-    if (typeof window !== 'undefined' && (window as any).va) {
-      (window as any).va('track', 'Navigation', {
+    if (typeof window !== 'undefined' && (window as { va?: (cmd: string, ev: string, params: Record<string, unknown>) => void }).va) {
+      (window as { va?: (cmd: string, ev: string, params: Record<string, unknown>) => void }).va('track', 'Navigation', {
         ...metrics,
         url: window.location.pathname
       });
