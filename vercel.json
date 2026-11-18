@@ -9,6 +9,16 @@
       "source": "/getting-started",
       "destination": "https://docs.newenergycoder.club/start-here",
       "permanent": true
+    },
+    {
+      "source": "/docs/getting-started",
+      "destination": "https://docs.newenergycoder.club/start-here",
+      "permanent": true
+    },
+    {
+      "source": "/docs/getting-started/:path*",
+      "destination": "https://docs.newenergycoder.club/start-here",
+      "permanent": true
     }
   ],
   "rewrites": [

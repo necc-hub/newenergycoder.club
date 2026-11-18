@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Lazy load pages for code splitting
@@ -40,13 +40,6 @@ import './styles/LinkDetection.css'
 
 
 
-function ExternalRedirect({ to }: { to: string }) {
-  useEffect(() => {
-    window.location.replace(to);
-  }, [to]);
-  return null;
-}
-
 function App() {
   // 初始化字体优化
   React.useEffect(() => {
@@ -75,7 +68,6 @@ function App() {
             <Route path="/team" element={<TeamPage />} />
             <Route path="/gallery" element={<PageLayout><GalleryPage /></PageLayout>} />
             <Route path="/innovation" element={<PageLayout><InnovationShowcasePage /></PageLayout>} />
-            <Route path="/getting-started" element={<ExternalRedirect to="https://docs.newenergycoder.club/start-here" />} />
             <Route path="/learning/embedded" element={<PageLayout><EmbeddedDetailPage /></PageLayout>} />
             <Route path="/learning/mechanical" element={<PageLayout><MechanicalDetailPage /></PageLayout>} />
             <Route path="/learning/gui" element={<PageLayout><GuiDetailPage /></PageLayout>} />
