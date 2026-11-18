@@ -197,7 +197,7 @@ export const PerformanceMonitor: React.FC = () => {
     if ('PerformanceObserver' in window) {
       try {
         longTaskObserver.observe({ entryTypes: ['longtask'] });
-      } catch (e) {
+      } catch {
         // longtask 可能不被支持
       }
     }

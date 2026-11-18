@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { MarkdownPage } from '@/components/markdown/MarkdownPage';
 import { useMarkdown } from '@/hooks/useMarkdown';
@@ -7,9 +7,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { Separator } from '@/components/ui/separator';
 import {
   ArrowLeft,
@@ -17,18 +14,13 @@ import {
   Download,
   Upload,
   Save,
-  RefreshCw,
   History,
   Settings,
-  Eye,
-  Edit3,
   Share2,
   BookOpen,
   Clock,
-  BarChart3,
-  Info
+  BarChart3
 } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import { DEFAULT_MARKDOWN_CONFIG } from '@/types/markdown';
 
 // 示例Markdown内容
@@ -253,31 +245,22 @@ function HistoryPanel({ history, onRestore, onClear, className }: HistoryPanelPr
 // 主要的MarkdownViewer组件
 export function MarkdownViewer() {
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [sidebarTab, setSidebarTab] = useState<'stats' | 'history' | 'help'>('stats');
   const [showSidebar, setShowSidebar] = useState(true);
 
   // 从URL参数获取初始内容
   const urlContent = searchParams.get('content');
-  const urlMode = searchParams.get('mode') || 'split';
-  
   // 使用Markdown Hook
   const {
     content,
-    config,
-    isLoading,
     error,
     lastSaved,
     stats,
     updateContent,
-    updateConfig,
-    clearContent,
-    resetConfig,
     importFile,
     exportFile,
     saveToStorage,
-    restoreFromStorage,
-    clearStorage,
     history,
     clearHistory,
     restoreFromHistory

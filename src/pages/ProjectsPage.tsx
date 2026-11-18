@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { ExternalLink, Calendar, User, ChevronDown, ChevronUp } from 'lucide-react'
+import { ExternalLink, Calendar, User } from 'lucide-react'
 import { GiteeIcon } from '@/components/ui/gitee-icon'
 import { useTranslation } from '@/contexts/LanguageContext'
 import { PageLayout } from '@/components/layout/PageLayout'
 import SEO from '@/components/SEO'
-import { FloatingControls, type AspectRatio } from '@/components/ui/floating-controls'
+import { type AspectRatio } from '@/components/ui/floating-controls'
 import { ProjectImage } from '@/components/ui/project-image'
 import { projects as mockProjects, type ProjectCategory } from '@/data/projects'
 
@@ -26,7 +26,6 @@ const categoryFilters = [
 export function ProjectsPage() {
   const [selectedCategory, setSelectedCategory] = useState<ProjectCategory>('all')
   const [selectedRatio, setSelectedRatio] = useState<AspectRatio>('aspect-[21/9]')
-  const [isFilterExpanded, setIsFilterExpanded] = useState(true)
   const t = useTranslation()
 
   const filteredProjects = selectedCategory === 'all' 

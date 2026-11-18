@@ -1,14 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  FileText, 
   Code, 
   Settings, 
   Zap, 
   BookOpen, 
   ArrowRight,
   Clock,
-  Users,
   Shield
 } from 'lucide-react';
 

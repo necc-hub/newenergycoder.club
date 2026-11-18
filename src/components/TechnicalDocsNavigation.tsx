@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ChevronRight, FileText, Book, Code, Settings, Layers } from 'lucide-react';
-import { DocumentMeta } from '../types/document';
 import { DocumentLoader } from '../services/DocumentLoader';
 
 interface TechnicalDocsNavigationProps {

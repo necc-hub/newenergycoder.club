@@ -105,7 +105,7 @@ export default ErrorBoundary;
 export const SentryErrorBoundary = Sentry.withErrorBoundary(
   ({ children }: { children: ReactNode }) => <>{children}</>,
   {
-    fallback: ({ error, resetError }) => (
+    fallback: ({ error: _error, resetError }) => (
       <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
         <div className="max-w-md w-full bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6">
           <div className="flex items-center justify-center w-12 h-12 mx-auto bg-red-100 dark:bg-red-900 rounded-full mb-4">

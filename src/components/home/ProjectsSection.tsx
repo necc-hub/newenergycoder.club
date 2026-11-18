@@ -1,5 +1,4 @@
 import { useRef } from 'react'
-import { useTranslation } from '@/contexts/LanguageContext'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
@@ -124,8 +123,7 @@ interface ProjectsSectionProps {
   selectedRatio?: AspectRatio;
 }
 
-export function ProjectsSection({ selectedRatio = 'aspect-[3/4]' }: ProjectsSectionProps) {
-  const t = useTranslation()
+export function ProjectsSection({ selectedRatio: _selectedRatio = 'aspect-[3/4]' }: ProjectsSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
   const gridRef = useRef<HTMLDivElement>(null)

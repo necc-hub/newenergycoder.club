@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { FileText, BookOpen, Code, Settings, Zap, ChevronRight } from 'lucide-react';
+import { useParams } from 'react-router-dom';
+import { BookOpen, Code, Settings } from 'lucide-react';
 import { DocumentPage } from './DocumentPage';
 import { TechnicalDocsNavigation } from './TechnicalDocsNavigation';
 import { DocumentTOC } from './DocumentTOC';
@@ -12,7 +12,7 @@ import { TOCItem } from '../types/document';
 export const TechnicalDocsLayout: React.FC = () => {
   const { slug } = useParams();
   const [toc, setToc] = useState<TOCItem[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
   
   const documentLoader = DocumentLoader.getInstance();
 

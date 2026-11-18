@@ -6,8 +6,7 @@ import {
   TechDirection,
   LearningStage,
   ResourceType,
-  DifficultyLevel,
-  LearningResource
+  DifficultyLevel
 } from '../types/learning';
 
 /**

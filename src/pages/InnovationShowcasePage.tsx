@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { 
   Sun, Wind, Battery, Zap, Car, Atom, Leaf, Mountain, 
   Search, Filter, GitCompare, Play, ExternalLink, 
-  TrendingUp, Calendar, Users, Award,
+  TrendingUp, Calendar, Award,
   ChevronRight, CheckCircle, Clock, AlertCircle
 } from 'lucide-react';
 import { 
@@ -20,7 +20,6 @@ import {
   MATURITY_LEVELS,
   InnovationFilters
 } from '@/types/innovation';
-import { useTranslation } from '@/contexts/LanguageContext';
 import SEO from '@/components/SEO';
 
 // 图标映射
@@ -220,7 +219,6 @@ const mockTechnologies: InnovationTechnology[] = [
 ];
 
 export function InnovationShowcasePage() {
-  const t = useTranslation();
   const [filters, setFilters] = useState<InnovationFilters>({
     categories: [],
     maturity: [],
@@ -228,14 +226,14 @@ export function InnovationShowcasePage() {
     sortBy: 'name',
     sortOrder: 'asc'
   });
-  const [selectedTechnology, setSelectedTechnology] = useState<InnovationTechnology | null>(null);
+  const [, setSelectedTechnology] = useState<InnovationTechnology | null>(null);
   const [comparisonMode, setComparisonMode] = useState(false);
   const [selectedForComparison, setSelectedForComparison] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState('showcase');
 
   // 过滤和排序技术
   const filteredTechnologies = useMemo(() => {
-    let filtered = mockTechnologies.filter(tech => {
+    const filtered = mockTechnologies.filter(tech => {
       const matchesCategory = filters.categories.length === 0 || filters.categories.includes(tech.category);
       const matchesMaturity = filters.maturity.length === 0 || filters.maturity.includes(tech.maturity);
       const matchesSearch = filters.searchQuery === '' || 

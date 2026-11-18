@@ -8,7 +8,7 @@ const MarkdownRenderer = React.lazy(() => import('./MarkdownRenderer').then(modu
 // 主要的MarkdownPage组件
 export function MarkdownPage({
   content: initialContent = '',
-  showMetadata = false,
+  showMetadata: _showMetadata = false,
   className,
   onContentChange
 }: MarkdownPageProps) {
@@ -16,7 +16,7 @@ export function MarkdownPage({
   const [config] = useState(DEFAULT_MARKDOWN_CONFIG);
 
   // 处理内容变化
-  const handleContentChange = useCallback((newContent: string) => {
+  const _handleContentChange = useCallback((newContent: string) => {
     setContent(newContent);
     onContentChange?.(newContent);
   }, [onContentChange]);

@@ -11,8 +11,7 @@ import { cn } from '@/lib/utils';
 import {
   MarkdownRendererProps,
   MarkdownConfig,
-  DEFAULT_MARKDOWN_CONFIG,
-  SYNTAX_THEMES
+  DEFAULT_MARKDOWN_CONFIG
 } from '@/types/markdown';
 import { AlertCircle, Copy, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';

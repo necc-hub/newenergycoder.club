@@ -104,10 +104,7 @@ export class BatchProcessor<T, R> {
             throw new Error('Processing aborted');
           }
 
-          const batchResults = await this.processBatchWithRetry(
-            batch, 
-            batchIndex
-          );
+          const batchResults = await this.processBatchWithRetry(batch);
           
           results.push(...batchResults);
           processedItems += batch.length;
@@ -199,8 +196,7 @@ export class BatchProcessor<T, R> {
    * 带重试的批处理
    */
   private async processBatchWithRetry(
-    batch: T[], 
-    batchIndex: number
+    batch: T[]
   ): Promise<R[]> {
     let lastError: Error;
     
@@ -320,7 +316,7 @@ export class LinkBatchProcessor {
    */
   async validateLinks(
     urls: string[], 
-    onProgress?: (processed: number, total: number) => void
+    _onProgress?: (processed: number, total: number) => void
   ): Promise<BatchProcessorResult<boolean>> {
     return this.validationProcessor.process(urls);
   }
@@ -330,7 +326,7 @@ export class LinkBatchProcessor {
    */
   async transformLinks(
     links: any[], 
-    onProgress?: (processed: number, total: number) => void
+    _onProgress?: (processed: number, total: number) => void
   ): Promise<BatchProcessorResult<any>> {
     return this.transformProcessor.process(links);
   }

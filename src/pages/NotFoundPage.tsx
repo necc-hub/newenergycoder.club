@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { PageLayout } from '@/components/layout/PageLayout'
 import SEO from '@/components/SEO'
 import { useTranslation } from '@/contexts/LanguageContext'
-import { type FloatingControls, type AspectRatio } from '@/components/ui/floating-controls'
+import { type AspectRatio } from '@/components/ui/floating-controls'
 
 function NotFoundPage() {
   const navigate = useNavigate()

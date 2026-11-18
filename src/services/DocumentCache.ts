@@ -211,7 +211,7 @@ export class DocumentCache {
           if (this.isExpired(item)) {
             keysToRemove.push(key);
           }
-        } catch (error) {
+        } catch {
           // 如果解析失败，也删除这个项
           keysToRemove.push(key);
         }

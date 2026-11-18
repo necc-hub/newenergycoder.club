@@ -270,7 +270,6 @@ export class CacheManager {
    */
   private cleanup(): void {
     // 清理内存缓存
-    const now = Date.now();
     for (const [key, item] of this.memoryCache.entries()) {
       if (this.isExpired(item)) {
         this.memoryCache.delete(key);
@@ -293,7 +292,7 @@ export class CacheManager {
                 keysToRemove.push(key);
               }
             }
-          } catch (error) {
+          } catch {
             keysToRemove.push(key);
           }
         }
