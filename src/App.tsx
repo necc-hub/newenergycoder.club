@@ -11,11 +11,7 @@ const ProjectsPage = React.lazy(() => import("@/pages/ProjectsPage").then(module
 const EventsPage = React.lazy(() => import("@/pages/EventsPage").then(module => ({ default: module.EventsPage })));
 const ResourcesPage = React.lazy(() => import("@/pages/ResourcesPage").then(module => ({ default: module.ResourcesPage })));
 const ContactPage = React.lazy(() => import("@/pages/ContactPage").then(module => ({ default: module.ContactPage })));
-const EmbeddedDetailPage = React.lazy(() => import("@/pages/EmbeddedDetailPage"));
-const MechanicalDetailPage = React.lazy(() => import("@/pages/MechanicalDetailPage"));
-const GuiDetailPage = React.lazy(() => import("@/pages/GuiDetailPage"));
-const AlgorithmDetailPage = React.lazy(() => import("@/pages/AlgorithmDetailPage"));
-const DesignerDetailPage = React.lazy(() => import("@/pages/DesignerDetailPage"));
+const LearningDetailPage = React.lazy(() => import("@/pages/LearningDetailPage"));
 const TeamPage = React.lazy(() => import("@/pages/TeamPage").then(module => ({ default: module.TeamPage })));
 const GalleryPage = React.lazy(() => import("@/pages/GalleryPage").then(module => ({ default: module.GalleryPage })));
 const InnovationShowcasePage = React.lazy(() => import("@/pages/InnovationShowcasePage").then(module => ({ default: module.InnovationShowcasePage })));
@@ -68,11 +64,7 @@ function App() {
             <Route path="/team" element={<TeamPage />} />
             <Route path="/gallery" element={<PageLayout><GalleryPage /></PageLayout>} />
             <Route path="/innovation" element={<PageLayout><InnovationShowcasePage /></PageLayout>} />
-            <Route path="/learning/embedded" element={<PageLayout><EmbeddedDetailPage /></PageLayout>} />
-            <Route path="/learning/mechanical" element={<PageLayout><MechanicalDetailPage /></PageLayout>} />
-            <Route path="/learning/gui" element={<PageLayout><GuiDetailPage /></PageLayout>} />
-            <Route path="/learning/algorithm" element={<PageLayout><AlgorithmDetailPage /></PageLayout>} />
-            <Route path="/learning/designer" element={<PageLayout><DesignerDetailPage /></PageLayout>} />
+            <Route path="/learning/:slug" element={<PageLayout><LearningDetailPage /></PageLayout>} />
             
             {/* Document Routes */}
             <Route path="/docs/technical" element={<PageLayout><TechnicalDocsLayout /></PageLayout>} />
