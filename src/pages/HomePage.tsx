@@ -37,7 +37,7 @@ function HomePage() {
       <TeamSection selectedRatio={selectedRatio} />
       */}
       <TeamAnalysisSection />
-      <ProjectsSection selectedRatio={selectedRatio} />
+      <ProjectsSection />
       <CTASection />
     </PageLayout>
   )
