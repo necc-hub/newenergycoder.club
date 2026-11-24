@@ -237,12 +237,13 @@ async function gitIsAvailable() {
 
 async function ensureGitHubRemote() {
   const remotes = await listRemotes()
-  if (remotes.includes(GITHUB_REMOTE)) return
+  const url = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}.git`
+  if (remotes.includes(GITHUB_REMOTE)) {
+    await runGit(['remote', 'set-url', GITHUB_REMOTE, url])
+    return
+  }
   console.log(`  adding GitHub remote ${GITHUB_REMOTE}...`)
-  await runGit([
-    'remote', 'add', GITHUB_REMOTE,
-    `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}.git`,
-  ])
+  await runGit(['remote', 'add', GITHUB_REMOTE, url])
 }
 
 async function fetchGitRemotes() {
@@ -510,7 +511,13 @@ async function main() {
       },
       contributors: {
         uniqueHumans: aggregated.uniqueHumans,
-        top: aggregated.topContributors.slice(0, 15),
+        // Strip emails and aliases from the published JSON — names + commit
+        // counts are enough for the public leaderboard, and emails (QQ/学校
+        // 邮箱) are personal information that should not ship in the bundle.
+        top: aggregated.topContributors.slice(0, 15).map(c => ({
+          name: c.name,
+          contributions: c.contributions,
+        })),
       },
       projects: {
         total: 1 + necRepos.length,
