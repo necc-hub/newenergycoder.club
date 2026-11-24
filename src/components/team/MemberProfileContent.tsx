@@ -40,7 +40,15 @@ function SkillBars({ skills }: { skills?: { name: string; level: number }[] }) {
   )
 }
 
-function DirectionMap({ modules, memberName }: { modules: typeof TECH_MODULES; memberName: string }) {
+function DirectionMap({
+  modules,
+  memberName,
+  directionNames,
+}: {
+  modules: typeof TECH_MODULES
+  memberName: string
+  directionNames: Record<string, string>
+}) {
   if (modules.length === 0) return null
 
   const radius = 78
@@ -111,7 +119,7 @@ function DirectionMap({ modules, memberName }: { modules: typeof TECH_MODULES; m
                 textAnchor="middle"
                 className="fill-foreground text-[9px] font-medium"
               >
-                {mod.name}
+                {directionNames[mod.id] ?? mod.name}
               </text>
             </g>
           )
@@ -126,6 +134,7 @@ function ProjectResponsibilityCard({
 }: {
   project: NonNullable<MemberRecord['projects']>[number]
 }) {
+  const t = useTranslation()
   const detail = getProjectById(project.id)
   const href = project.url || detail?.projectUrl || detail?.githubUrl || `/projects#project-${project.id}`
   const isExternal = href.startsWith('http')
@@ -143,7 +152,7 @@ function ProjectResponsibilityCard({
             target={isExternal ? '_blank' : undefined}
             rel={isExternal ? 'noopener noreferrer' : undefined}
             className="shrink-0 inline-flex items-center gap-1 text-xs text-primary hover:text-primary/80 transition-colors"
-            aria-label="项目详情"
+            aria-label={t.team.memberProfile.projectDetails}
           >
             <ExternalLink className="h-3.5 w-3.5" />
           </a>
@@ -175,6 +184,7 @@ function CollaboratorCard({
   collaborator: Collaborator
   directionNames: Record<string, string>
 }) {
+  const t = useTranslation()
   const { member, sharedProjects, sharedDirectionIds } = collaborator
   return (
     <Card className="overflow-hidden border-border/50 hover:border-primary/30 transition-colors">
@@ -201,13 +211,13 @@ function CollaboratorCard({
         <div className="mt-3 space-y-1 text-xs">
           {sharedProjects.length > 0 && (
             <p className="text-muted-foreground">
-              <span className="font-medium text-foreground">共同项目：</span>
+              <span className="font-medium text-foreground">{t.team.memberProfile.sharedProjects}: </span>
               {sharedProjects.map(p => p.name).join(' · ')}
             </p>
           )}
           {sharedDirectionIds.length > 0 && (
             <p className="text-muted-foreground">
-              <span className="font-medium text-foreground">共同方向：</span>
+              <span className="font-medium text-foreground">{t.team.memberProfile.sharedDirections}: </span>
               {sharedDirectionIds.map(id => directionNames[id] || id).join(' · ')}
             </p>
           )}
@@ -289,7 +299,7 @@ export function MemberProfileContent({ member, collaborators, directionNames }: 
             <span className="text-xs font-normal text-muted-foreground">（{t.team.memberProfile.derivedDirections}）</span>
           </h3>
           <div className="grid md:grid-cols-2 gap-6 items-center">
-            <DirectionMap modules={modules} memberName={member.name} />
+            <DirectionMap modules={modules} memberName={member.name} directionNames={directionNames} />
             <div className="space-y-2">
               {modules.map(mod => (
                 <div
