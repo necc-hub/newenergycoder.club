@@ -29,3 +29,6 @@ src/data/team-gitee-stats.json.fallback
 /dist-gallery-thumbnails
 /output_wechat_article
 /vercel-render-report.json
+
+# Local photo-review scratch directories
+.photo-review-*/

@@ -192,6 +192,22 @@ export const developers: TeamMember[] = [
     github: 'https://github.com/bianleiling'
   },
   {
+    name: '卢永杰',
+    role: '嵌入式&运控算法专家',
+    bio: '目前专注算法部署优化及硬件底层逻辑协同设计',
+    image: 'https://cdn.newenergycoder.club/images/src/image/developers/卢永杰-new.jpg',
+    tags: ['嵌入式开发', '运控算法', '算法部署', '协同设计', '算法优化'],
+    github: 'https://github.com/luyongjie'
+  },
+  {
+    name: '卢王淳',
+    role: '25RC项管&机械&电控小白',
+    bio: '25RC项管 机械 电控小白',
+    image: 'https://cdn.newenergycoder.club/images/src/image/developers/卢王淳-new.jpg',
+    tags: ['项目管理', '机械设计', '电控学习', 'ROBOCON', '团队协调', '25RC'],
+    github: 'https://github.com/luwangchun'
+  },
+  {
     name: '孙诗睿',
     role: 'Contributor',
     bio: '准备AIC',
@@ -491,6 +507,62 @@ export const contributors: TeamMember[] = [
   { name: '顾佳欣', role: 'Contributor', bio: '数据库与unity传导', image: 'https://cdn.newenergycoder.club/images/src/image/contributors/顾佳欣.jpg' },
   { name: '魏鹏程', role: '研究生贡献者', bio: '正在参与rc赛事', image: 'https://cdn.newenergycoder.club/images/src/image/contributors/魏鹏程.jpeg' },
   { name: '黄宇雯', role: '三维建模贡献者', bio: '运用三维建模软件进行机构设计、动画演示', image: 'https://cdn.newenergycoder.club/images/src/image/contributors/黄宇雯.jpg' },
+  {
+    name: '韩依彤',
+    role: '视觉贡献者',
+    bio: '视觉',
+    image: 'https://cdn.newenergycoder.club/images/src/image/contributors/韩依彤.jpg',
+    tags: ['视觉', 'Contributor', 'NEC社区']
+  },
+  {
+    name: '肖长婷',
+    role: '视觉贡献者',
+    bio: '做视觉',
+    image: 'https://cdn.newenergycoder.club/images/src/image/contributors/肖长婷.jpg',
+    tags: ['视觉', 'Contributor', 'NEC社区']
+  },
+  {
+    name: '陆家豪',
+    role: '排球队机械组',
+    bio: '排球接球和发球的底盘设计。anasys仿真，edem颗粒，recurdyn',
+    image: 'https://cdn.newenergycoder.club/images/src/image/contributors/陆家豪.jpg',
+    tags: ['机械设计', 'ROBOCON', '仿真', 'EDEM', 'RecurDyn']
+  },
+  {
+    name: '谭惠方',
+    role: 'Contributor',
+    bio: 'NEC小白',
+    image: 'https://cdn.newenergycoder.club/images/src/image/contributors/谭惠方.jpg',
+    tags: ['Contributor', 'NEC社区']
+  },
+  {
+    name: '相积欣',
+    role: '机械组贡献者',
+    bio: 'RC小白 机械组成员',
+    image: 'https://cdn.newenergycoder.club/images/src/image/contributors/相积欣.jpg',
+    tags: ['机械组', 'ROBOCON', 'Contributor']
+  },
+  {
+    name: '张成俊',
+    role: '排球机械师',
+    bio: '具备绘图及拼装相关技能。',
+    image: 'https://cdn.newenergycoder.club/images/src/image/contributors/张成俊.jpg',
+    tags: ['机械设计', '绘图', '装配', 'ROBOCON']
+  },
+  {
+    name: '蒋骋娇',
+    role: '机械组贡献者',
+    bio: '绘图，采购，装配',
+    image: 'https://api.dicebear.com/7.x/initials/svg?seed=%E8%92%8B%E9%AA%8B%E5%A8%87',
+    tags: ['机械设计', '绘图', '采购选型', '装配', '气动']
+  },
+  {
+    name: '史正清',
+    role: 'Contributor',
+    bio: '大一，初步学习了solid work，对竞赛很有兴趣',
+    image: 'https://api.dicebear.com/7.x/initials/svg?seed=%E5%8F%B2%E6%AD%A3%E6%B8%85',
+    tags: ['SolidWorks', '机器人竞赛', 'Contributor', 'NEC社区']
+  },
 ];
 
 // 赞助商元数据 —— 仅保留不可译字段。显示文案（role/bio/tags/supports）见 zh.ts / en.ts 中的 team.sponsors
