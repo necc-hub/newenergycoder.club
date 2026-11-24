@@ -13,7 +13,8 @@ import { AspectRatio, DisplayItem, typeColors } from '@/components/ui/floating-c
 import { PageLayout } from '@/components/layout/PageLayout'
 
 // 图标组件
-import { Linkedin, Mail, ExternalLink, Download } from 'lucide-react'
+import { Mail, ExternalLink, Download } from 'lucide-react'
+import { LinkedinIcon } from '@/components/ui/brand-icons'
 import { GiteeIcon } from '@/components/ui/gitee-icon'
 
 // 国际化
@@ -121,7 +122,7 @@ export function DisplayRatioPage() {
                     <GiteeIcon className="h-4 w-4" />
                   </Button>
                   <Button size="sm" className="bg-white/20 backdrop-blur-sm hover:bg-white/30 border-white/30">
-                    <Linkedin className="h-4 w-4" />
+                    <LinkedinIcon className="h-4 w-4" />
                   </Button>
                   <Button size="sm" className="bg-white/20 backdrop-blur-sm hover:bg-white/30 border-white/30">
                     <Mail className="h-4 w-4" />

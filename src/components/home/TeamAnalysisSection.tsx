@@ -1,7 +1,8 @@
 import { useRef } from 'react'
 import { useTranslation } from '@/contexts/LanguageContext'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { BarChart3, Users, Code2, GitCommit, Trophy, Github } from 'lucide-react'
+import { BarChart3, Users, Code2, GitCommit, Trophy } from 'lucide-react'
+import { GithubIcon } from '@/components/ui/brand-icons'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
 import { SplitText } from 'gsap/SplitText'
@@ -167,7 +168,7 @@ export function TeamAnalysisSection() {
                   value={giteeStats.githubRepo?.stars ?? 0}
                   suffix=""
                   label="GitHub Stars"
-                  icon={Github}
+                  icon={GithubIcon}
                 />
               </div>
 

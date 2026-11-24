@@ -12,7 +12,6 @@ import {
   Users,
   Zap,
   ExternalLink,
-  Github,
   Cpu,
   Palette,
   Calculator,
@@ -25,6 +24,7 @@ import {
   TrendingUp,
   Printer
 } from 'lucide-react'
+import { GithubIcon } from '@/components/ui/brand-icons'
 // 导入技术路线图组件
 // 导入学习资源组件
 
@@ -646,7 +646,7 @@ export default function GettingStartedPage() {
             >
               <Card className="hover:shadow-lg transition-all duration-300 text-center">
                 <CardContent className="p-6">
-                  <Github className="h-12 w-12 mx-auto mb-4 text-primary" />
+                  <GithubIcon className="h-12 w-12 mx-auto mb-4 text-primary" />
                   <h3 className="font-semibold mb-2">{(t as any).gettingStarted.trainingResources.githubRepoTitle}</h3>
                   <p className="text-sm text-muted-foreground mb-4">{(t as any).gettingStarted.trainingResources.githubRepoDesc}</p>
                   <Button variant="outline" size="sm" asChild>

@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Linkedin, Mail, ExternalLink } from 'lucide-react'
+import { Mail, ExternalLink } from 'lucide-react'
+import { LinkedinIcon } from '@/components/ui/brand-icons'
 import BonjourIcon from '@/bonjour.ico?url'
 import GithubIcon from '@/github.ico?url'
 import { GiteeIcon } from '@/components/ui/gitee-icon'
@@ -57,7 +58,7 @@ function SocialLinks({ member, compact = false }: { member: TeamMember; compact?
       {member.linkedin && (
         <Button variant="ghost" size="icon" className={buttonSize} asChild>
           <a href={member.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
-            <Linkedin className={iconSize} />
+            <LinkedinIcon className={iconSize} />
           </a>
         </Button>
       )}

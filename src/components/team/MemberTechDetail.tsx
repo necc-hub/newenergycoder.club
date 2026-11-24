@@ -16,12 +16,11 @@ import {
   ExternalLink,
   Rocket,
   Mail,
-  Linkedin,
-  Github,
   Target,
   Radio,
   Server,
 } from 'lucide-react'
+import { GithubIcon, LinkedinIcon } from '@/components/ui/brand-icons'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -405,7 +404,7 @@ export function MemberTechDetail({
                       rel="noopener noreferrer"
                       aria-label="GitHub"
                     >
-                      <Github className="h-4 w-4" />
+                      <GithubIcon className="h-4 w-4" />
                     </a>
                   </Button>
                 )}
@@ -429,7 +428,7 @@ export function MemberTechDetail({
                       rel="noopener noreferrer"
                       aria-label="LinkedIn"
                     >
-                      <Linkedin className="h-4 w-4" />
+                      <LinkedinIcon className="h-4 w-4" />
                     </a>
                   </Button>
                 )}

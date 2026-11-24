@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { Linkedin, Mail, ArrowRight } from 'lucide-react'
+import { Mail, ArrowRight } from 'lucide-react'
+import { LinkedinIcon } from '@/components/ui/brand-icons'
 import { GiteeIcon } from '@/components/ui/gitee-icon'
 import { useTranslation } from '@/contexts/LanguageContext'
 import { type AspectRatio } from '@/components/ui/floating-controls'
@@ -224,7 +225,7 @@ export function TeamSection({ selectedRatio }: TeamSectionProps) {
                             <GiteeIcon className="h-4 w-4" />
                           </a>
                           <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 hover-lift">
-                            <Linkedin className="h-4 w-4" />
+                            <LinkedinIcon className="h-4 w-4" />
                           </a>
                           <a href="#" className="text-muted-foreground hover:text-primary transition-colors duration-200 hover-lift">
                             <Mail className="h-4 w-4" />
