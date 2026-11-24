@@ -9,7 +9,7 @@ export default defineConfig({
   base: '/',
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": path.resolve(import.meta.dirname, "./src"),
     },
     // 确保只加载单实例的 React，避免依赖中重复引入导致运行时异常
     dedupe: ["react", "react-dom"],
@@ -55,6 +55,7 @@ export default defineConfig({
             },
             {
               name: (id: string) => getManualChunk(id) ?? undefined,
+              debugName: "app-vendor-groups",
               test: /node_modules[\\/]/,
               priority: 10,
             },

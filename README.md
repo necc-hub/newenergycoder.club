@@ -70,6 +70,8 @@ pnpm dev
 pnpm build
 pnpm preview
 pnpm lint
+pnpm test
+pnpm test:e2e
 pnpm generate:gallery-thumbnails
 pnpm fetch:gitee-team-stats
 pnpm indexnow:push
@@ -83,6 +85,8 @@ pnpm indexnow:dry
 - `pnpm build`: 执行 TypeScript 构建、Vite 打包，并生成静态页面
 - `pnpm preview`: 本地预览生产构建结果
 - `pnpm lint`: 运行 ESLint
+- `pnpm test`: 运行工具函数与构建分包单元测试（`node:test`）
+- `pnpm test:e2e`: 运行 Playwright 冒烟测试（自动构建并启动 preview，覆盖核心路由、Markdown、亮暗主题；首次运行需 `pnpm exec playwright install chromium`）
 - `pnpm generate:gallery-thumbnails`: 生成活动图库缩略图
 - `pnpm fetch:gitee-team-stats`: 拉取 Gitee 团队统计数据
 - `pnpm indexnow:*`: 向搜索引擎推送站点 URL

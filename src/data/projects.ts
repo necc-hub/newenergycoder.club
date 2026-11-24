@@ -74,7 +74,7 @@ export const projects: Project[] = [
     description:
       '飞行汽车项目的核心飞控通讯模块，实现飞行器与地面站之间的可靠数据传输和控制指令交互。',
     image:
-      'https://camo.githubusercontent.com/f28cc104ea4a3debc18eb8132e9e6e4d925d08a51a9af332119c642db75c2499/68747470733a2f2f64726f6e65636f64652e6f72672f77702d636f6e74656e742f75706c6f6164732f73697465732f32342f323032302f30382f64726f6e65636f64655f6c6f676f5f646661756c742d312e706e67',
+      'https://picsum.photos/800/600?random=4',
     category: 'aerospace',
     technologies: ['飞控系统', '无线通信', '实时控制', '嵌入式系统', '航空电子'],
     author: '新能源编程俱乐部',
@@ -101,7 +101,7 @@ export const projects: Project[] = [
     description:
       'UMI（Universal Manipulation Interface）人形机器人低成本灵巧手的设计与实现，提供精确的抓取和操作能力。',
     image:
-      'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop&crop=center',
+      'https://picsum.photos/800/600?random=6',
     category: 'robotics',
     technologies: ['机器人学', '灵巧手', '运动控制', '传感器融合', '机械设计'],
     author: '新能源编程俱乐部',
