@@ -415,6 +415,10 @@ export interface Translations {
         successMessage: string
         error: string
         errorMessage: string
+        consentPrefix: string
+        consentLink: string
+        consentSuffix: string
+        consentRequired: string
       }
     }
   };

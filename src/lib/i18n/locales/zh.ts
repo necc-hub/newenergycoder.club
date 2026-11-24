@@ -150,7 +150,11 @@ export const zhTranslations: Translations = {
         success: '申请已提交',
         successMessage: '感谢您的申请！我们将审核并尽快回复您。',
         error: '提交失败',
-        errorMessage: '提交申请时出现错误，请重试。'
+        errorMessage: '提交申请时出现错误，请重试。',
+        consentPrefix: '我已阅读并同意',
+        consentLink: '《隐私政策》',
+        consentSuffix: '，允许俱乐部为审核与联络目的处理上述信息（姓名、邮箱、手机号、组织、技术栈等）。',
+        consentRequired: '请先勾选同意隐私政策'
       }
     }
   },

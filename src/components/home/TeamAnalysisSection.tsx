@@ -190,6 +190,17 @@ export function TeamAnalysisSection() {
                     </div>
                   ))}
                 </div>
+                <p className="text-xs text-muted-foreground/70 mt-4 leading-relaxed">
+                  以上数据来自公开 git 提交历史，仅展示昵称与提交次数。
+                  如需移除或修改你的展示信息，请通过{' '}
+                  <a
+                    href="/contact"
+                    className="underline underline-offset-2 hover:text-primary"
+                  >
+                    联系页面
+                  </a>{' '}
+                  与我们沟通。
+                </p>
               </div>
             </CardContent>
           </Card>

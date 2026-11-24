@@ -72,7 +72,11 @@ export const enTranslations: Translations = {
         success: 'Application Submitted',
         successMessage: 'Thank you for your application! We will review it and get back to you soon.',
         error: 'Submission Failed',
-        errorMessage: 'There was an error submitting your application. Please try again.'
+        errorMessage: 'There was an error submitting your application. Please try again.',
+        consentPrefix: 'I have read and agree to the ',
+        consentLink: 'Privacy Policy',
+        consentSuffix: ', and allow the club to process the information above (name, email, phone, organization, tech stack, etc.) for review and contact purposes.',
+        consentRequired: 'Please agree to the Privacy Policy first'
       }
     }
   },
