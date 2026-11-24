@@ -1,32 +1,51 @@
 # 跨大版本依赖升级评估
 
-> 生成于 2026-11-24，分支 `claude/nifty-jackson-3d62c7`。
-> 前提：patch/minor 升级已完成（见 `chore(deps): bump patch/minor versions`），
-> `pnpm build` / `tsc` / 9 个 node 测试全绿。
+> 生成于 2026-11-24，更新于 2026-11-25，分支 `claude/nifty-jackson-3d62c7`。
+>
+> **进度（2026-11-25）：第一批 + 第二批已全部完成并逐个验证通过**
+> （tsc 0 错误 / build 通过 / 9 个 node 测试 / 多路由浏览器冒烟无 console 错误）。
+>
+> 已完成：`sharp 0.35`、`react-syntax-highlighter 16`、`@vercel/analytics 2`、
+> `@vercel/speed-insights 2`、`react-router-dom 7`、`framer-motion 14`、
+> `@sentry/react 11`、`react-i18next 18 + i18next 27`、`sonner 2`、`@vercel/node 32`。
 >
 > **原则：一次只升一个大版本，单独分支 + 单独 PR，验证 build/test/运行时后再合。**
 > 不要一次性全升，否则出问题时无法定位是哪个引起的。
 
 ## 升级优先级矩阵
 
-| 依赖 | 当前 → 最新 | 破坏性 | 工作量 | 建议时机 |
-|------|------------|--------|--------|----------|
-| `sharp` | 0.33 → 0.35 | 低 | 小 | ✅ 随时（仅构建期缩略图脚本用） |
-| `react-syntax-highlighter` | 15 → 16 | 低 | 小 | ✅ 随时（仅 MarkdownRenderer 用） |
-| `sonner` | 1.7 → 2.0 | 中 | 小 | 🟡 顺带做（toast 组件 API 微调） |
-| `@vercel/analytics` / `speed-insights` | 1.x → 2.x | 低 | 小 | ✅ 随时（初始化 API 基本不变） |
-| `react-router-dom` | 6 → 7 | 中 | 中 | 🟡 计划内（v7 是 v6 的超集，多数 API 兼容） |
-| `framer-motion` | 12 → 14 | 中 | 中 | 🟡 计划内（motion API 调整） |
-| `@sentry/react` | 10 → 11 | 中 | 小 | 🟡 计划内（已封装在 lib/sentry.ts） |
-| `react-i18next` | 15 → 18 | 中 | 中 | 🟡 计划内 |
-| `react-helmet-async` | 2 → 3 | 中 | 小 | 🟡 配合 React 19 |
-| `lucide-react` | 0.503 → 1.77 | **高** | **大** | 🔴 需 codemod（61 个文件，大量图标改名） |
-| `react` / `react-dom` | 18 → 19 | **高** | **大** | 🔴 核心升级，牵动全栈 |
-| `vite` | 6 → 8 | **高** | 中 | 🔴 等 React 19 之后 |
-| `tailwindcss` | 3 → 4 | **高** | **大** | 🔴 配置语法重写（CSS-first 配置） |
-| `typescript` | 5.7 → 7.0 | 中 | 中 | 🟡 TS7 是 Go 重写版，先观望生态 |
-| `eslint` | 9 → 10 | 中 | 小 | 🟡 等插件生态跟上 |
-| `@vercel/node` | 5 → 32 | 中 | 小 | 🟡 仅 api/join.ts 用 |
+| 依赖 | 当前 → 最新 | 状态 | 备注 |
+|------|------------|------|------|
+| `sharp` | 0.35 | ✅ 已完成 | 构建期缩略图脚本 |
+| `react-syntax-highlighter` | 16.1 | ✅ 已完成 | MarkdownRenderer |
+| `@vercel/analytics` / `speed-insights` | 2.x | ✅ 已完成 | 初始化 API 不变 |
+| `react-router-dom` | 7.18 | ✅ 已完成 | v6 API 超集，路由已浏览器验证 |
+| `framer-motion` | 14.14 | ✅ 已完成 | 仅用 motion + AnimatePresence |
+| `@sentry/react` | 11.17 | ✅ 已完成 | 封装在 lib/sentry.ts |
+| `react-i18next` + `i18next` | 18 / 27 | ✅ 已完成 | i18next ≥27 满足 peer |
+| `sonner` | 2.0 | ✅ 已完成 | 经 shadcn toast 使用 |
+| `@vercel/node` | 32 | ✅ 已完成 | 仅类型，api/join.ts 已验证 |
+| `react-helmet-async` | 2 → 3 | 🟡 待做 | 配合 React 19 |
+| `lucide-react` | 0.503 → 1.79 | 🔴 待做 | 需 codemod（61 文件，图标改名） |
+| `react` / `react-dom` | 18 → 19 | 🔴 待做 | 核心升级，牵动全栈 |
+| `vite` | 6 → 8 | 🔴 待做 | Rolldown，等 React 19 之后 |
+| `tailwindcss` | 3 → 4 | 🔴 待做 | CSS-first 配置重写 |
+| `typescript` | 5.7 → 7.0 | 🟡 观望 | TS7 Go 重写，等生态成熟 |
+| `eslint` + `@eslint/js` | 9 → 10 | 🟡 观望 | 等插件生态跟上 |
+| `@types/react` / `react-dom` | 18 → 19 | 🔴 随 React 19 | 类型随核心一起升 |
+| `@vitejs/plugin-react` | 4 → 6 | 🔴 随 Vite 8 | 与 Vite 主版本对齐 |
+| `cssnano` | 7 → 9 | 🟡 待做 | PostCSS 压缩器 |
+| `globals` | 16 → 17 | 🟡 待做 | eslint 全局变量表 |
+| `eslint-plugin-react-hooks` | 5 → 7 | 🟡 待做 | 配合 React 19 / 编译器 |
+
+## 分项说明
+
+### ✅ 已完成批次（见上方矩阵）
+
+第一批（低风险）与第二批（中风险）共 10 项已全部升级并验证。
+每个大版本单独提交，提交信息含验证结果。
+
+### 🟡 计划内，需回归测试
 
 ## 分项说明
 
@@ -98,19 +117,17 @@ Rolldown 的 chunk 拆分逻辑与 Rollup 不同，需重点验证产物拆分�
 `tailwindcss-animate` + `@tailwindcss/typography` 插件，需逐个确认 v4 兼容。
 破坏性大，建议最后做，且需要逐页视觉回归。
 
-## 推荐执行顺序
+## 推荐执行顺序（剩余批次）
+
+第 1–4 步已于 2026-11-25 完成。剩余：
 
 ```
-1. sharp + react-syntax-highlighter + @vercel/*     (低风险批次)
-2. sonner + @vercel/node + @sentry/react            (小范围批次)
-3. react-router-dom 7                               (路由专项)
-4. framer-motion 14 + react-i18next 18              (动效/i18n 批次)
 5. lucide-react 1.x (codemod)                       (图标专项)
-6. react-helmet-async 3 + react 19                  (React 核心专项)
-7. vite 8                                           (构建专项)
+6. react-helmet-async 3 + react 19 + @types/react 19 (React 核心专项)
+7. vite 8 + @vitejs/plugin-react 6                   (构建专项)
 8. tailwindcss 4                                    (样式专项，最后)
-9. typescript 7 + eslint 10                         (等生态成熟)
+9. typescript 7 + eslint 10 + 相关插件               (等生态成熟)
 ```
 
 每一步：单独分支 → 升级 → `pnpm build && node --test build/*.test.mjs && npx tsc -b`
-→ 起 dev server 目视检查关键页面 → 单独 PR。
+→ 起 preview server 目视检查关键页面（/ /team /projects /learning /docs）→ 单独 PR。
