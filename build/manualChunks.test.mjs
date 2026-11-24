@@ -28,3 +28,14 @@ test("non-router chunk rules stay unchanged", () => {
     "tailwind-merge",
   );
 });
+
+test("sentry modules are not folded into react-vendor", () => {
+  assert.equal(
+    getManualChunk("/repo/node_modules/@sentry/react/dist/index.js"),
+    "sentry-react",
+  );
+  assert.equal(
+    getManualChunk("/repo/node_modules/@sentry/core/dist/index.js"),
+    "sentry-core",
+  );
+});

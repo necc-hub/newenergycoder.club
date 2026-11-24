@@ -43,7 +43,23 @@ export default defineConfig({
     // 启用代码分割
     rollupOptions: {
       output: {
-        manualChunks: getManualChunk,
+        // Rolldown groups are evaluated by priority (higher first), then
+        // declaration order. Monitoring stays in its own chunk instead of
+        // being captured by the broad React group below.
+        codeSplitting: {
+          groups: [
+            {
+              name: "sentry",
+              test: /node_modules[\\/].*@sentry[\\/]/,
+              priority: 100,
+            },
+            {
+              name: (id: string) => getManualChunk(id) ?? undefined,
+              test: /node_modules[\\/]/,
+              priority: 10,
+            },
+          ],
+        },
       },
     },
     // 启用压缩
@@ -66,7 +82,15 @@ export default defineConfig({
     cssCodeSplit: true,
     // 预加载模块
     modulePreload: {
-      polyfill: true
+      polyfill: true,
+      // Markdown is only needed on docs routes. Keep these chunks out of the
+      // entry preload list; they still load on demand when a docs page opens.
+      resolveDependencies: (_filename, deps) =>
+        deps.filter(
+          (dep) =>
+            !dep.includes("react-markdown") &&
+            !dep.includes("markdown-processors"),
+        ),
     },
     // 资源内联阈值
     assetsInlineLimit: 4096,

@@ -10,7 +10,8 @@ export function getManualChunk(id) {
       !id.includes("react-helmet") &&
       !id.includes("react-i18next") &&
       !id.includes("react-markdown") &&
-      !id.includes("react-syntax-highlighter"))
+      !id.includes("react-syntax-highlighter") &&
+      !id.includes("@sentry"))
   ) {
     return "react-vendor"
   }
