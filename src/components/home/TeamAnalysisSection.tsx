@@ -7,7 +7,7 @@ import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
 import { SplitText } from 'gsap/SplitText'
 import giteeStats from '@/data/team-gitee-stats.json'
-import { maintainers, developers, designers, contributors } from '@/lib/i18n/constants/team'
+import { maintainers, sigMaintainers, earlyFounders, developers, designers, contributors } from '@/lib/i18n/constants/team'
 
 interface StatItemProps {
   value: number
@@ -40,12 +40,14 @@ export function TeamAnalysisSection() {
 
   const composition = [
     { label: t.team.maintainerTitle, count: maintainers.length, icon: Trophy },
+    { label: t.team.sigMaintainerTitle, count: sigMaintainers.length, icon: Users },
+    { label: t.team.earlyFounderTitle, count: earlyFounders.length, icon: Trophy },
     { label: t.team.developerTitle, count: developers.length, icon: Code2 },
     { label: t.team.designerTitle, count: designers.length, icon: Users },
     { label: t.team.contributorTitle, count: contributors.length, icon: BarChart3 },
   ]
 
-  const totalMembers = maintainers.length + developers.length + designers.length + contributors.length
+  const totalMembers = maintainers.length + sigMaintainers.length + earlyFounders.length + developers.length + designers.length + contributors.length
 
   useGSAP(() => {
     const ctx = gsap.context(() => {

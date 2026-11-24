@@ -27,7 +27,7 @@ import { Flip } from 'gsap/Flip'
 import { flushSync } from 'react-dom'
 import type { TeamMember as TeamMemberType } from '@/lib/i18n/types/translations'
 import type { Sponsor, SponsorLevel } from '@/lib/i18n/constants/team'
-import { maintainers, developers, designers, contributors, sponsorMetas } from '@/lib/i18n/constants/team'
+import { sponsorMetas } from '@/lib/i18n/constants/team'
 import { MemberTechDetail } from '@/components/team/MemberTechDetail'
 import { MemberCard } from '@/components/team/MemberCard'
 
@@ -159,7 +159,7 @@ function SponsorCard({
 }
 
 // 过滤分类
-const FILTER_CATEGORIES = ['all', 'maintainers', 'developers', 'designers', 'contributors'] as const
+const FILTER_CATEGORIES = ['all', 'maintainers', 'sigMaintainers', 'earlyFounders', 'developers', 'designers', 'contributors'] as const
 type FilterCategory = typeof FILTER_CATEGORIES[number]
 
 // 成员徽章（头像 + @姓名）
@@ -508,18 +508,22 @@ export function TeamPage() {
   // 避免 LanguageContext 返回的 t 引用每次渲染都变导致 memo 失效
   const filteredMembers = useMemo(() => {
     switch (filter) {
-      case 'maintainers': return { maintainers: t.team.maintainers, developers: [], designers: [], contributors: [] }
-      case 'developers': return { maintainers: [], developers: t.team.developers, designers: [], contributors: [] }
-      case 'designers': return { maintainers: [], developers: [], designers: t.team.designers, contributors: [] }
-      case 'contributors': return { maintainers: [], developers: [], designers: [], contributors: t.team.contributors }
+      case 'maintainers': return { maintainers: t.team.maintainers, sigMaintainers: [], earlyFounders: [], developers: [], designers: [], contributors: [] }
+      case 'sigMaintainers': return { maintainers: [], sigMaintainers: t.team.sigMaintainers, earlyFounders: [], developers: [], designers: [], contributors: [] }
+      case 'earlyFounders': return { maintainers: [], sigMaintainers: [], earlyFounders: t.team.earlyFounders, developers: [], designers: [], contributors: [] }
+      case 'developers': return { maintainers: [], sigMaintainers: [], earlyFounders: [], developers: t.team.developers, designers: [], contributors: [] }
+      case 'designers': return { maintainers: [], sigMaintainers: [], earlyFounders: [], developers: [], designers: t.team.designers, contributors: [] }
+      case 'contributors': return { maintainers: [], sigMaintainers: [], earlyFounders: [], developers: [], designers: [], contributors: t.team.contributors }
       default: return {
         maintainers: t.team.maintainers,
+        sigMaintainers: t.team.sigMaintainers,
+        earlyFounders: t.team.earlyFounders,
         developers: t.team.developers,
         designers: t.team.designers,
         contributors: t.team.contributors
       }
     }
-  }, [filter, t.team.maintainers, t.team.developers, t.team.designers, t.team.contributors])
+  }, [filter, t.team.maintainers, t.team.sigMaintainers, t.team.earlyFounders, t.team.developers, t.team.designers, t.team.contributors])
 
   // Flip 过滤切换
   const handleFilterChange = (nextFilter: FilterCategory) => {
@@ -528,7 +532,7 @@ export function TeamPage() {
     // 目标分类没有成员时直接切换，跳过 Flip（无元素可动画，跑了也没视觉效果）
     const nextMembers =
       nextFilter === 'all'
-        ? [...t.team.maintainers, ...t.team.developers, ...t.team.designers, ...t.team.contributors]
+        ? [...t.team.maintainers, ...t.team.sigMaintainers, ...t.team.earlyFounders, ...t.team.developers, ...t.team.designers, ...t.team.contributors]
         : t.team[nextFilter]
     if (nextMembers.length === 0) {
       setFilter(nextFilter)
@@ -730,6 +734,8 @@ export function TeamPage() {
   const teamStats = useMemo(() => {
     const counts = {
       maintainers: t.team.maintainers?.length || 0,
+      sigMaintainers: t.team.sigMaintainers?.length || 0,
+      earlyFounders: t.team.earlyFounders?.length || 0,
       developers: t.team.developers?.length || 0,
       designers: t.team.designers?.length || 0,
       contributors: t.team.contributors?.length || 0
@@ -745,15 +751,17 @@ export function TeamPage() {
     )
 
     return { counts, percentages, total }
-  }, [t.team.maintainers, t.team.developers, t.team.designers, t.team.contributors])
+  }, [t.team.maintainers, t.team.sigMaintainers, t.team.earlyFounders, t.team.developers, t.team.designers, t.team.contributors])
 
   // 所有成员合并（用于顶部成员条）
   const allMembers = useMemo(() => [
-    ...maintainers,
-    ...developers,
-    ...designers,
-    ...contributors
-  ], [])
+    ...t.team.maintainers,
+    ...t.team.sigMaintainers,
+    ...t.team.earlyFounders,
+    ...t.team.developers,
+    ...t.team.designers,
+    ...t.team.contributors
+  ], [t.team.maintainers, t.team.sigMaintainers, t.team.earlyFounders, t.team.developers, t.team.designers, t.team.contributors])
 
   // 合并 sponsorMetas（不可译） + t.team.sponsors（可译） 得到完整 Sponsor 列表
   const sponsors = useMemo<Sponsor[]>(() => {
@@ -785,7 +793,7 @@ export function TeamPage() {
     <div ref={pageRef} className="flex min-h-screen flex-col">
       <SEO
         title="团队介绍"
-        description="认识 NEC 新能源编程俱乐部的核心成员与贡献者：硬件组、软件组、算法组、设计组，覆盖机器人全栈开发。开源社区的每一位 Maintainer 与 Contributor 都在这里。"
+        description="认识 NEC 新能源编程俱乐部的现任维护者、SIG 维护者、早期发起者与贡献者：硬件组、软件组、算法组、设计组，覆盖机器人全栈开发。开源社区的每一位 Maintainer 与 Contributor 都在这里。"
         keywords="NEC团队,新能源编程俱乐部成员,开源贡献者,Maintainer,机器人团队"
         path="/team"
       />
@@ -869,6 +877,8 @@ export function TeamPage() {
 
         {/* Team Sections —— 入场动画由 TeamSection 内部 useGSAP 自管理（仅首次播放），筛选切换时由 Flip 接管 */}
         <TeamSection title={t.team.maintainerTitle} members={filteredMembers.maintainers} selectedRatio={selectedRatio} variant="featured" onMemberClick={setSelectedMember} />
+        <TeamSection title={t.team.sigMaintainerTitle} members={filteredMembers.sigMaintainers} selectedRatio={selectedRatio} variant="featured" onMemberClick={setSelectedMember} />
+        <TeamSection title={t.team.earlyFounderTitle} members={filteredMembers.earlyFounders} selectedRatio={selectedRatio} variant="featured" onMemberClick={setSelectedMember} />
         <TeamSection title={t.team.developerTitle} members={filteredMembers.developers} selectedRatio={selectedRatio} variant="compact" onMemberClick={setSelectedMember} />
         <TeamSection title={t.team.designerTitle} members={filteredMembers.designers} selectedRatio={selectedRatio} variant="compact" onMemberClick={setSelectedMember} />
         <TeamSection title={t.team.contributorTitle} members={filteredMembers.contributors} selectedRatio={selectedRatio} variant="compact" onMemberClick={setSelectedMember} />
@@ -903,8 +913,10 @@ export function TeamPage() {
           </div>
 
           {/* Statistics Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             <StatCard title={t.team.statsLabels.maintainers} count={teamStats.counts.maintainers} description={t.team.statsLabels.maintainersDesc} icon={Users} />
+            <StatCard title={t.team.statsLabels.sigMaintainers} count={teamStats.counts.sigMaintainers} description={t.team.statsLabels.sigMaintainersDesc} icon={Users} />
+            <StatCard title={t.team.statsLabels.earlyFounders} count={teamStats.counts.earlyFounders} description={t.team.statsLabels.earlyFoundersDesc} icon={Heart} />
             <StatCard title={t.team.statsLabels.developers} count={teamStats.counts.developers} description={t.team.statsLabels.developersDesc} icon={Code} />
             <StatCard title={t.team.statsLabels.designers} count={teamStats.counts.designers} description={t.team.statsLabels.designersDesc} icon={Palette} />
             <StatCard title={t.team.statsLabels.contributors} count={teamStats.counts.contributors} description={t.team.statsLabels.contributorsDesc} icon={Heart} />
@@ -932,6 +944,18 @@ export function TeamPage() {
                     <TableCell className="text-center">{teamStats.counts.maintainers}</TableCell>
                     <TableCell className="text-center">{teamStats.percentages.maintainers}%</TableCell>
                     <TableCell>{t.team.analytics.maintainerResponsibilities}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="font-medium">{t.team.statsLabels.sigMaintainers}</TableCell>
+                    <TableCell className="text-center">{teamStats.counts.sigMaintainers}</TableCell>
+                    <TableCell className="text-center">{teamStats.percentages.sigMaintainers}%</TableCell>
+                    <TableCell>{t.team.analytics.sigMaintainerResponsibilities}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="font-medium">{t.team.statsLabels.earlyFounders}</TableCell>
+                    <TableCell className="text-center">{teamStats.counts.earlyFounders}</TableCell>
+                    <TableCell className="text-center">{teamStats.percentages.earlyFounders}%</TableCell>
+                    <TableCell>{t.team.analytics.earlyFounderResponsibilities}</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-medium">{t.team.statsLabels.developers}</TableCell>

@@ -1,4 +1,4 @@
-import { maintainers, developers, designers, contributors } from '../constants/team';
+import { maintainers, sigMaintainers, earlyFounders, developers, designers, contributors } from '../constants/team';
 import { Translations } from '../types/translations';
 import { learningTranslations } from '../constants/learning';
 
@@ -197,9 +197,11 @@ export const enTranslations: Translations = {
   },
   team: {
     title: 'Who Are We?',
-    shortDescription: 'Meet the people building the community — maintainers, developers, designers, and contributors.',
+    shortDescription: 'Meet the people building the community — current maintainers, SIG maintainers, early founders, developers, designers, and contributors.',
     description: 'We are a group meeting at the intersection of code and dreams. There are students debugging late at night, developers chasing elegance, and sustainability believers obsessed with "how to make the world more efficient and cleaner". We differ — in majors, backgrounds, and even the programming languages we love. Yet we are the same — we believe in technology for good, in the power of youth, and that sustainability is not a choice but a necessity. Here, curiosity is a passport and practice is the common language. We are not only building products; we are building a greener, fairer, and smarter future. We are a verb in action.',
-    maintainerTitle: 'Maintainer',
+    maintainerTitle: 'Current Maintainers',
+    sigMaintainerTitle: 'SIG Maintainers',
+    earlyFounderTitle: 'Early Founders',
     developerTitle: 'Developer',
     designerTitle: 'Designer',
     contributorTitle: 'Contributor',
@@ -217,12 +219,16 @@ export const enTranslations: Translations = {
       contributionStats: 'Contribution Statistics',
       mainResponsibilities: 'Main Responsibilities',
       maintainerResponsibilities: 'Project management, code review, technical decisions',
+      sigMaintainerResponsibilities: 'Technical direction ownership, task breakdown, and group coordination',
+      earlyFounderResponsibilities: 'Early exploration, engineering baseline, and community building',
       developerResponsibilities: 'Feature development, bug fixes, technical implementation',
       designerResponsibilities: 'Interface design, user experience, visual standards',
       contributorResponsibilities: 'Documentation, testing feedback, community support'
     },
     teamPhotoDescription: 'Precious photos of team members during project development, recording our collaborative efforts and wonderful times together.',
     maintainers,
+    sigMaintainers,
+    earlyFounders,
     developers,
     designers,
     contributors,
@@ -338,14 +344,20 @@ export const enTranslations: Translations = {
     },
     filterLabels: {
       all: 'All Members',
-      maintainers: 'Core Team',
+      maintainers: 'Current Maintainers',
+      sigMaintainers: 'SIG Maintainers',
+      earlyFounders: 'Early Founders',
       developers: 'Developers',
       designers: 'UI/UX',
       contributors: 'Contributors'
     },
     statsLabels: {
-      maintainers: 'Maintainers',
-      maintainersDesc: 'Core team members',
+      maintainers: 'Current Maintainers',
+      maintainersDesc: 'Maintainers leading community governance and coordination',
+      sigMaintainers: 'SIG Maintainers',
+      sigMaintainersDesc: 'Leads for each technical SIG',
+      earlyFounders: 'Early Founders',
+      earlyFoundersDesc: 'Members who helped establish the community',
       developers: 'Developers',
       developersDesc: 'Technical developers',
       designers: 'Designers',
