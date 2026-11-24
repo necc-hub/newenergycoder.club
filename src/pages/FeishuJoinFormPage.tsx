@@ -48,6 +48,7 @@ export function FeishuJoinFormPage() {
     expectations: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [hasConsent, setHasConsent] = useState(false)
   const { toast } = useToast()
   const t = useTranslation()
 
@@ -66,6 +67,16 @@ export function FeishuJoinFormPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (!hasConsent) {
+      toast({
+        title: t.join.form.submit.error,
+        description: t.join.form.submit.consentRequired,
+        variant: 'destructive'
+      })
+      return
+    }
+
     setIsSubmitting(true)
 
     try {
@@ -342,13 +353,40 @@ export function FeishuJoinFormPage() {
               </CardContent>
             </Card>
 
+            {/* 隐私同意 */}
+            <div className="flex items-start gap-2 px-2">
+              <Checkbox
+                id="privacy-consent"
+                checked={hasConsent}
+                onCheckedChange={(checked) => setHasConsent(checked === true)}
+                aria-required="true"
+                className="mt-1"
+              />
+              <Label
+                htmlFor="privacy-consent"
+                className="text-sm text-muted-foreground cursor-pointer leading-relaxed"
+              >
+                {t.join.form.submit.consentPrefix}
+                <a
+                  href="/privacy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary underline underline-offset-2 hover:text-primary/80 mx-0.5"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {t.join.form.submit.consentLink}
+                </a>
+                {t.join.form.submit.consentSuffix}
+              </Label>
+            </div>
+
             {/* 提交按钮 */}
             <div className="text-center">
               <Button
                 type="submit"
                 size="lg"
                 className="group"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !hasConsent}
               >
                 {isSubmitting ? (
                   <>
