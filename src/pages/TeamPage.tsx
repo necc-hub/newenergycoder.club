@@ -760,6 +760,7 @@ export function TeamPage() {
     return sponsorMetas.map((meta, idx) => {
       const text = t.team.sponsors[idx]
       return {
+        id: meta.id,
         name: meta.name,
         role: text?.role ?? '',
         bio: text?.bio ?? '',

@@ -288,6 +288,7 @@ export const zhTranslations: Translations = {
     teamPhotoDescription: '团队成员在项目开发过程中的珍贵合影，记录了我们共同努力和协作的美好时光。',
     maintainers: [
       {
+        id: 'darrenpig',
         name: 'DarrenPig',
         role: '实验室创始人 & BSP 嵌软工程师',
         bio: '专注于将人工智能应用于能源优化的可再生能源研究者。',
@@ -299,6 +300,7 @@ export const zhTranslations: Translations = {
         email: '22230635@czu.cn'
       },
       {
+        id: 'yin-tongchuang',
         name: '殷统创',
         role: '实验室创始人 & BSP Expert',
         bio: '专注于AI在能源优化应用的可再生能源研究员。',
@@ -307,6 +309,7 @@ export const zhTranslations: Translations = {
         github: 'https://github.com/yintongchuang'
       },
       {
+        id: 'xu-longyi',
         name: '许珑译',
         role: '机器人算法工程师',
         bio: '专注于机器人算法研发部署以及业务逻辑设计。',
@@ -315,6 +318,7 @@ export const zhTranslations: Translations = {
         github: 'https://github.com/xulongyi'
       },
       {
+        id: 'zhang-wangwang-maintainer',
         name: '张旺旺',
         role: '机器人运行时工程师',
         bio: '负责项目的核心技术攻坚，保障电控系统的稳定运行。',
@@ -325,6 +329,7 @@ export const zhTranslations: Translations = {
     ],
     developers: [
       {
+        id: 'liu-yingqi',
         name: '刘英琪',
         role: '嵌入式开发工程师',
         bio: '专注于现代机器人技术栈，致力于构建高性能的机器人界面。',
@@ -333,6 +338,7 @@ export const zhTranslations: Translations = {
         github: 'https://github.com/liuyingqi'
       },
       {
+        id: 'shan-guangzhi',
         name: '单广志',
         role: '嵌入式开发工程师',
         bio: '机器人行业电控驱动开发以及硬件电路设计。',
@@ -341,6 +347,7 @@ export const zhTranslations: Translations = {
         github: 'https://github.com/shanguangzhi'
       },
       {
+        id: 'zhou-zhi',
         name: '周志',
         role: '全栈开发工程师',
         bio: '具备前后端开发能力，致力于端到端的解决方案开发。',
@@ -349,6 +356,7 @@ export const zhTranslations: Translations = {
         github: 'https://github.com/zhouzhi'
       },
       {
+        id: 'li-shuo',
         name: '李硕',
         role: '硬件系统架构师',
         bio: '专注于硬件系统架构设计和技术选型，为项目提供技术指导。',
@@ -357,6 +365,7 @@ export const zhTranslations: Translations = {
         github: 'https://github.com/lishuo'
       },
       {
+        id: 'niu-liangxu',
         name: '牛良旭',
         role: 'DevOps电池管理工程师',
         bio: '负责项目的持续集成和部署，保障开发流程的高效运行。',
@@ -365,6 +374,7 @@ export const zhTranslations: Translations = {
         github: 'https://github.com/niuliangxu'
       },
       {
+        id: 'zheng-qinwen',
         name: '郑钦文',
         role: '机电一体化开发工程师',
         bio: '专注于机电设计开发，为用户提供优质的移动端体验。',
@@ -373,6 +383,7 @@ export const zhTranslations: Translations = {
         github: 'https://github.com/zhengqinwen'
       },
       {
+        id: 'yang-litao',
         name: '杨力涛',
         role: '星闪手柄开发工程师',
         bio: '星闪手柄开发专家，熟悉STM32+RTOS C语言开发。',
@@ -381,6 +392,7 @@ export const zhTranslations: Translations = {
         github: 'https://github.com/yanglitao'
       },
       {
+        id: 'peng-keying',
         name: '彭柯颖',
         role: '机械R1机器人开发者',
         bio: '新加入的开发团队成员，积极参与机器人项目开发，学习新技术。',
@@ -391,6 +403,7 @@ export const zhTranslations: Translations = {
     ],
     designers: [
       {
+        id: 'xiux',
         name: 'Xiux',
         role: 'UI/UX设计师 & 仓库PM',
         bio: '专注于开发者体验设计和界面优化，为可持续仓库创造美观易用的界面。',
@@ -398,6 +411,7 @@ export const zhTranslations: Translations = {
         tags: ['UI设计', 'UX设计', 'Figma', 'Sketch', '原型设计', '用户研究']
       },
       {
+        id: 'ikkoooo',
         name: 'ikkOoOo',
         role: '工业/产品设计师',
         bio: '专注于创意设计和视觉表达，为项目提供独特的设计视角。',
@@ -405,6 +419,7 @@ export const zhTranslations: Translations = {
         tags: ['创意设计', '视觉表达', '设计创新', '艺术指导', '品牌设计', '视觉传达']
       },
       {
+        id: 'zhang-ruolu',
         name: '张若璐',
         role: '视觉设计师&财务分析师',
         bio: '专注于品牌落地和财务分析，为项目提供专业的财务视角可行性落地设计。',
@@ -412,6 +427,7 @@ export const zhTranslations: Translations = {
         tags: ['品牌设计', 'Power BI', 'Logo设计', '色彩搭配']
       },
       {
+        id: 'wei-cairi',
         name: '韦彩日',
         role: '工业产品设计师',
         bio: '负责对接需求，专注于工业产品设计，为项目提供专业的设计解决方案。',
@@ -419,6 +435,7 @@ export const zhTranslations: Translations = {
         tags: ['工业设计', '产品设计', '需求对接', '设计解决方案', '用户体验', '产品规划']
       },
       {
+        id: 'li-yinan',
         name: '李一楠',
         role: '运营组长',
         bio: '为NEC小队宣传以及主持，负责团队运营和对外宣传工作。',
@@ -426,6 +443,7 @@ export const zhTranslations: Translations = {
         tags: ['团队运营', '宣传策划', '活动主持', 'NEC小队', '对外联络', '品牌推广']
       },
       {
+        id: 'li-xiang',
         name: '李想',
         role: 'UX设计师',
         bio: '一直在探索技术与设计边界的路上，以用户为中心，以体验为驱动。',
@@ -566,7 +584,92 @@ export const zhTranslations: Translations = {
       roleTypeHeader: '角色类型',
       countHeader: '人数',
       percentageHeader: '占比'
-    }
+    },
+    directionNames: {
+      control: '电控系统',
+      embedded: '嵌入式开发',
+      vision: '机器视觉',
+      mechanical: '机械结构',
+      algorithm: '算法与控制',
+      ai: '人工智能',
+      robotics: '机器人中间件',
+      fullstack: '全栈开发',
+      hardware: '硬件设计',
+      industrial: '工业设计',
+      devops: 'DevOps / 工具链',
+      communication: '通信协议',
+      system: '系统架构',
+      localization: '定位导航',
+    },
+    memberExplorer: {
+      title: '发现协作者',
+      description: '按姓名、角色、技能或项目找到成员',
+      searchLabel: '搜索',
+      searchPlaceholder: '姓名、角色、技能或项目...',
+      resultCount: '共 {count} 位成员',
+      clearFilters: '清除筛选',
+      noResults: '未找到匹配成员',
+      viewProfile: '查看档案',
+      relationFilter: '关系范围',
+      groupLabel: '成员类别',
+      graph: {
+        title: '协作关系图',
+        description: '基于共同项目与技术方向的成员关联',
+        projectMode: '项目',
+        directionMode: '技术方向',
+        selectLabel: '选择焦点',
+        noRelations: '暂无满足条件的关系网络',
+        graphNotShown: '图中未显示',
+        relatedMembers: '相关成员',
+        memberListLabel: '关联成员',
+        projectEvidence: '共同项目',
+        directionEvidence: '共同方向',
+        openProfile: '打开档案',
+      },
+    },
+    memberProfile: {
+      backToTeam: '返回团队',
+      notFoundTitle: '未找到成员',
+      notFoundDescription: '该成员档案不存在或尚未公开。',
+      untitledSkills: '暂未填写技能标签',
+      untitledProjects: '暂未关联项目',
+      noPublicContact: '暂未公开联系方式',
+      copyLink: '复制档案链接',
+      linkCopied: '链接已复制',
+      copyInvitation: '复制协作邀约',
+      invitationCopied: '邀约已复制',
+      copyFailed: '复制失败，请手动选择下方文本',
+      invitationTitle: '协作邀约',
+      collaboratorsTitle: '直接协作者',
+      noCollaborators: '现有公开资料不足以生成关系',
+      sharedProjects: '共同项目',
+      sharedDirections: '共同方向',
+      profileTitle: '成员档案',
+      techDirections: '技术方向',
+      derivedDirections: '由技能标签推导',
+      skillsTitle: '技能深度',
+      tagsTitle: '技能标签',
+      projectsTitle: '参与项目',
+      projectDetails: '项目职责',
+      viewAllProjects: '查看全部项目',
+      techMapTitle: '技术方向图谱',
+    },
+    insights: {
+      title: '团队分析',
+      directionCoverage: '技术方向覆盖',
+      directionCoverageDescription: '每个方向关联的成员数及占比（成员可属于多个方向）',
+      projectParticipation: '项目参与分布',
+      projectParticipationDescription: '有成员关联的公开项目及其参与人数',
+      profileCompleteness: '资料完整度',
+      profileCompletenessDescription: '有技能标签、项目关联或公开联系方式的成员数',
+      hasSkills: '有技能标签',
+      hasProjects: '有项目关联',
+      hasContact: '有公开联系方式',
+      multiDirectionNote: '注：成员可属于多个方向，方向占比不可相加为 100%。',
+      contributionSnapshot: '贡献快照',
+      noDirectionData: '暂无方向数据',
+      noProjectData: '暂无项目数据',
+    },
   },
   cta: {
     title: '准备好开始了吗？',

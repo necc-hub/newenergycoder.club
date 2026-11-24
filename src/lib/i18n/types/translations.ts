@@ -1,4 +1,6 @@
 export interface TeamMember {
+  /** Stable, URL-safe ASCII identity shared across locales; never use display name as identity. */
+  id: string;
   name: string;
   role: string;
   bio: string;
@@ -197,6 +199,80 @@ export interface Translations {
       designers: string;
       contributors: string;
     };
+    /** 成员探索区 */
+    memberExplorer: {
+      title: string;
+      description: string;
+      searchLabel: string;
+      searchPlaceholder: string;
+      resultCount: string;
+      clearFilters: string;
+      noResults: string;
+      viewProfile: string;
+      relationFilter: string;
+      groupLabel: string;
+      graph: {
+        title: string;
+        description: string;
+        projectMode: string;
+        directionMode: string;
+        selectLabel: string;
+        noRelations: string;
+        graphNotShown: string;
+        relatedMembers: string;
+        memberListLabel: string;
+        projectEvidence: string;
+        directionEvidence: string;
+        openProfile: string;
+      };
+    };
+    /** 成员档案页 */
+    memberProfile: {
+      backToTeam: string;
+      notFoundTitle: string;
+      notFoundDescription: string;
+      untitledSkills: string;
+      untitledProjects: string;
+      noPublicContact: string;
+      copyLink: string;
+      linkCopied: string;
+      copyInvitation: string;
+      invitationCopied: string;
+      copyFailed: string;
+      invitationTitle: string;
+      collaboratorsTitle: string;
+      noCollaborators: string;
+      sharedProjects: string;
+      sharedDirections: string;
+      profileTitle: string;
+      techDirections: string;
+      derivedDirections: string;
+      skillsTitle: string;
+      tagsTitle: string;
+      projectsTitle: string;
+      projectDetails: string;
+      viewAllProjects: string;
+      techMapTitle: string;
+    };
+    /** 团队分析指标 */
+    insights: {
+      title: string;
+      directionCoverage: string;
+      directionCoverageDescription: string;
+      projectParticipation: string;
+      projectParticipationDescription: string;
+      profileCompleteness: string;
+      profileCompletenessDescription: string;
+      hasSkills: string;
+      hasProjects: string;
+      hasContact: string;
+      multiDirectionNote: string;
+      contributionSnapshot: string;
+      noDirectionData: string;
+      noProjectData: string;
+    };
+    /** 技术方向内部 id 的显示名称 */
+    directionNames: Record<string, string>;
     /** 团队统计区块的硬编码 UI 文案 */
     statsLabels: {
       maintainers: string;

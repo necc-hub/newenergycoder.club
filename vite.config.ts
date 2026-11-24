@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import path from "path"
 import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
@@ -39,6 +40,9 @@ export default defineConfig({
   // 配置静态文件服务
   publicDir: 'public',
   assetsInclude: ['**/*.md'],
+  test: {
+    include: ['src/**/*.test.ts'],
+  },
   build: {
     // 启用代码分割
     rollupOptions: {
