@@ -1,7 +1,7 @@
 // 性能监控工具
 
 // Web Vitals 指标类型
-interface WebVitalsMetric {
+interface _WebVitalsMetric {
   name: string;
   value: number;
   rating: 'good' | 'needs-improvement' | 'poor';
@@ -155,7 +155,7 @@ export class PerformanceMonitor {
         
         observer.observe({ entryTypes: ['longtask'] });
         this.observers.push(observer);
-      } catch (e) {
+      } catch (_e) {
         // Long Task API 可能不被支持
         console.warn('Long Task API not supported');
       }
@@ -172,7 +172,7 @@ export class PerformanceMonitor {
         
         observer.observe({ entryTypes: [type] });
         this.observers.push(observer);
-      } catch (e) {
+      } catch (_e) {
         console.warn(`Performance observer for ${type} not supported`);
       }
     }
@@ -207,7 +207,7 @@ export class PerformanceMonitor {
   }
 
   // 手动记录自定义指标
-  recordCustomMetric(name: string, value: number, unit: string = 'ms') {
+  recordCustomMetric(name: string, value: number, _unit: string = 'ms') {
     this.recordMetric(name, value);
     this.sendMetricToAnalytics(name, value);
   }
@@ -266,7 +266,7 @@ export const observePageVisibility = () => {
             // 页面变为可见
             startTime = Date.now();
           }
-        } catch (e) {
+        } catch (_e) {
           // 指标记录失败不应影响可见性监听
         }
       };
@@ -280,7 +280,7 @@ export const observePageVisibility = () => {
             const totalTime = Date.now() - startTime;
             performanceMonitor.recordCustomMetric('Page_Total_Time', totalTime);
           }
-        } catch (e) {
+        } catch (_e) {
           // 卸载时的记录失败也应被忽略
         }
       });

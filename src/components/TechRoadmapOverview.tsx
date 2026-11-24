@@ -17,9 +17,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { 
   TechRoute, 
-  TechDirection, 
-  DifficultyLevel,
-  LearningStage 
+  TechDirection 
 } from '../types/learning';
 import { techRoutes } from '../data/techRoutes';
 

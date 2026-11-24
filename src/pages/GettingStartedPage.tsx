@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { PageLayout } from '@/components/layout/PageLayout'
 import { useTranslation } from '@/contexts/LanguageContext'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
-import { FloatingControls } from '@/components/ui/floating-controls'
 import {
   BookOpen,
   Code,
@@ -15,8 +13,6 @@ import {
   Zap,
   ExternalLink,
   Github,
-  FileText,
-  Video,
   Cpu,
   Palette,
   Calculator,
@@ -26,16 +22,11 @@ import {
   Target,
   Play,
   ChevronRight,
-  Award,
   TrendingUp,
   Printer
 } from 'lucide-react'
 // 导入技术路线图组件
-import TechRoadmapOverview from '@/components/TechRoadmapOverview'
 // 导入学习资源组件
-import { default as LearningResources } from '@/components/LearningResources'
-import { techRoutes } from '@/data/techRoutes'
-import { trainingCategories } from '@/data/resources'
 
 // 技术方向接口
 interface TechDirection {

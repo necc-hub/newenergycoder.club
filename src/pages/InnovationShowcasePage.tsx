@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { 
   Sun, Wind, Battery, Zap, Car, Atom, Leaf, Mountain, 
   Search, Filter, GitCompare, Play, ExternalLink, 
-  TrendingUp, Calendar, Users, Award,
+  TrendingUp, Calendar, Award,
   ChevronRight, CheckCircle, Clock, AlertCircle
 } from 'lucide-react';
 import { 
@@ -220,7 +220,7 @@ const mockTechnologies: InnovationTechnology[] = [
 ];
 
 export function InnovationShowcasePage() {
-  const t = useTranslation();
+  const _t = useTranslation();
   const [filters, setFilters] = useState<InnovationFilters>({
     categories: [],
     maturity: [],
@@ -228,7 +228,7 @@ export function InnovationShowcasePage() {
     sortBy: 'name',
     sortOrder: 'asc'
   });
-  const [selectedTechnology, setSelectedTechnology] = useState<InnovationTechnology | null>(null);
+  const [_selectedTechnology, setSelectedTechnology] = useState<InnovationTechnology | null>(null);
   const [comparisonMode, setComparisonMode] = useState(false);
   const [selectedForComparison, setSelectedForComparison] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState('showcase');

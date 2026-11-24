@@ -3,8 +3,6 @@ import { useState, useEffect, useCallback } from 'react'
 
 // 导入UI组件
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 // 导入图标组件
@@ -165,7 +163,7 @@ export function FloatingControls({
   const [lastScrollY, setLastScrollY] = useState(0)
   
   // 滚动状态标识 - 用于检测用户是否正在滚动页面
-  const [isScrolling, setIsScrolling] = useState(false)
+  const [_isScrolling, setIsScrolling] = useState(false)
   
   // 滚动检测定时器 - 用于延迟判断滚动结束状态
   const [scrollTimeout, setScrollTimeout] = useState<NodeJS.Timeout | null>(null)

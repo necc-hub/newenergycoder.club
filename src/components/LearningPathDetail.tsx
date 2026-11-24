@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
@@ -6,33 +6,24 @@ import {
   CheckCircle,
   Circle,
   Play,
-  Pause,
-  RotateCcw,
   BookOpen,
   Code,
   Users,
   Target,
   Award,
-  Calendar,
   TrendingUp,
   ExternalLink,
   Download,
   Share2,
   Heart,
   MessageCircle,
-  Star,
   ChevronRight,
-  ChevronDown,
-  AlertCircle,
   Lightbulb,
   Check
 } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
 import {
   TechRoute,
   LearningStep,
-  LearningStage,
-  DifficultyLevel,
   StepStatus
 } from '../types/learning';
 
@@ -59,11 +50,9 @@ const LearningPathDetail: React.FC<LearningPathDetailProps> = ({
   onStepComplete,
   userProgress = {}
 }) => {
-  const { t } = useTranslation();
-  const [selectedStep, setSelectedStep] = useState<LearningStep | null>(null);
+    const [selectedStep, setSelectedStep] = useState<LearningStep | null>(null);
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const [showNotes, setShowNotes] = useState(false);
-  const [userNotes, setUserNotes] = useState<Record<string, string>>({});
+    const [userNotes, setUserNotes] = useState<Record<string, string>>({});
 
   // 计算学习进度
   const progress: LearningProgress = React.useMemo(() => {

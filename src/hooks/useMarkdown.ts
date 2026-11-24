@@ -1,7 +1,6 @@
 import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import {
   MarkdownConfig,
-  MarkdownContent,
   UseMarkdownReturn,
   DEFAULT_MARKDOWN_CONFIG
 } from '@/types/markdown';

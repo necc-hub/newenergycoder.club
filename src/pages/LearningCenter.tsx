@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
@@ -13,14 +13,8 @@ import {
   Menu,
   X,
   Search,
-  Filter,
-  ChevronRight,
-  Bookmark,
-  Clock,
-  Target,
-  Award
+  ChevronRight
 } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet-async';
 
 // 导入学习中心组件
@@ -43,10 +37,8 @@ const LearningCenter: React.FC<LearningCenterProps> = ({
   initialSection = 'dashboard',
   userId
 }) => {
-  const { t } = useTranslation();
   const navigate = useNavigate();
-  const location = useLocation();
-  const { section, routeId } = useParams<{ section?: string; routeId?: string }>();
+  const { section, routeId: _routeId } = useParams<{ section?: string; routeId?: string }>();
   
   // 状态管理
   const [currentSection, setCurrentSection] = useState<string>(section || initialSection);
@@ -181,7 +173,7 @@ const LearningCenter: React.FC<LearningCenterProps> = ({
         return (
           <LearningProgress 
             userId={userId}
-            onRouteSelect={(routeId) => {
+            onRouteSelect={(_routeId) => {
               // 根据routeId找到对应的路线并选择
               handleNavigation('routes');
             }}

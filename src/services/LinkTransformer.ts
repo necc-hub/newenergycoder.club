@@ -33,7 +33,7 @@ export class LinkTransformer {
   }): ProcessedLink {
     const linkType = this.detectLinkType(url);
     const processedUrl = this.processUrl(url, linkType);
-    const enhancedText = this.enhanceText(text, url, linkType);
+    const _enhancedText = this.enhanceText(text, url, linkType);
     
     return {
       originalUrl: url,
@@ -63,7 +63,7 @@ export class LinkTransformer {
     difficulty?: DocumentDifficulty;
     section?: string;
   }): ProcessedLink[] {
-    return links.map((link, index) => 
+    return links.map((link, _index) => 
       this.transform(link.url, link.text, context)
     );
   }

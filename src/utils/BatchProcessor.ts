@@ -200,7 +200,7 @@ export class BatchProcessor<T, R> {
    */
   private async processBatchWithRetry(
     batch: T[], 
-    batchIndex: number
+    _batchIndex: number
   ): Promise<R[]> {
     let lastError: Error;
     
@@ -320,7 +320,7 @@ export class LinkBatchProcessor {
    */
   async validateLinks(
     urls: string[], 
-    onProgress?: (processed: number, total: number) => void
+    _onProgress?: (processed: number, total: number) => void
   ): Promise<BatchProcessorResult<boolean>> {
     return this.validationProcessor.process(urls);
   }
@@ -330,7 +330,7 @@ export class LinkBatchProcessor {
    */
   async transformLinks(
     links: any[], 
-    onProgress?: (processed: number, total: number) => void
+    _onProgress?: (processed: number, total: number) => void
   ): Promise<BatchProcessorResult<any>> {
     return this.transformProcessor.process(links);
   }

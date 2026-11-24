@@ -127,7 +127,7 @@ export interface LazyLinkDetectorProps extends Omit<LinkDetectorProps, 'onError'
 export const LazyLinkDetector: React.FC<LazyLinkDetectorProps> = memo(({
   enableLazyLoading = true,
   fallback: CustomFallback,
-  onError,
+  onError: _onError,
   ...props
 }) => {
   // 如果禁用懒加载，直接渲染组件

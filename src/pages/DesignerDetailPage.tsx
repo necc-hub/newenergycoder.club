@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
 import {
   Palette,
   Clock,
@@ -15,7 +14,6 @@ import {
   Star,
   Target,
   Zap,
-  Brush,
   Download
 } from 'lucide-react';
 import SEO from '@/components/SEO';
@@ -145,8 +143,7 @@ const projectCases: ProjectCase[] = [
 
 const DesignerDetailPage: React.FC = () => {
   const [selectedStage, setSelectedStage] = useState<string>('foundation');
-  const [enrollmentProgress, setEnrollmentProgress] = useState(0);
-
+  
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case 'beginner': return 'bg-green-100 text-green-800';

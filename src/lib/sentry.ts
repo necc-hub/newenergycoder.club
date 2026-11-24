@@ -42,7 +42,7 @@ export const initSentry = () => {
             }
           }
           return event;
-        } catch (e) {
+        } catch (_e) {
           // 任何过滤逻辑异常不应影响事件上报
           return event;
         }

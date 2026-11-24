@@ -13,9 +13,7 @@ import {
   Clock,
   Star,
   Heart,
-  Download,
   Globe,
-  Tag,
   ChevronDown,
   X
 } from 'lucide-react';
@@ -24,16 +22,11 @@ import {
   LearningResource,
   ResourceType,
   DifficultyLevel,
-  TechDirection,
-  TrainingCategory
+  TechDirection
 } from '../types/learning';
 import {
   trainingCategories,
-  getResourcesByDirection,
-  getResourcesByType,
-  getResourcesByDifficulty,
-  getFreeResources,
-  getResourcesByLanguage
+  getResourcesByDirection
 } from '../data/resources';
 
 interface LearningResourcesProps {
@@ -53,7 +46,7 @@ interface FilterState {
 
 const LearningResources: React.FC<LearningResourcesProps> = ({
   selectedDirection,
-  onResourceSelect,
+  onResourceSelect: _onResourceSelect,
   onAddToLearningPlan
 }) => {
   const { t } = useTranslation();

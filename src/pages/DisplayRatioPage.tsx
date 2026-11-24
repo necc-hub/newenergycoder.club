@@ -5,10 +5,9 @@ import { useState } from 'react'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 // 从FloatingControls导入集成的组件和类型
-import { AspectRatio, DisplayItem, typeColors, getAspectRatioOptions } from '@/components/ui/floating-controls'
+import { AspectRatio, DisplayItem, typeColors } from '@/components/ui/floating-controls'
 
 // 布局组件
 import { PageLayout } from '@/components/layout/PageLayout'
@@ -77,7 +76,7 @@ const sampleItems: DisplayItem[] = [
 export function DisplayRatioPage() {
   const t = useTranslation()
   const [selectedRatio, setSelectedRatio] = useState<AspectRatio>('aspect-[3/4]')
-  const [selectedType, setSelectedType] = useState<string>('all')
+  const [selectedType, _setSelectedType] = useState<string>('all')
 
   const filteredItems = selectedType === 'all' 
     ? sampleItems 

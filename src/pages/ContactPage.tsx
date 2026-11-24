@@ -10,11 +10,11 @@ import { useTranslation } from '@/contexts/LanguageContext'
 const wechatImg = 'https://cdn.newenergycoder.club/images/src/assets/wechat.png'
 import { PageLayout } from '@/components/layout/PageLayout'
 import SEO from '@/components/SEO'
-import { type FloatingControls, type AspectRatio } from '@/components/ui/floating-controls'
+import { type AspectRatio } from '@/components/ui/floating-controls'
 import { AmapLocation } from '@/components/ui/amap-location'
 const NECApplicationForm = 'https://cdn.newenergycoder.club/images/src/image/NEC官网上线申请表.png'
-const TeamPhoto1 = 'https://cdn.newenergycoder.club/images/src/image/校门合照.jpg'
-const TeamPhoto2 = 'https://cdn.newenergycoder.club/images/src/image/横向项目合照.jpg'
+const _TeamPhoto1 = 'https://cdn.newenergycoder.club/images/src/image/校门合照.jpg'
+const _TeamPhoto2 = 'https://cdn.newenergycoder.club/images/src/image/横向项目合照.jpg'
 
 interface ContactFormData {
   name: string
@@ -72,7 +72,7 @@ export function ContactPage() {
         title: t.contact.form.messageSent,
         description: "We'll get back to you as soon as possible.",
       })
-    } catch (error) {
+    } catch (_error) {
       toast({
         title: t.contact.form.messageError,
         description: "Please check your connection and try again.",

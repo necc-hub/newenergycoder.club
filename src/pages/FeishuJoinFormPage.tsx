@@ -10,8 +10,8 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { useState } from 'react'
 import { useToast } from '@/hooks/use-toast'
 import { useTranslation } from '@/contexts/LanguageContext'
-import { Send, User, Mail, Phone, School, Briefcase, Code, Heart } from 'lucide-react'
-import { type FloatingControls, type AspectRatio } from '@/components/ui/floating-controls'
+import { Send, User, Briefcase, Code, Heart } from 'lucide-react'
+import { type AspectRatio } from '@/components/ui/floating-controls'
 
 interface FormData {
   name: string

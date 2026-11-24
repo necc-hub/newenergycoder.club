@@ -5,20 +5,13 @@ import {
   BookOpen,
   TrendingUp,
   Star,
-  User,
   ChevronDown,
   ChevronRight,
   Target,
-  Award,
   Clock,
   Bookmark,
-  Settings,
-  ExternalLink,
-  Play,
-  Pause,
-  RotateCcw
+  ExternalLink
 } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
 
 // 导航项接口
 interface NavigationItem {
@@ -61,8 +54,7 @@ const LearningNavigation: React.FC<LearningNavigationProps> = ({
   className = '',
   onNavigate
 }) => {
-  const { t } = useTranslation();
-  const location = useLocation();
+    const location = useLocation();
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [learningStatus, setLearningStatus] = useState<LearningStatus>({

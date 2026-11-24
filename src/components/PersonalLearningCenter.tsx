@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   User,
@@ -6,45 +6,22 @@ import {
   Bell,
   BookOpen,
   TrendingUp,
-  Calendar,
-  Clock,
   Target,
-  Award,
   Star,
-  Heart,
-  Download,
-  Share2,
   Edit3,
   Camera,
-  Mail,
-  Phone,
-  MapPin,
-  Github,
-  Linkedin,
-  Globe,
-  Plus,
   X,
-  Check,
-  AlertCircle,
   Bookmark,
   History,
-  Filter,
   Search,
   ChevronRight,
-  ChevronDown,
   ExternalLink,
   PlayCircle,
   PauseCircle,
-  RotateCcw,
   BarChart3
 } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
 import {
-  TechRoute,
-  LearningResource,
-  StepStatus,
-  DifficultyLevel,
-  TechDirection
+  TechRoute
 } from '../types/learning';
 import TechRoadmapOverview from './TechRoadmapOverview';
 import LearningResources from './LearningResources';
@@ -107,18 +84,17 @@ interface BookmarkedItem {
 
 const PersonalLearningCenter: React.FC<PersonalLearningCenterProps> = ({
   userId = 'demo-user',
-  onNavigate
+  onNavigate: _onNavigate
 }) => {
-  const { t } = useTranslation();
   const [activeSection, setActiveSection] = useState<'dashboard' | 'progress' | 'routes' | 'resources' | 'bookmarks' | 'settings'>('dashboard');
   const [selectedRoute, setSelectedRoute] = useState<TechRoute | null>(null);
-  const [showProfileEdit, setShowProfileEdit] = useState(false);
+  const [_showProfileEdit, setShowProfileEdit] = useState(false);
   const [currentSession, setCurrentSession] = useState<LearningSession | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterType, setFilterType] = useState<'all' | 'route' | 'resource' | 'step'>('all');
 
   // 用户资料
-  const [userProfile, setUserProfile] = useState<UserProfile>({
+  const [userProfile, _setUserProfile] = useState<UserProfile>({
     id: userId,
     name: '学习者',
     email: 'learner@example.com',
@@ -773,7 +749,7 @@ const PersonalLearningCenter: React.FC<PersonalLearningCenterProps> = ({
             {activeSection === 'progress' && (
               <LearningProgress 
                 userId={userId}
-                onRouteSelect={(routeId) => {
+                onRouteSelect={(_routeId) => {
                   setActiveSection('routes');
                   // 这里可以设置选中的路线
                 }}

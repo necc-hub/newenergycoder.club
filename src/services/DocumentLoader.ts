@@ -239,7 +239,7 @@ export class DocumentLoader {
   /**
    * 搜索文档
    */
-  async searchDocuments(query: string, category?: string): Promise<any[]> {
+  async searchDocuments(_query: string, _category?: string): Promise<any[]> {
     // 这里可以实现更复杂的搜索逻辑
     // 目前返回空数组，后续可以扩展
     return [];

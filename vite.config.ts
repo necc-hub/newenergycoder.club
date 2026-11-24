@@ -25,8 +25,8 @@ export default defineConfig({
         target: 'https://restapi.amap.com',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/_AMapService/, ''),
-        configure: (proxy, _options) => {
-          proxy.on('proxyReq', (proxyReq, _req, _res) => {
+        configure: (proxy, __options) => {
+          proxy.on('proxyReq', (proxyReq, __req, __res) => {
             // 添加安全密钥到请求参数
             const url = new URL(proxyReq.path || '', 'https://restapi.amap.com')
             url.searchParams.append('jscode', '56b9003040769f3afb14593ca6c4a8ae')

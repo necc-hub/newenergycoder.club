@@ -12,9 +12,6 @@ import {
   Play,
   CheckCircle,
   Star,
-  Target,
-  Zap,
-  Code,
   Download
 } from 'lucide-react';
 import SEO from '@/components/SEO';
@@ -112,8 +109,7 @@ const projectCases: ProjectCase[] = [
 ];
 
 const GuiDetailPage: React.FC = () => {
-  const [selectedStage, setSelectedStage] = useState<string>('foundation');
-  const [enrollmentProgress, setEnrollmentProgress] = useState(0);
+    const [enrollmentProgress, _setEnrollmentProgress] = useState(0);
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {

@@ -1,5 +1,4 @@
 import { ImageProxy } from './image-proxy'
-import { ImageIcon } from 'lucide-react'
 
 interface ProjectImageProps {
   src: string

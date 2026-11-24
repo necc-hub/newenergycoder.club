@@ -1,4 +1,4 @@
-import React, { useState, useCallback, Suspense } from 'react';
+import React, { useState, Suspense } from 'react';
 import { cn } from '@/lib/utils';
 import { MarkdownPageProps, DEFAULT_MARKDOWN_CONFIG } from '@/types/markdown';
 const MarkdownRenderer = React.lazy(() => import('./MarkdownRenderer').then(module => ({ default: module.MarkdownRenderer })));
@@ -8,20 +8,12 @@ const MarkdownRenderer = React.lazy(() => import('./MarkdownRenderer').then(modu
 // 主要的MarkdownPage组件
 export function MarkdownPage({
   content: initialContent = '',
-  showMetadata = false,
+  showMetadata: _showMetadata = false,
   className,
-  onContentChange
+  onContentChange: _onContentChange
 }: MarkdownPageProps) {
-  const [content, setContent] = useState(initialContent);
+  const [content] = useState(initialContent);
   const [config] = useState(DEFAULT_MARKDOWN_CONFIG);
-
-  // 处理内容变化
-  const handleContentChange = useCallback((newContent: string) => {
-    setContent(newContent);
-    onContentChange?.(newContent);
-  }, [onContentChange]);
-
-
 
   return (
     <div className={cn("flex flex-col h-full", className)}>

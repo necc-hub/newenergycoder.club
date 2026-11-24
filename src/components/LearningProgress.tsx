@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   TrendingUp,
@@ -9,32 +9,18 @@ import {
   BookOpen,
   CheckCircle,
   Play,
-  Pause,
-  RotateCcw,
   Star,
   Trophy,
   Flame,
   Zap,
-  Users,
   BarChart3,
-  PieChart,
   Activity,
-  ChevronRight,
-  ChevronDown,
-  Filter,
   Download,
   Share2,
-  Settings,
-  Bell,
-  Gift
+  Settings
 } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
 import {
-  TechRoute,
-  LearningStep,
-  StepStatus,
-  DifficultyLevel,
-  TechDirection
+  StepStatus
 } from '../types/learning';
 
 interface LearningProgressProps {
@@ -81,11 +67,10 @@ interface LearningStats {
 }
 
 const LearningProgress: React.FC<LearningProgressProps> = ({
-  userId = 'demo-user',
+  userId: _userId = 'demo-user',
   onRouteSelect,
-  onStepSelect
+  onStepSelect: _onStepSelect
 }) => {
-  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<'overview' | 'routes' | 'achievements' | 'stats'>('overview');
   const [timeRange, setTimeRange] = useState<'week' | 'month' | 'year'>('week');
   const [showGoalModal, setShowGoalModal] = useState(false);
