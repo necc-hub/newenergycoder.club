@@ -1,9 +1,9 @@
 # New Energy Coder Club 官网
 
-[![React](https://img.shields.io/badge/React-18.3.1-61dafb.svg)](https://react.dev/)
+[![React](https://img.shields.io/badge/React-19.3.1-61dafb.svg)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7.2-3178c6.svg)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-6.3.5-646cff.svg)](https://vitejs.dev/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.x-38bdf8.svg)](https://tailwindcss.com/)
+[![Vite](https://img.shields.io/badge/Vite-8.3.8-646cff.svg)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.x-38bdf8.svg)](https://tailwindcss.com/)
 [![Deploy](https://img.shields.io/badge/Deploy-Vercel-000000.svg)](https://vercel.com/)
 
 新能源编程俱乐部官网项目，面向新能源、嵌入式、机器人和开源协作场景，提供俱乐部展示、活动发布、项目介绍、学习资源、技术文档和成员加入入口。
@@ -29,10 +29,10 @@
 
 ## 技术栈
 
-- 前端框架: React 18
+- 前端框架: React 19
 - 开发语言: TypeScript
-- 构建工具: Vite 6
-- 样式方案: Tailwind CSS 3 + Radix UI + shadcn/ui
+- 构建工具: Vite 8
+- 样式方案: Tailwind CSS 4 + Radix UI + shadcn/ui
 - 动效: GSAP + Framer Motion
 - 路由: React Router
 - 状态管理: Zustand

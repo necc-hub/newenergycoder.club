@@ -1,9 +1,9 @@
 # New Energy Coder Club Website
 
-[![React](https://img.shields.io/badge/React-18.3.1-61dafb.svg)](https://react.dev/)
+[![React](https://img.shields.io/badge/React-19.3.1-61dafb.svg)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7.2-3178c6.svg)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-6.3.5-646cff.svg)](https://vitejs.dev/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.x-38bdf8.svg)](https://tailwindcss.com/)
+[![Vite](https://img.shields.io/badge/Vite-8.3.8-646cff.svg)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.x-38bdf8.svg)](https://tailwindcss.com/)
 [![Deploy](https://img.shields.io/badge/Deploy-Vercel-000000.svg)](https://vercel.com/)
 
 This repository contains the official website of New Energy Coder Club. It is built for new energy, embedded systems, robotics, and open-source collaboration scenarios, and provides club presentation, event publishing, project showcases, learning resources, technical documentation, and a membership application entry point.
@@ -29,10 +29,10 @@ Core capabilities of the site include:
 
 ## Tech Stack
 
-- Frontend framework: React 18
+- Frontend framework: React 19
 - Language: TypeScript
-- Build tool: Vite 6
-- Styling: Tailwind CSS 3 + Radix UI + shadcn/ui
+- Build tool: Vite 8
+- Styling: Tailwind CSS 4 + Radix UI + shadcn/ui
 - Motion: GSAP + Framer Motion
 - Routing: React Router
 - State management: Zustand
