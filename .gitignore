@@ -2,6 +2,7 @@
 /node_modules
 .DS_Store
 *.local
+.env
 .env.local
 .env.*.local
 
@@ -21,3 +22,8 @@ src/data/team-gitee-stats.json.backup
 src/data/team-gitee-stats.json.orig
 src/data/team-gitee-stats.json.fallback
 .claude/
+
+# Generated / pipeline output (sources of truth live on R2 CDN or can be regenerated)
+/dist-gallery-thumbnails
+/output_wechat_article
+/vercel-render-report.json

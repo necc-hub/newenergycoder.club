@@ -15,3 +15,8 @@ dist
 *.log
 .cache
 .tmp
+
+# Generated / pipeline output (uploaded to R2 CDN, not needed for Vercel build)
+dist-gallery-thumbnails
+output_wechat_article
+.env
