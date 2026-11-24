@@ -311,11 +311,47 @@ export interface Translations {
     filterWeb: string;
     filterMobile: string;
     filterOther: string;
+    filterDocs: string;
     viewProject: string;
     viewCode: string;
     technologies: string;
     author: string;
     date: string;
+    // 页面结构与详情（2026-11 改版）
+    heroBadge: string;
+    heroHint: string;
+    searchPlaceholder: string;
+    noResults: string;
+    resetFilters: string;
+    statusActive: string;
+    statusDevelopment: string;
+    statusSeasonal: string;
+    statusArchived: string;
+    liveDemo: string;
+    viewDetails: string;
+    detailsTitle: string;
+    overviewTitle: string;
+    sharedTitle: string;
+    sharedHint: string;
+    audienceTitle: string;
+    contributeTitle: string;
+    statusLabel: string;
+    startedLabel: string;
+    linksTitle: string;
+    copyLink: string;
+    copied: string;
+    sourceNote: string;
+    ctaTitle: string;
+    ctaDescription: string;
+    ctaButton: string;
+    ctaContribute: string;
+    statProjects: string;
+    statDomains: string;
+    statLive: string;
+    featuredTitle: string;
+    featuredDescription: string;
+    browseRepos: string;
+    viewAllProjects: string;
   };
   
   // Events Page

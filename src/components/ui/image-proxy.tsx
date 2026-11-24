@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { ImageOff, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface ImageProxyProps extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -139,7 +140,7 @@ export const ImageProxy: React.FC<ImageProxyProps> = ({
         )}
         {...props}
       >
-        图片加载失败
+        <ImageOff className="h-6 w-6" aria-hidden="true" />
       </div>
     );
   }
@@ -153,7 +154,7 @@ export const ImageProxy: React.FC<ImageProxyProps> = ({
             className
           )}
         >
-          <div className="text-gray-400 text-sm">加载中...</div>
+          <Loader2 className="h-5 w-5 animate-spin text-gray-400" aria-hidden="true" />
         </div>
       )}
       {/*

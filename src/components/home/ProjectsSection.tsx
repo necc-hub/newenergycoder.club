@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { useLanguage, useTranslation } from '@/contexts/LanguageContext'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
@@ -6,14 +7,30 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ExternalLink, Star, Users } from 'lucide-react'
 import { GiteeIcon } from '@/components/ui/gitee-icon'
-import { Link } from 'react-router-dom'
 import { type AspectRatio } from '@/components/ui/floating-controls'
+import { Link } from 'react-router-dom'
+import { projects as hubProjects, type ProjectCategory, type ProjectStatus } from '@/data/projects'
+import { projectDetails } from '@/lib/i18n/locales/projectDetails'
+
+/** 首页展示的重点项目（与项目库同源） */
+const featuredIds = ['12', '9', '10', '2', '7', '1']
+
+const categoryLabels: Partial<Record<ProjectCategory, string>> = {
+  robotics: '🏆 机器人与竞赛',
+  web: '💻 Web 与平台',
+  embedded: '⚡ 嵌入式',
+  iot: '🏭 物联网与工业',
+  system: '🔬 系统与科研',
+  research: '🔬 科研横向',
+  ai: '🤖 AI 与技能库',
+  docs: '📚 文档',
+}
 
 interface Project {
   title: string
   description: string
   category: string
-  status: 'active' | 'development' | 'completed'
+  status: ProjectStatus
   tags: string[]
   githubUrl?: string
   giteeUrl?: string
@@ -22,21 +39,25 @@ interface Project {
 }
 
 function ProjectCard({ project }: { project: Project }) {
+  const t = useTranslation()
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'active': return 'bg-green-100 text-green-800 border-green-200'
       case 'development': return 'bg-yellow-100 text-yellow-800 border-yellow-200'
-      case 'completed': return 'bg-blue-100 text-blue-800 border-blue-200'
+      case 'seasonal': return 'bg-sky-100 text-sky-800 border-sky-200'
+      case 'archived': return 'bg-gray-100 text-gray-800 border-gray-200'
       default: return 'bg-gray-100 text-gray-800 border-gray-200'
     }
   }
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case 'active': return '🟢 活跃'
-      case 'development': return '🟡 开发中'
-      case 'completed': return '🔵 已完成'
-      default: return '⚪ 未知'
+      case 'active': return `🟢 ${t.projects.statusActive}`
+      case 'development': return `🟡 ${t.projects.statusDevelopment}`
+      case 'seasonal': return `🔵 ${t.projects.statusSeasonal}`
+      case 'archived': return `⚪ ${t.projects.statusArchived}`
+      default: return '⚪ —'
     }
   }
 
@@ -100,7 +121,7 @@ function ProjectCard({ project }: { project: Project }) {
           {project.githubUrl && (
             <Button variant="outline" size="sm" asChild>
               <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                <GiteeIcon className="h-4 w-4 mr-1" />
+                <ExternalLink className="h-4 w-4 mr-1" />
                 GitHub
               </a>
             </Button>
@@ -109,7 +130,7 @@ function ProjectCard({ project }: { project: Project }) {
             <Button variant="outline" size="sm" asChild>
               <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="h-4 w-4 mr-1" />
-                演示
+                {t.projects.liveDemo}
               </a>
             </Button>
           )}
@@ -124,6 +145,8 @@ interface ProjectsSectionProps {
 }
 
 export function ProjectsSection({ selectedRatio: _selectedRatio = 'aspect-[3/4]' }: ProjectsSectionProps) {
+  const t = useTranslation()
+  const { language } = useLanguage()
   const sectionRef = useRef<HTMLElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
   const gridRef = useRef<HTMLDivElement>(null)
@@ -189,63 +212,23 @@ export function ProjectsSection({ selectedRatio: _selectedRatio = 'aspect-[3/4]'
     return () => ctx.revert()
   }, { scope: sectionRef })
 
-  // 基于Gitee仓库信息的热门项目数据
-  const hotProjects: Project[] = [
-    {
-      title: '2025 ROBOCON',
-      description: '全国大学生机器人竞赛ROBOCON 2025赛季项目，包含机器人设计、控制系统和竞赛策略。',
-      category: '🏆 竞赛项目',
-      status: 'active',
-      tags: ['机器人', 'ROS', '嵌入式', '控制系统', 'C++'],
-      giteeUrl: 'https://gitee.com/darrenpig/new_energy_coder_club/tree/master/competitions/2025/robocon',
-      participants: 12
-    },
-    {
-      title: '人形机器人开发',
-      description: 'Duma小型人形机器人项目，开源人形机器人硬件设计和软件控制系统。',
-      category: '🤖 机器人项目',
-      status: 'active',
-      tags: ['人形机器人', 'Arduino', '3D打印', '舵机控制', '步态规划'],
-      giteeUrl: 'https://gitee.com/darrenpig/new_energy_coder_club/tree/master/projects/robotics/humanoid-robot',
-      participants: 8
-    },
-    {
-      title: '5轴流体工作站',
-      description: '基于人工智能的能源监测和管理系统，实现智能化能源优化。',
-      category: '🧠 AI项目',
-      status: 'development',
-      tags: ['AI', 'Python', '数据分析', '物联网', 'TensorFlow'],
-      giteeUrl: 'https://gitee.com/darrenpig/new_energy_coder_club/tree/master/projects/ai/energy-monitoring',
-      participants: 6
-    },
-    {
-      title: '星闪技术开发',
-      description: '新一代无线通信技术NearLink的研发和应用，支持低功耗高速通信。',
-      category: '⚡ 嵌入式项目',
-      status: 'active',
-      tags: ['NearLink', '无线通信', '嵌入式', 'C', '物联网'],
-      giteeUrl: 'https://gitee.com/darrenpig/new_energy_coder_club/tree/master/projects/embedded/nearlink',
-      participants: 5
-    },
-    {
-      title: 'MICA验证项目',
-      description: 'MICA关键性验证项目，包含完整的文档系统和自动化部署配置。',
-      category: '🔬 科研项目',
-      status: 'active',
-      tags: ['验证测试', 'GitHub Actions', '自动化', '文档系统'],
-      giteeUrl: 'https://gitee.com/darrenpig/new_energy_coder_club/tree/master/projects/科研「横向项目」/mica-validation',
-      participants: 4
-    },
-    {
-      title: '灵巧手项目',
-      description: '人形机器人UMI低成本灵巧手项目，实现精细操作控制。',
-      category: '🦾 机器人项目',
-      status: 'development',
-      tags: ['灵巧手', '精密控制', '传感器', '机械设计'],
-      giteeUrl: 'https://gitee.com/darrenpig/new_energy_coder_club/tree/master/projects/科研「横向项目」/dexterous-hand',
-      participants: 7
-    }
-  ]
+  // 与 /projects 页面共用同一份经核实的数据（真实仓库地址与状态）
+  const hotProjects: Project[] = hubProjects
+    .filter(p => featuredIds.includes(p.id))
+    .map(p => {
+      const copy = projectDetails[language][p.id]
+      return {
+        title: p.title,
+        description: copy?.tagline ?? '',
+        category: categoryLabels[p.category],
+        status: p.status,
+        tags: p.technologies.slice(0, 5),
+        githubUrl: p.githubUrl,
+        giteeUrl: p.giteeUrl,
+        demoUrl: p.projectUrl?.startsWith('http') ? p.projectUrl : undefined,
+        participants: undefined,
+      }
+    })
 
   return (
     <section ref={sectionRef} className="py-16 bg-gradient-to-b from-background to-muted/20">
@@ -253,10 +236,10 @@ export function ProjectsSection({ selectedRatio: _selectedRatio = 'aspect-[3/4]'
         {/* 标题部分 */}
         <div ref={headerRef} className="text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tight mb-4">
-            🔥 热门项目
+            {t.projects.featuredTitle}
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-6">
-            探索我们正在进行的创新项目，涵盖AI、机器人、嵌入式系统等多个技术领域
+            {t.projects.featuredDescription}
           </p>
           <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
         </div>
@@ -272,19 +255,19 @@ export function ProjectsSection({ selectedRatio: _selectedRatio = 'aspect-[3/4]'
         <div ref={buttonsRef} className="text-center">
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button asChild size="lg" className="min-w-[200px]">
-              <a 
-                href="https://gitee.com/darrenpig/new_energy_coder_club" 
-                target="_blank" 
+              <a
+                href="https://github.com/necc-hub"
+                target="_blank"
                 rel="noopener noreferrer"
               >
-                <GiteeIcon className="h-5 w-5 mr-2" />
-                访问完整仓库
+                <ExternalLink className="h-5 w-5 mr-2" />
+                {t.projects.browseRepos}
               </a>
             </Button>
             <Button variant="outline" size="lg" asChild className="min-w-[200px]">
               <Link to="/projects">
                 <Star className="h-5 w-5 mr-2" />
-                查看所有项目
+                {t.projects.viewAllProjects}
               </Link>
             </Button>
           </div>
