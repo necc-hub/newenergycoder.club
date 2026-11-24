@@ -2,15 +2,14 @@
 
 > 生成于 2026-11-24，更新于 2026-11-25，分支 `claude/nifty-jackson-3d62c7`。
 >
-> **进度（2026-11-25）：第一批 + 第二批已全部完成并逐个验证通过**
-> （tsc 0 错误 / build 通过 / 9 个 node 测试 / 多路由浏览器冒烟无 console 错误）。
+> **进度（2026-11-25）：全部主要大版本升级已完成** —— 第一、二批（中低风险）
+> 以及第三批高风险专项（lucide 1.x / React 19 / Vite 8 / Tailwind 4）均已升级并验证：
+> 每个均 tsc 0 错误 + build 通过 + 9 个 node 测试 + 浏览器视觉/运行时核对无 console 错误。
 >
-> 已完成：`sharp 0.35`、`react-syntax-highlighter 16`、`@vercel/analytics 2`、
-> `@vercel/speed-insights 2`、`react-router-dom 7`、`framer-motion 14`、
-> `@sentry/react 11`、`react-i18next 18 + i18next 27`、`sonner 2`、`@vercel/node 32`。
+> 仅剩观望项：TypeScript 7（Go 重写，等生态成熟）、ESLint 10（等插件兼容），
+> 以及可顺手的 cssnano 9 / globals 17 / eslint-plugin-react-hooks 7。
 >
-> **原则：一次只升一个大版本，单独分支 + 单独 PR，验证 build/test/运行时后再合。**
-> 不要一次性全升，否则出问题时无法定位是哪个引起的。
+> **原则：一次只升一个大版本，单独提交，验证 build/test/运行时后再合。**
 
 ## 升级优先级矩阵
 
@@ -25,18 +24,18 @@
 | `react-i18next` + `i18next` | 18 / 27 | ✅ 已完成 | i18next ≥27 满足 peer |
 | `sonner` | 2.0 | ✅ 已完成 | 经 shadcn toast 使用 |
 | `@vercel/node` | 32 | ✅ 已完成 | 仅类型，api/join.ts 已验证 |
-| `react-helmet-async` | 2 → 3 | 🟡 待做 | 配合 React 19 |
-| `lucide-react` | 0.503 → 1.79 | 🔴 待做 | 需 codemod（61 文件，图标改名） |
-| `react` / `react-dom` | 18 → 19 | 🔴 待做 | 核心升级，牵动全栈 |
-| `vite` | 6 → 8 | 🔴 待做 | Rolldown，等 React 19 之后 |
-| `tailwindcss` | 3 → 4 | 🔴 待做 | CSS-first 配置重写 |
+| `lucide-react` | 1.79 | ✅ 已完成 | 仅 Github/Linkedin 被移除，已内联 brand-icons.tsx |
+| `react` / `react-dom` | 19.3 | ✅ 已完成 | JSX 命名空间 + useRef 初值 + isValidElement 类型修复 |
+| `react-helmet-async` | 3.2 | ✅ 已完成 | 先于 React 19 升（v2 peer 只到 18） |
+| `@types/react` / `react-dom` | 19.3 | ✅ 已完成 | 随 React 19 |
+| `vite` | 8.3 | ✅ 已完成 | Rolldown，构建 6s→2.8s，manualChunks 兼容 |
+| `@vitejs/plugin-react` | 6.3 | ✅ 已完成 | 随 Vite 8 |
+| `tailwindcss` | 4.3 | ✅ 已完成 | @config 桥接保留 shadcn JS config；tw-animate-css 替代 tailwindcss-animate |
 | `typescript` | 5.7 → 7.0 | 🟡 观望 | TS7 Go 重写，等生态成熟 |
 | `eslint` + `@eslint/js` | 9 → 10 | 🟡 观望 | 等插件生态跟上 |
-| `@types/react` / `react-dom` | 18 → 19 | 🔴 随 React 19 | 类型随核心一起升 |
-| `@vitejs/plugin-react` | 4 → 6 | 🔴 随 Vite 8 | 与 Vite 主版本对齐 |
-| `cssnano` | 7 → 9 | 🟡 待做 | PostCSS 压缩器 |
-| `globals` | 16 → 17 | 🟡 待做 | eslint 全局变量表 |
-| `eslint-plugin-react-hooks` | 5 → 7 | 🟡 待做 | 配合 React 19 / 编译器 |
+| `cssnano` | 7 → 9 | 🟡 可做 | PostCSS 压缩器，非阻塞 |
+| `globals` | 16 → 17 | 🟡 可做 | eslint 全局变量表 |
+| `eslint-plugin-react-hooks` | 5 → 7 | 🟡 可做 | React 19 已就绪后可升 |
 
 ## 分项说明
 

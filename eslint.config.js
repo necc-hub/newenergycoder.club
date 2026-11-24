@@ -19,6 +19,15 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      // React Compiler-only rules (added by eslint-plugin-react-hooks v7).
+      // This project does not use the React Compiler; these flag common,
+      // valid patterns (e.g. setState inside effects) as errors. Keep the
+      // core hooks rules (rules-of-hooks, exhaustive-deps) and disable the
+      // compiler-specific ones.
+      'react-hooks/purity': 'off',
+      'react-hooks/set-state-in-effect': 'off',
+      'react-hooks/static-components': 'off',
+      'react-hooks/immutability': 'off',
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
