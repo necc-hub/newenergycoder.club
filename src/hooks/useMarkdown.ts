@@ -26,7 +26,7 @@ function useAutoSave(
   enabled: boolean = true,
   delay: number = 1000
 ) {
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   useEffect(() => {
     if (!enabled) return;

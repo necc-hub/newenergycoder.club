@@ -299,7 +299,7 @@ export const LinkDetectorComponent: React.FC<LinkDetectorComponentProps> = ({
     
     // 简单的内容渲染，将链接替换为LinkComponent
     let processedContent = content;
-    const linkComponents: JSX.Element[] = [];
+    const linkComponents: React.JSX.Element[] = [];
     
     processedLinks.forEach((link, index) => {
       const linkId = `link-${index}`;
@@ -326,7 +326,7 @@ export const LinkDetectorComponent: React.FC<LinkDetectorComponentProps> = ({
     
     // 将占位符替换为实际的链接组件
     const parts = processedContent.split(/__LINK_\d+__/);
-    const result: (string | JSX.Element)[] = [];
+    const result: (string | React.JSX.Element)[] = [];
     
     parts.forEach((part, index) => {
       result.push(part);

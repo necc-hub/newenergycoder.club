@@ -46,7 +46,7 @@ export const useAccessibility = (): AccessibilityState & AccessibilityActions =>
     showSkipLink: false
   })
 
-  const announcementTimeoutRef = useRef<NodeJS.Timeout>()
+  const announcementTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
   const filterRefs = useRef<(HTMLButtonElement | null)[]>([])
 
   // 处理键盘导航

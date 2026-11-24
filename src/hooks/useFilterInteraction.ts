@@ -34,8 +34,8 @@ export const useFilterInteraction = (): FilterInteractionState & FilterInteracti
     listFadeIn: true
   })
 
-  const filterTimeoutRef = useRef<NodeJS.Timeout>()
-  const listTimeoutRef = useRef<NodeJS.Timeout>()
+  const filterTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
+  const listTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
 
   // 触发过滤器切换动画
   const triggerFilterSwitch = useCallback(() => {

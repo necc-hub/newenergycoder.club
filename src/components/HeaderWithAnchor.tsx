@@ -70,7 +70,7 @@ const extractTextContent = (children: React.ReactNode): string => {
     return children.toString();
   }
   
-  if (React.isValidElement(children)) {
+  if (React.isValidElement<{ children?: React.ReactNode }>(children)) {
     return extractTextContent(children.props.children);
   }
   
@@ -277,7 +277,7 @@ export const HeaderWithAnchor: React.FC<HeaderWithAnchorProps> = ({
   }, [accentClasses, level, className, difficultyConfig]);
   
   // 创建标题元素
-  const HeaderTag = `h${level}` as keyof JSX.IntrinsicElements;
+  const HeaderTag = `h${level}` as keyof React.JSX.IntrinsicElements;
   
   return React.createElement(
     HeaderTag,
