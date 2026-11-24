@@ -28,7 +28,6 @@ import { flushSync } from 'react-dom'
 import type { TeamMember as TeamMemberType } from '@/lib/i18n/types/translations'
 import type { Sponsor, SponsorLevel } from '@/lib/i18n/constants/team'
 import { maintainers, developers, designers, contributors, sponsorMetas } from '@/lib/i18n/constants/team'
-import { MemberTechDetail } from '@/components/team/MemberTechDetail'
 import { MemberCard } from '@/components/team/MemberCard'
 
 // 样式常量定义
@@ -500,7 +499,6 @@ export function TeamPage() {
   const t = useTranslation()
   const [selectedRatio] = useState<AspectRatio>('aspect-[3/4]')
   const [filter, setFilter] = useState<FilterCategory>('all')
-  const [selectedMember, setSelectedMember] = useState<TeamMemberType | null>(null)
   const heroRef = useRef<HTMLDivElement>(null)
   const pageRef = useRef<HTMLDivElement>(null)
 
@@ -869,18 +867,10 @@ export function TeamPage() {
         </div>
 
         {/* Team Sections —— 入场动画由 TeamSection 内部 useGSAP 自管理（仅首次播放），筛选切换时由 Flip 接管 */}
-        <TeamSection title={t.team.maintainerTitle} members={filteredMembers.maintainers} selectedRatio={selectedRatio} variant="featured" onMemberClick={setSelectedMember} />
-        <TeamSection title={t.team.developerTitle} members={filteredMembers.developers} selectedRatio={selectedRatio} variant="compact" onMemberClick={setSelectedMember} />
-        <TeamSection title={t.team.designerTitle} members={filteredMembers.designers} selectedRatio={selectedRatio} variant="compact" onMemberClick={setSelectedMember} />
-        <TeamSection title={t.team.contributorTitle} members={filteredMembers.contributors} selectedRatio={selectedRatio} variant="compact" onMemberClick={setSelectedMember} />
-
-        <MemberTechDetail
-          member={selectedMember}
-          open={!!selectedMember}
-          onOpenChange={open => {
-            if (!open) setSelectedMember(null)
-          }}
-        />
+        <TeamSection title={t.team.maintainerTitle} members={filteredMembers.maintainers} selectedRatio={selectedRatio} variant="featured" />
+        <TeamSection title={t.team.developerTitle} members={filteredMembers.developers} selectedRatio={selectedRatio} variant="compact" />
+        <TeamSection title={t.team.designerTitle} members={filteredMembers.designers} selectedRatio={selectedRatio} variant="compact" />
+        <TeamSection title={t.team.contributorTitle} members={filteredMembers.contributors} selectedRatio={selectedRatio} variant="compact" />
 
         {/* Team Analytics Section */}
         <div className="mt-16 mb-12">

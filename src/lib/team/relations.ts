@@ -116,3 +116,13 @@ export function getTeamInsights(members: MemberRecord[], directionNames: Record<
     },
   }
 }
+
+export interface MemberPageContext {
+  member: MemberRecord
+  collaborators: Collaborator[]
+}
+
+export function getMemberPageContext(id: string, members: MemberRecord[]): MemberPageContext | null {
+  const member = members.find(item => item.id === id)
+  return member ? { member, collaborators: getCollaborators(member, members) } : null
+}

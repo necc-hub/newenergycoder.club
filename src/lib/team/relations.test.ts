@@ -4,6 +4,7 @@ import {
   getDirectionCoverage,
   getDirectionNodes,
   getGraphMembers,
+  getMemberPageContext,
   getProjectCoverage,
   getProjectNodes,
   getTeamInsights,
@@ -103,6 +104,13 @@ describe('member relationships', () => {
     expect(collaborators.map(c => c.member.id)).toEqual(['a', 'b', 'c'])
     expect(collaborators[0].sharedProjects.length).toBe(1)
     expect(collaborators[0].sharedDirectionIds).toContain('ai')
+  })
+
+  it('returns a member with collaborators or null for page context', () => {
+    expect(getMemberPageContext('missing', people)).toBeNull()
+    const context = getMemberPageContext('alice', people)
+    expect(context?.member.id).toBe('alice')
+    expect(context?.collaborators[0].member.id).toBe('bob')
   })
 })
 
