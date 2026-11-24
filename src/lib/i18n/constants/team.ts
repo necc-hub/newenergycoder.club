@@ -28,7 +28,7 @@ export interface Sponsor extends TeamMember {
 export const maintainers: TeamMember[] = [
   {
     name: 'DarrenPig',
-    role: 'Club Founder & BSP 嵌软工程师',
+    role: '现任维护者 · Club Founder & BSP 嵌软工程师',
     bio: 'Renewable energy researcher with a focus on AI applications for energy optimization.',
     image: 'https://cdn.newenergycoder.club/images/src/image/maintainer/DarrenPig.jpg',
     tags: ['AI', 'BSP', '嵌入式', 'ROBOCON', '能源监测', 'openEuler'],
@@ -48,11 +48,83 @@ export const maintainers: TeamMember[] = [
     email: '22230635@czu.cn'
   },
   {
+    name: '卢王淳',
+    role: '现任维护者 · 项目管理',
+    bio: '25RC 项管，参与机械与电控协作。',
+    image: 'https://cdn.newenergycoder.club/images/src/image/contributer/卢王淳.jpg',
+    tags: ['项目管理', '机械设计', '电控学习', 'ROBOCON', '团队协调', '25RC'],
+    github: 'https://github.com/luwangchun'
+  },
+  {
+    name: '崇瑶',
+    role: '现任维护者 · 仓库运营',
+    bio: '具备 NEC 仓库运营相关参与经验，作为贡献者致力于优化仓库运营流程，当前专注于仓库相关事务的落地与优化工作。',
+    image: 'https://cdn.newenergycoder.club/images/src/image/contributors/崇瑶.jpg',
+    tags: ['仓库运营', '流程优化', '运营落地', 'Contributor']
+  },
+  {
+    name: '黄奕',
+    role: '现任维护者 · 运营 SIG（赞助与商务合规）',
+    bio: '负责赞助与商务合规对接，参与数据分析、数学建模等工作。',
+    image: 'https://cdn.newenergycoder.club/images/src/image/contributors/黄奕.jpeg',
+    tags: ['数据分析', '数学建模', '运营 SIG', '赞助对接', '商务合规']
+  },
+];
+
+export const sigMaintainers: TeamMember[] = [
+  {
+    name: '毕卫亭',
+    role: 'SIG 维护者 · 机械 SIG',
+    bio: 'NEC 机械组成员，参与机械图纸评审与场地搭建。',
+    image: 'https://api.dicebear.com/7.x/initials/svg?seed=%E6%AF%95%E5%8D%AB%E4%BA%AD',
+    tags: ['机械 SIG', '机械设计', '图纸评审', '场地搭建']
+  },
+  {
+    name: '洪嘉悦',
+    role: 'SIG 维护者 · 机械 SIG',
+    bio: '机械设计制造，CURC2027 机构 SIG 机械组成员，牵头新人任务分配与任务认领。',
+    image: 'https://cdn.newenergycoder.club/images/src/image/contributors/洪嘉悦.jpg',
+    tags: ['机械设计', '机械制造', 'CURC2027', 'ROBOCON', '机械 SIG']
+  },
+  {
+    name: '魏卫',
+    role: 'SIG 维护者 · 电控 SIG',
+    bio: '野心大的半吊子全栈（不碰硬件版），负责电控方向。',
+    image: 'https://cdn.newenergycoder.club/images/src/image/developers/魏卫.jpg',
+    tags: ['全栈开发', '电控 SIG', '嵌入式', '项目管理']
+  },
+  {
+    name: '郭童童',
+    role: 'SIG 维护者 · 视觉 SIG',
+    bio: '专注于嵌入式、机器视觉与硬件研发，负责视觉方向。',
+    image: 'https://cdn.newenergycoder.club/images/src/image/contributer/郭童童.jpg',
+    tags: ['视觉 SIG', '嵌入式', '机器视觉', '硬件'],
+    gitee: 'https://gitee.com/guo--tongtong'
+  },
+  {
+    name: '卢永杰',
+    role: 'SIG 维护者 · 视觉 SIG',
+    bio: '目前专注算法部署优化及硬件底层逻辑协同设计，负责视觉方向。',
+    image: 'https://cdn.newenergycoder.club/images/src/image/developers/卢永杰.jpg',
+    tags: ['视觉 SIG', '嵌入式开发', '运控算法', '算法部署', '协同设计', '算法优化'],
+    github: 'https://github.com/luyongjie'
+  },
+  {
+    name: '徐海婷',
+    role: 'SIG 维护者 · 运营 SIG（2025-2026）',
+    bio: '2025-2026 赛季运营组 maintainer，前届由李一楠担任；同时负责财务流程与数据支撑。',
+    image: 'https://cdn.newenergycoder.club/images/src/image/contributors/徐海婷.jpg',
+    tags: ['运营 SIG', '财务管理', '预算控制', '风险防控', '数据分析', '流程优化', '成本管控']
+  },
+];
+
+export const earlyFounders: TeamMember[] = [
+  {
     name: '殷统创',
-    role: 'Club Founder & BSP Expert',
+    role: '早期发起者 · Club Founder & BSP Expert',
     bio: '专注于AI在能源优化应用的可再生能源研究员。',
     image: 'https://cdn.newenergycoder.club/images/src/image/maintainer/殷统创.jpg',
-    tags: ['AI', 'BSP', '能源优化', '可再生能源', '华为云AI'],
+    tags: ['早期发起', 'AI', 'BSP', '能源优化', '可再生能源', '华为云AI'],
     skills: [
   { name: 'AI', level: 90 },
   { name: 'BSP', level: 95 },
@@ -67,10 +139,10 @@ export const maintainers: TeamMember[] = [
   },
   {
     name: '许珑译',
-    role: '机器人算法工程师',
+    role: '早期发起者 · 机器人算法工程师',
     bio: '专注于机器人算法研发部署以及业务逻辑设计。',
     image: 'https://cdn.newenergycoder.club/images/src/image/maintainer/许珑译.jpg',
-    tags: ['机器人算法', 'ROBOCON', '人形机器人', '算法部署', 'ROS'],
+    tags: ['早期发起', '机器人算法', 'ROBOCON', '人形机器人', '算法部署', 'ROS'],
     skills: [
   { name: '机器人算法', level: 94 },
   { name: 'ROS', level: 88 },
@@ -85,10 +157,10 @@ export const maintainers: TeamMember[] = [
   },
   {
     name: '张旺旺',
-    role: '机器人运行时工程师',
+    role: '早期发起者 · 机器人运行时工程师',
     bio: '负责项目的核心技术攻坚，保障电控系统的稳定运行。',
     image: 'https://cdn.newenergycoder.club/images/src/image/maintainer/张旺旺.png',
-    tags: ['电控系统', '运行时', 'ROBOCON', '嵌入式', '系统稳定性'],
+    tags: ['早期发起', '电控系统', '运行时', 'ROBOCON', '嵌入式', '系统稳定性'],
     skills: [
   { name: '电控系统', level: 93 },
   { name: '运行时', level: 91 },
@@ -101,6 +173,13 @@ export const maintainers: TeamMember[] = [
     ],
     github: 'https://github.com/zhangwangwang'
   },
+  {
+    name: '闻志伟（和尚）',
+    role: '早期发起者 · 社区赞助者',
+    bio: '做的比较杂，除了机械，其他基本都做。',
+    image: 'https://cdn.newenergycoder.club/images/src/image/developers/闻志伟.jpg',
+    tags: ['早期发起', '技术赞助', '项目支持', '社区建设', '人才培养']
+  },
 ];
 
 export const developers: TeamMember[] = [
@@ -111,22 +190,6 @@ export const developers: TeamMember[] = [
     image: 'https://cdn.newenergycoder.club/images/src/image/developers/卞乐凌.jpg',
     tags: ['嵌入式学习', '开源贡献', '社区建设', 'STM32', '硬件开发'],
     github: 'https://github.com/bianleiling'
-  },
-  {
-    name: '卢永杰',
-    role: '嵌入式&运控算法专家',
-    bio: '目前专注算法部署优化及硬件底层逻辑协同设计',
-    image: 'https://cdn.newenergycoder.club/images/src/image/developers/卢永杰.jpg',
-    tags: ['嵌入式开发', '运控算法', '算法部署', '协同设计', '算法优化'],
-    github: 'https://github.com/luyongjie'
-  },
-  {
-    name: '卢王淳',
-    role: '25RC项管&机械&电控小白',
-    bio: '25RC项管 机械 电控小白',
-    image: 'https://cdn.newenergycoder.club/images/src/image/developers/卢王淳.jpeg',
-    tags: ['项目管理', '机械设计', '电控学习', 'ROBOCON', '团队协调', '25RC'],
-    github: 'https://github.com/luwangchun'
   },
   {
     name: '孙诗睿',
@@ -165,23 +228,7 @@ export const developers: TeamMember[] = [
   },
   { name: '汪奕希', role: '视觉开发工程师', bio: '目前在视觉岗位', image: 'https://cdn.newenergycoder.club/images/src/image/developers/汪奕希.jpeg' },
   { name: '王欣怡', role: '嵌入式开发工程师', bio: '学习过51，32单片机以及sw建模', image: 'https://cdn.newenergycoder.club/images/src/image/developers/王欣怡.jpg' },
-  {
-    name: '郭童童',
-    role: '场控FD',
-    bio: '专注于嵌入式、机器视觉与硬件研发。',
-    image: 'https://cdn.newenergycoder.club/images/src/image/contributer/郭童童.jpg',
-    tags: ['场控FD', '嵌入式', '机器视觉', '硬件'],
-    gitee: 'https://gitee.com/guo--tongtong'
-  },
-  {
-    name: '闻志伟',
-    role: 'Bronze Sponsor',
-    bio: '做的比较杂，除了机械，其他基本都做',
-    image: 'https://cdn.newenergycoder.club/images/src/image/developers/闻志伟.jpg',
-    tags: ['技术赞助', '项目支持', '可持续发展', '创新资助', '社区建设', '人才培养']
-  },
   { name: '陈春林', role: '视觉算法工程师', bio: '高二拿过奥林匹克化学广西赛区市级二等奖', image: 'https://cdn.newenergycoder.club/images/src/image/developers/陈春林.jpeg' },
-  { name: '魏卫', role: '全栈开发工程师', bio: '野心大的半吊子全栈(不碰硬件版)', image: 'https://cdn.newenergycoder.club/images/src/image/developers/魏卫.jpg' },
 ];
 
 export const designers: TeamMember[] = [
@@ -254,14 +301,7 @@ export const contributors: TeamMember[] = [
     tags: ['仓库维护', '嵌入式', 'ROBOCON', '基线工程'],
     gitee: 'https://gitee.com/xia-wangxi'
   },
-  {
-    name: '洪嘉悦',
-    role: 'Contributor',
-    bio: '机械设计制造，CURC2027 机构 SIG 机械组成员',
-    image: 'https://cdn.newenergycoder.club/images/src/image/contributors/洪嘉悦.jpg',
-    tags: ['机械设计', '机械制造', 'CURC2027', 'ROBOCON']
-  },
-  {
+    {
     name: '刘小榆',
     role: 'Contributor',
     bio: 'AI agent skill 开源，基于 stm32 开发等',
@@ -340,14 +380,7 @@ export const contributors: TeamMember[] = [
     github: 'https://github.com/sunrujie'
   },
   { name: '岳添俊', role: 'C/Contributor', bio: 'c语言', image: 'https://cdn.newenergycoder.club/images/src/image/contributors/岳添俊.jpg' },
-  {
-    name: '崇瑶',
-    role: '仓库运营贡献者',
-    bio: '具备NEC仓库运营相关参与经验，作为贡献者致力于优化仓库运营流程，当前专注于仓库相关事务的落地与优化工作。',
-    image: 'https://cdn.newenergycoder.club/images/src/image/contributors/崇瑶.jpg',
-    tags: ['仓库运营', '流程优化', '运营落地', 'Contributor']
-  },
-  {
+    {
     name: '崔正阳',
     role: 'Developer/Sponsor',
     bio: '24年华为云iot大赛加入实验室，24RC全国机器人大赛正式接触机器人，25RC全程参与备赛 主要技能掌握为上位机控制，算法，仿真模型，',
@@ -356,23 +389,8 @@ export const contributors: TeamMember[] = [
     github: 'https://github.com/cuizhengyang'
   },
   { name: '庄皓钧', role: '机械结构设计贡献者', bio: '负责机械结构设计与装配', image: 'https://cdn.newenergycoder.club/images/src/image/contributors/庄皓钧.jpg' },
-  {
-    name: '张旺旺',
-    role: '新能源运维工程师',
-    bio: '负责核心项目的真机部署和运维工作，保障系统的稳定运行。',
-    image: 'https://cdn.newenergycoder.club/images/src/image/contributer/张旺旺.jpg',
-    tags: ['运维部署', 'Linux', '服务器管理', '监控告警', '故障排查', '系统优化'],
-    github: 'https://github.com/zhangwangwang'
-  },
   { name: '徐康', role: '3D打印与建模贡献者', bio: '3D打印，建模', image: 'https://cdn.newenergycoder.club/images/src/image/contributors/徐康.jpg' },
-  {
-    name: '徐海婷',
-    role: '运营组 Maintainer（2025-2026）',
-    bio: '2025-2026 赛季运营组 maintainer，前届由李一楠担任；同时负责财务流程与数据支撑',
-    image: 'https://cdn.newenergycoder.club/images/src/image/contributors/徐海婷.jpg',
-    tags: ['财务管理', '预算控制', '风险防控', '数据分析', '流程优化', '成本管控']
-  },
-  { name: '朱靓颖', role: '数据分析贡献者', bio: '数据预测，数据分析，数学建模', image: 'https://cdn.newenergycoder.club/images/src/image/contributors/朱靓颖.jpeg' },
+    { name: '朱靓颖', role: '数据分析贡献者', bio: '数据预测，数据分析，数学建模', image: 'https://cdn.newenergycoder.club/images/src/image/contributors/朱靓颖.jpeg' },
   { name: '李嘉涵', role: '机械设计贡献者', bio: '获得过国家奖学金，会solidworks，CATIA等软件，目前在做大创', image: 'https://cdn.newenergycoder.club/images/src/image/contributors/李嘉涵.jpg' },
   {
     name: '杨力涛',
@@ -472,7 +490,6 @@ export const contributors: TeamMember[] = [
   },
   { name: '顾佳欣', role: 'Contributor', bio: '数据库与unity传导', image: 'https://cdn.newenergycoder.club/images/src/image/contributors/顾佳欣.jpg' },
   { name: '魏鹏程', role: '研究生贡献者', bio: '正在参与rc赛事', image: 'https://cdn.newenergycoder.club/images/src/image/contributors/魏鹏程.jpeg' },
-  { name: '黄奕', role: '数据分析贡献者', bio: '数据分析、数学建模等。', image: 'https://cdn.newenergycoder.club/images/src/image/contributors/黄奕.jpeg' },
   { name: '黄宇雯', role: '三维建模贡献者', bio: '运用三维建模软件进行机构设计、动画演示', image: 'https://cdn.newenergycoder.club/images/src/image/contributors/黄宇雯.jpg' },
 ];
 

@@ -1,4 +1,4 @@
-import { contributors } from '../constants/team';
+import { maintainers, sigMaintainers, earlyFounders, developers, designers, contributors } from '../constants/team';
 import { Translations } from '../types/translations';
 import { learningTranslations } from '../constants/learning';
 
@@ -261,9 +261,11 @@ export const zhTranslations: Translations = {
   },
   team: {
     title: '我们是谁？',
-    shortDescription: '遇见社区的建设者们——维护者、开发者、设计师与贡献者。',
+    shortDescription: '遇见社区的建设者们——现任维护者、SIG 维护者、早期发起者、开发者、设计师与贡献者。',
     description: '一群在代码与梦想交汇处相遇的人。这里有深夜调试的学生，有追求优雅的开发者，有痴迷于「如何让世界更高效、更清洁」的可持续技术信徒。 我们不同——专业、背景、甚至喜欢的编程语言都可能不一样。但我们相同——相信技术向善，相信年轻的力量，相信可持续不是选择而是必须。 在这里，好奇心是通行证，实践是通用语。我们不只是构建产品，更是在构建心中那个更绿色、更公平、更智能的未来。 我们，是一个行动动词。',
-    maintainerTitle: '维护者',
+    maintainerTitle: '现任维护者',
+    sigMaintainerTitle: 'SIG 维护者',
+    earlyFounderTitle: '早期发起者',
     developerTitle: '开发者',
     designerTitle: '设计师',
     contributorTitle: '贡献者',
@@ -281,162 +283,19 @@ export const zhTranslations: Translations = {
       contributionStats: '贡献统计',
       mainResponsibilities: '主要职责',
       maintainerResponsibilities: '项目管理、代码审核、技术决策',
+      sigMaintainerResponsibilities: '各技术方向维护、任务拆解与组内协作',
+      earlyFounderResponsibilities: '早期方向探索、工程基线与社区建设',
       developerResponsibilities: '功能开发、Bug修复、技术实现',
       designerResponsibilities: '界面设计、用户体验、视觉规范',
       contributorResponsibilities: '文档编写、测试反馈、社区支持'
     },
     teamPhotoDescription: '团队成员在项目开发过程中的珍贵合影，记录了我们共同努力和协作的美好时光。',
-    maintainers: [
-      {
-        name: 'DarrenPig',
-        role: '实验室创始人 & BSP 嵌软工程师',
-        bio: '专注于将人工智能应用于能源优化的可再生能源研究者。',
-        image: 'https://cdn.newenergycoder.club/images/src/image/maintainer/DarrenPig.jpg',
-        tags: ['AI', 'BSP', '嵌入式', 'ROBOCON', '能源监测', 'openEuler'],
-        gitee: 'https://gitee.com/darrenpig',
-        github: 'https://github.com/Darrenpig',
-        bonjour: 'https://bonjour.bio/darrenpig',
-        email: '22230635@czu.cn'
-      },
-      {
-        name: '殷统创',
-        role: '实验室创始人 & BSP Expert',
-        bio: '专注于AI在能源优化应用的可再生能源研究员。',
-        image: 'https://cdn.newenergycoder.club/images/src/image/maintainer/殷统创.jpg',
-        tags: ['AI', 'BSP', '能源优化', '可再生能源', '华为云AI'],
-        github: 'https://github.com/yintongchuang'
-      },
-      {
-        name: '许珑译',
-        role: '机器人算法工程师',
-        bio: '专注于机器人算法研发部署以及业务逻辑设计。',
-        image: 'https://cdn.newenergycoder.club/images/src/image/maintainer/许珑译.jpg',
-        tags: ['机器人算法', 'ROBOCON', '人形机器人', '算法部署', 'ROS'],
-        github: 'https://github.com/xulongyi'
-      },
-      {
-        name: '张旺旺',
-        role: '机器人运行时工程师',
-        bio: '负责项目的核心技术攻坚，保障电控系统的稳定运行。',
-        image: 'https://cdn.newenergycoder.club/images/src/image/maintainer/张旺旺.jpg',
-        tags: ['电控系统', '运行时', 'ROBOCON', '嵌入式', '系统稳定性'],
-        github: 'https://github.com/zhangwangwang'
-      }
-    ],
-    developers: [
-      {
-        name: '刘英琪',
-        role: '嵌入式开发工程师',
-        bio: '专注于现代机器人技术栈，致力于构建高性能的机器人界面。',
-        image: 'https://cdn.newenergycoder.club/images/src/image/developer/刘英琪.png',
-        tags: ['React', 'TypeScript', 'Vue', '前端架构', 'UI/UX', 'Vite'],
-        github: 'https://github.com/liuyingqi'
-      },
-      {
-        name: '单广志',
-        role: '嵌入式开发工程师',
-        bio: '机器人行业电控驱动开发以及硬件电路设计。',
-        image: 'https://cdn.newenergycoder.club/images/src/image/developer/单广志.png',
-        tags: ['嵌入式开发', '电控驱动', '硬件电路设计', '机器人', 'STM32', 'PCB设计'],
-        github: 'https://github.com/shanguangzhi'
-      },
-      {
-        name: '周志',
-        role: '全栈开发工程师',
-        bio: '具备前后端开发能力，致力于端到端的解决方案开发。',
-        image: 'https://cdn.newenergycoder.club/images/src/image/developer/周志.png',
-        tags: ['全栈开发', 'JavaScript', 'Python', 'React', 'Node.js', '项目管理'],
-        github: 'https://github.com/zhouzhi'
-      },
-      {
-        name: '李硕',
-        role: '硬件系统架构师',
-        bio: '专注于硬件系统架构设计和技术选型，为项目提供技术指导。',
-        image: 'https://cdn.newenergycoder.club/images/src/image/developer/李硕.png',
-        tags: ['系统架构', '技术选型', '分布式系统', '性能优化', '云原生', 'Kubernetes'],
-        github: 'https://github.com/lishuo'
-      },
-      {
-        name: '牛良旭',
-        role: 'DevOps电池管理工程师',
-        bio: '负责项目的持续集成和部署，保障开发流程的高效运行。',
-        image: 'https://cdn.newenergycoder.club/images/src/image/developer/牛良旭.jpg',
-        tags: ['DevOps', 'CI/CD', 'Docker', 'Kubernetes', 'GitHub Actions', '自动化部署'],
-        github: 'https://github.com/niuliangxu'
-      },
-      {
-        name: '郑钦文',
-        role: '机电一体化开发工程师',
-        bio: '专注于机电设计开发，为用户提供优质的移动端体验。',
-        image: 'https://cdn.newenergycoder.club/images/src/image/developer/郑钦文.jpg',
-        tags: ['React Native', 'Flutter', 'iOS', 'Android', '移动端优化', '跨平台开发'],
-        github: 'https://github.com/zhengqinwen'
-      },
-      {
-        name: '杨力涛',
-        role: '星闪手柄开发工程师',
-        bio: '星闪手柄开发专家，熟悉STM32+RTOS C语言开发。',
-        image: 'https://cdn.newenergycoder.club/images/src/image/developer/杨力涛.JPG',
-        tags: ['星闪手柄', 'STM32', 'RTOS', 'C语言', '嵌入式开发', '硬件控制'],
-        github: 'https://github.com/yanglitao'
-      },
-      {
-        name: '彭柯颖',
-        role: '机械R1机器人开发者',
-        bio: '新加入的开发团队成员，积极参与机器人项目开发，学习新技术。',
-        image: 'https://cdn.newenergycoder.club/images/src/image/developer/彭柯颖.jpg',
-        tags: ['新成员', '项目开发', '学习成长', 'Web开发', 'JavaScript', '团队协作'],
-        github: 'https://github.com/pengkeying'
-      }
-    ],
-    designers: [
-      {
-        name: 'Xiux',
-        role: 'UI/UX设计师 & 仓库PM',
-        bio: '专注于开发者体验设计和界面优化，为可持续仓库创造美观易用的界面。',
-        image: 'https://cdn.newenergycoder.club/images/src/image/designer/xiux.jpg',
-        tags: ['UI设计', 'UX设计', 'Figma', 'Sketch', '原型设计', '用户研究']
-      },
-      {
-        name: 'ikkOoOo',
-        role: '工业/产品设计师',
-        bio: '专注于创意设计和视觉表达，为项目提供独特的设计视角。',
-        image: 'https://cdn.newenergycoder.club/images/src/image/designer/ikkOoOo.jpg',
-        tags: ['创意设计', '视觉表达', '设计创新', '艺术指导', '品牌设计', '视觉传达']
-      },
-      {
-        name: '张若璐',
-        role: '视觉设计师&财务分析师',
-        bio: '专注于品牌落地和财务分析，为项目提供专业的财务视角可行性落地设计。',
-        image: 'https://cdn.newenergycoder.club/images/src/image/designer/张若璐.jpg',
-        tags: ['品牌设计', 'Power BI', 'Logo设计', '色彩搭配']
-      },
-      {
-        name: '韦彩日',
-        role: '工业产品设计师',
-        bio: '负责对接需求，专注于工业产品设计，为项目提供专业的设计解决方案。',
-        image: 'https://cdn.newenergycoder.club/images/src/image/designer/韦彩日.jpg',
-        tags: ['工业设计', '产品设计', '需求对接', '设计解决方案', '用户体验', '产品规划']
-      },
-      {
-        name: '李一楠',
-        role: '运营组长',
-        bio: '为NEC小队宣传以及主持，负责团队运营和对外宣传工作。',
-        image: 'https://cdn.newenergycoder.club/images/src/image/designer/李一楠.jpg',
-        tags: ['团队运营', '宣传策划', '活动主持', 'NEC小队', '对外联络', '品牌推广']
-      },
-      {
-        name: '李想',
-        role: 'UX设计师',
-        bio: '一直在探索技术与设计边界的路上，以用户为中心，以体验为驱动。',
-        image: 'https://cdn.newenergycoder.club/images/src/image/designer/李想.jpg',
-        tags: ['UX设计', '用户体验', '设计思维', 'Figma', '用户旅程', '信息架构']
-      }
-    ],
-    contributors: contributors.map(contributor => ({
-      ...contributor,
-      // 如果需要为特定成员添加中文翻译，可以在这里处理
-    })),
+    maintainers,
+    sigMaintainers,
+    earlyFounders,
+    developers,
+    designers,
+    contributors,
     sponsors: [
       // 顺序必须与 constants/team.ts 中的 sponsorMetas 一一对应
       {
@@ -549,14 +408,20 @@ export const zhTranslations: Translations = {
     },
     filterLabels: {
       all: '全部成员',
-      maintainers: '核心团队',
+      maintainers: '现任维护者',
+      sigMaintainers: 'SIG 维护者',
+      earlyFounders: '早期发起者',
       developers: '开发设计',
       designers: 'UI/UX',
       contributors: '贡献者'
     },
     statsLabels: {
-      maintainers: '维护者',
-      maintainersDesc: '核心团队成员',
+      maintainers: '现任维护者',
+      maintainersDesc: '当前负责社区治理与协作的维护者',
+      sigMaintainers: 'SIG 维护者',
+      sigMaintainersDesc: '各技术方向负责人',
+      earlyFounders: '早期发起者',
+      earlyFoundersDesc: '参与社区早期建设的发起成员',
       developers: '开发者',
       developersDesc: '技术开发人员',
       designers: '设计师',

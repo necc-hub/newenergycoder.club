@@ -42,6 +42,14 @@ const getTeamGroups = (t: Translations): TeamGroup[] => {
       members: t.team.maintainers
     },
     {
+      title: t.team.sigMaintainerTitle,
+      members: t.team.sigMaintainers
+    },
+    {
+      title: t.team.earlyFounderTitle,
+      members: t.team.earlyFounders
+    },
+    {
       title: t.team.developerTitle,
       members: t.team.developers
     },

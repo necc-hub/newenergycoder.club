@@ -107,11 +107,11 @@ const PAGES = [
     path: '/team',
     title: '团队介绍',
     description:
-      '认识 NEC 新能源编程俱乐部的核心成员与贡献者：硬件组、软件组、算法组、设计组，覆盖机器人全栈开发。',
-    keywords: 'NEC团队,新能源编程俱乐部成员,开源贡献者,Maintainer,机器人团队',
+      '认识 NEC 新能源编程俱乐部的现任维护者、SIG 维护者、早期发起者与贡献者：硬件组、软件组、算法组、设计组，覆盖机器人全栈开发。',
+    keywords: 'NEC团队,新能源编程俱乐部成员,开源贡献者,Maintainer,SIG,早期发起者,机器人团队',
     heading: '团队介绍 - NEC 新能源编程俱乐部',
     body: `
-      <p>NEC 是一个由学生主导的开源社区，团队成员按角色分为 Maintainer、Developer、Designer、Contributor 四大类，
+      <p>NEC 是一个由学生主导的开源社区，团队成员按角色分为现任维护者、SIG 维护者、早期发起者、Developer、Designer、Contributor 六类，
       按方向覆盖嵌入式、机械、GUI、算法、设计五大领域。</p>
       <h2>核心方向</h2>
       <ul>

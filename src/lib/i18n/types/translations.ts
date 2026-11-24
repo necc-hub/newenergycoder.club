@@ -134,6 +134,8 @@ export interface Translations {
     description: string;
     shortDescription: string;
     maintainerTitle: string;
+    sigMaintainerTitle: string;
+    earlyFounderTitle: string;
     developerTitle: string;
     designerTitle: string;
     contributorTitle: string;
@@ -152,11 +154,15 @@ export interface Translations {
       contributionStats: string;
       mainResponsibilities: string;
       maintainerResponsibilities: string;
+      sigMaintainerResponsibilities: string;
+      earlyFounderResponsibilities: string;
       developerResponsibilities: string;
       designerResponsibilities: string;
       contributorResponsibilities: string;
     };
     maintainers: TeamMember[];
+    sigMaintainers: TeamMember[];
+    earlyFounders: TeamMember[];
     developers: TeamMember[];
     designers: TeamMember[];
     contributors: TeamMember[];
@@ -193,6 +199,8 @@ export interface Translations {
     filterLabels: {
       all: string;
       maintainers: string;
+      sigMaintainers: string;
+      earlyFounders: string;
       developers: string;
       designers: string;
       contributors: string;
@@ -201,6 +209,10 @@ export interface Translations {
     statsLabels: {
       maintainers: string;
       maintainersDesc: string;
+      sigMaintainers: string;
+      sigMaintainersDesc: string;
+      earlyFounders: string;
+      earlyFoundersDesc: string;
       developers: string;
       developersDesc: string;
       designers: string;

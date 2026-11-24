@@ -19,7 +19,14 @@ export function ManifestoSection() {
 
   // 汇总所有成员（去重），均分为三行，每行复制一份实现无缝滚动
   const memberRows = useMemo(() => {
-    const groups = [t.team.maintainers, t.team.developers, t.team.designers, t.team.contributors]
+    const groups = [
+      t.team.maintainers,
+      t.team.sigMaintainers,
+      t.team.earlyFounders,
+      t.team.developers,
+      t.team.designers,
+      t.team.contributors,
+    ]
     const seen = new Set<string>()
     const all = groups
       .flat()
