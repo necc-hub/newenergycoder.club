@@ -1,17 +1,13 @@
 import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Mail, ExternalLink } from 'lucide-react'
-import { LinkedinIcon } from '@/components/ui/brand-icons'
-import BonjourIcon from '@/bonjour.ico?url'
-import GithubIcon from '@/github.ico?url'
-import { GiteeIcon } from '@/components/ui/gitee-icon'
+import { ExternalLink } from 'lucide-react'
 import { ImageProxy } from '@/components/ui/image-proxy'
 import { getProjectById } from '@/data/projects'
 import { cn } from '@/lib/utils'
 import type { TeamMember } from '@/lib/i18n/types/translations'
 import type { AspectRatio } from '@/types/ui'
+import { MemberContactLinks } from './MemberContactLinks'
 
 export type MemberCardVariant = 'featured' | 'compact'
 
@@ -27,51 +23,6 @@ interface MemberCardProps {
 
 const CARD_BASE_STYLES =
   'team-card group overflow-hidden bg-card/90 backdrop-blur-md border-primary/30 shadow-lg'
-
-function SocialLinks({ member, compact = false }: { member: TeamMember; compact?: boolean }) {
-  const iconSize = compact ? 'h-3.5 w-3.5' : 'h-4 w-4'
-  const buttonSize = compact ? 'h-7 w-7' : 'h-8 w-8'
-
-  return (
-    <div className="flex justify-center gap-2">
-      {member.gitee && (
-        <Button variant="ghost" size="icon" className={buttonSize} asChild>
-          <a href={member.gitee} target="_blank" rel="noopener noreferrer" aria-label="Gitee profile">
-            <GiteeIcon className={iconSize} />
-          </a>
-        </Button>
-      )}
-      {member.github && (
-        <Button variant="ghost" size="icon" className={buttonSize} asChild>
-          <a href={member.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
-            <img src={GithubIcon} alt="GitHub" className={`${iconSize} object-contain dark:invert`} />
-          </a>
-        </Button>
-      )}
-      {member.bonjour && (
-        <Button variant="ghost" size="icon" className={buttonSize} asChild>
-          <a href={member.bonjour} target="_blank" rel="noopener noreferrer" aria-label="Bonjour profile">
-            <img src={BonjourIcon} alt="Bonjour" className={iconSize} />
-          </a>
-        </Button>
-      )}
-      {member.linkedin && (
-        <Button variant="ghost" size="icon" className={buttonSize} asChild>
-          <a href={member.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
-            <LinkedinIcon className={iconSize} />
-          </a>
-        </Button>
-      )}
-      {member.email && (
-        <Button variant="ghost" size="icon" className={buttonSize} asChild>
-          <a href={`mailto:${member.email}`} aria-label={`Send email to ${member.name}`}>
-            <Mail className={iconSize} />
-          </a>
-        </Button>
-      )}
-    </div>
-  )
-}
 
 function MemberAvatar({
   member,
@@ -135,6 +86,7 @@ export function MemberCard({
   className,
 }: MemberCardProps) {
   const isFeatured = variant === 'featured'
+  const hasPublicContact = Boolean(member.gitee || member.github || member.bonjour || member.linkedin || member.email)
 
   // hover 动画由 index.css 中的 .team-card / .member-avatar-zoom 规则驱动，
   // 不再为每张卡挂 GSAP timeline + 监听器（页面上几十张卡时开销可观）
@@ -267,13 +219,13 @@ export function MemberCard({
             </div>
           )}
 
-          <SocialLinks member={member} />
+          {hasPublicContact && <MemberContactLinks member={member} />}
         </CardContent>
       )}
 
-      {!isFeatured && member.github && (
+      {!isFeatured && hasPublicContact && (
         <CardContent className="px-2 pb-3 pt-0">
-          <SocialLinks member={member} compact />
+          <MemberContactLinks member={member} compact />
         </CardContent>
       )}
     </Card>

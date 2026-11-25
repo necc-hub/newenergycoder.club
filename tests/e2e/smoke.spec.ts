@@ -6,10 +6,21 @@ for (const route of routes) {
   test(`${route} mounts without console errors`, async ({ page }) => {
     const errors: string[] = []
     const failedRequests: string[] = []
-    page.on('console', (msg) => {
-      if (msg.type() === 'error') errors.push(msg.text())
-    })
+    const requestErrors: string[] = []
     page.on('pageerror', (err) => errors.push(err.message))
+    page.on('console', (msg) => {
+      // Third-party image hosts are outside the app's control. Fail on app
+      // exceptions below; keep network diagnostics for actionable errors.
+      if (msg.type() === 'error' && !msg.text().startsWith('Failed to load resource')) {
+        errors.push(msg.text())
+      }
+    })
+    page.on('requestfailed', (request) => {
+      const url = request.url()
+      if (url.startsWith('http://127.0.0.1:4173') || url.includes('cdn.newenergycoder.club')) {
+        requestErrors.push(`${request.method()} ${url}: ${request.failure()?.errorText}`)
+      }
+    })
     page.on('response', (res) => {
       if (res.status() === 404) failedRequests.push(res.url())
     })
@@ -18,11 +29,32 @@ for (const route of routes) {
     await expect(page.locator('#root')).not.toBeEmpty()
     await page.waitForTimeout(2500) // allow lazy chunks + entrance animations
     expect(errors, `console errors on ${route}; 404s: ${failedRequests.join(', ')}`).toEqual([])
+    expect(requestErrors, `local/CDN request failures on ${route}`).toEqual([])
     if (route === '/projects') {
       expect(failedRequests, 'unexpected 404s on /projects').toEqual([])
     }
   })
 }
+
+test('member cards navigate to a shareable profile', async ({ page }) => {
+  const errors: string[] = []
+  page.on('pageerror', (err) => errors.push(err.message))
+  await page.goto('/team')
+  await expect(page.locator('#root')).not.toBeEmpty()
+  await page.locator('.team-card').first().click()
+  await expect(page).toHaveURL(/\/team\/member\/darrenpig$/)
+  await expect(page.locator('body')).toContainText('DarrenPig', { timeout: 10_000 })
+  expect(errors).toEqual([])
+})
+
+test('recruit roster preview mounts', async ({ page }) => {
+  const errors: string[] = []
+  page.on('pageerror', (err) => errors.push(err.message))
+  await page.goto('/team/roster')
+  await expect(page.locator('#root')).not.toBeEmpty()
+  await page.waitForTimeout(2500)
+  expect(errors).toEqual([])
+})
 
 test('markdown viewer renders code blocks on demand', async ({ page }) => {
   await page.goto('/markdown')

@@ -18,6 +18,7 @@ const AlgorithmDetailPage = React.lazy(() => import("@/pages/AlgorithmDetailPage
 const DesignerDetailPage = React.lazy(() => import("@/pages/DesignerDetailPage"));
 const TeamPage = React.lazy(() => import("@/pages/TeamPage").then(module => ({ default: module.TeamPage })));
 const RecruitRosterPage = React.lazy(() => import("@/pages/RecruitRosterPage"));
+const MemberProfilePage = React.lazy(() => import("@/pages/MemberProfilePage").then(module => ({ default: module.MemberProfilePage })));
 const GalleryPage = React.lazy(() => import("@/pages/GalleryPage").then(module => ({ default: module.GalleryPage })));
 const InnovationShowcasePage = React.lazy(() => import("@/pages/InnovationShowcasePage").then(module => ({ default: module.InnovationShowcasePage })));
 const AdminDashboard = React.lazy(() => import("@/pages/AdminDashboard"));
@@ -73,6 +74,7 @@ function App() {
             <Route path="/events" element={<EventsPage />} />
             <Route path="/resources" element={<ResourcesPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/team/member/:memberId" element={<MemberProfilePage />} />
             <Route path="/team" element={<TeamPage />} />
             <Route path="/team/roster" element={<PageLayout><RecruitRosterPage /></PageLayout>} />
             <Route path="/gallery" element={<PageLayout><GalleryPage /></PageLayout>} />

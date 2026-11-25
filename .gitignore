@@ -12,6 +12,9 @@
 .idea/
 .vscode/
 
+# Local brainstorm previews
+.superpowers/
+
 # Logs
 npm-debug.log*
 yarn-debug.log*

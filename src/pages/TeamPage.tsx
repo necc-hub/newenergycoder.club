@@ -1,5 +1,6 @@
 import { AspectRatio } from '@/types/ui'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useTranslation } from '@/contexts/LanguageContext'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -8,6 +9,7 @@ import { Button } from '@/components/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
 import { ImageProxy } from '@/components/ui/image-proxy'
+import { memberProfilePath } from '@/lib/team/members'
 import { Header } from '@/components/layout/Header'
 import { cn } from '@/lib/utils'
 import teamGiteeStats from '@/data/team-gitee-stats.json'
@@ -27,8 +29,7 @@ import { Flip } from 'gsap/Flip'
 import { flushSync } from 'react-dom'
 import type { TeamMember as TeamMemberType } from '@/lib/i18n/types/translations'
 import type { Sponsor, SponsorLevel } from '@/lib/i18n/constants/team'
-import { sponsorMetas } from '@/lib/i18n/constants/team'
-import { MemberTechDetail } from '@/components/team/MemberTechDetail'
+import { maintainers, developers, designers, contributors, sponsorMetas } from '@/lib/i18n/constants/team'
 import { MemberCard } from '@/components/team/MemberCard'
 
 // 样式常量定义
@@ -317,10 +318,10 @@ interface TeamSectionProps {
   members: TeamMemberType[]
   selectedRatio?: AspectRatio
   variant?: 'featured' | 'compact'
-  onMemberClick?: (member: TeamMemberType) => void
 }
 
-function TeamSection({ title, members, selectedRatio, variant = 'compact', onMemberClick }: TeamSectionProps) {
+function TeamSection({ title, members, selectedRatio, variant = 'compact' }: TeamSectionProps) {
+  const navigate = useNavigate()
   const isFeatured = variant === 'featured'
   const sectionRef = useRef<HTMLElement>(null)
   const gridRef = useRef<HTMLDivElement>(null)
@@ -416,7 +417,7 @@ function TeamSection({ title, members, selectedRatio, variant = 'compact', onMem
             member={member}
             variant={isFeatured ? 'featured' : 'compact'}
             aspectRatio={selectedRatio}
-            onClick={onMemberClick ? () => onMemberClick(member) : undefined}
+            onClick={() => navigate(memberProfilePath(member))}
             priority={isFeatured && index < 4}
           />
         ))}
@@ -500,7 +501,6 @@ export function TeamPage() {
   const t = useTranslation()
   const [selectedRatio] = useState<AspectRatio>('aspect-[3/4]')
   const [filter, setFilter] = useState<FilterCategory>('all')
-  const [selectedMember, setSelectedMember] = useState<TeamMemberType | null>(null)
   const heroRef = useRef<HTMLDivElement>(null)
   const pageRef = useRef<HTMLDivElement>(null)
 
@@ -768,6 +768,7 @@ export function TeamPage() {
     return sponsorMetas.map((meta, idx) => {
       const text = t.team.sponsors[idx]
       return {
+        id: meta.id,
         name: meta.name,
         role: text?.role ?? '',
         bio: text?.bio ?? '',
@@ -876,20 +877,12 @@ export function TeamPage() {
         </div>
 
         {/* Team Sections —— 入场动画由 TeamSection 内部 useGSAP 自管理（仅首次播放），筛选切换时由 Flip 接管 */}
-        <TeamSection title={t.team.maintainerTitle} members={filteredMembers.maintainers} selectedRatio={selectedRatio} variant="featured" onMemberClick={setSelectedMember} />
-        <TeamSection title={t.team.sigMaintainerTitle} members={filteredMembers.sigMaintainers} selectedRatio={selectedRatio} variant="featured" onMemberClick={setSelectedMember} />
-        <TeamSection title={t.team.earlyFounderTitle} members={filteredMembers.earlyFounders} selectedRatio={selectedRatio} variant="featured" onMemberClick={setSelectedMember} />
-        <TeamSection title={t.team.developerTitle} members={filteredMembers.developers} selectedRatio={selectedRatio} variant="compact" onMemberClick={setSelectedMember} />
-        <TeamSection title={t.team.designerTitle} members={filteredMembers.designers} selectedRatio={selectedRatio} variant="compact" onMemberClick={setSelectedMember} />
-        <TeamSection title={t.team.contributorTitle} members={filteredMembers.contributors} selectedRatio={selectedRatio} variant="compact" onMemberClick={setSelectedMember} />
-
-        <MemberTechDetail
-          member={selectedMember}
-          open={!!selectedMember}
-          onOpenChange={open => {
-            if (!open) setSelectedMember(null)
-          }}
-        />
+        <TeamSection title={t.team.maintainerTitle} members={filteredMembers.maintainers} selectedRatio={selectedRatio} variant="featured" />
+        <TeamSection title={t.team.sigMaintainerTitle} members={filteredMembers.sigMaintainers} selectedRatio={selectedRatio} variant="featured" />
+        <TeamSection title={t.team.earlyFounderTitle} members={filteredMembers.earlyFounders} selectedRatio={selectedRatio} variant="featured" />
+        <TeamSection title={t.team.developerTitle} members={filteredMembers.developers} selectedRatio={selectedRatio} variant="compact" />
+        <TeamSection title={t.team.designerTitle} members={filteredMembers.designers} selectedRatio={selectedRatio} variant="compact" />
+        <TeamSection title={t.team.contributorTitle} members={filteredMembers.contributors} selectedRatio={selectedRatio} variant="compact" />
 
         {/* Team Analytics Section */}
         <div className="mt-16 mb-12">
