@@ -35,6 +35,3 @@ src/data/team-gitee-stats.json.fallback
 
 # Local photo-review scratch directories
 .photo-review-*/
-
-# Local design scratch and image tooling
-.superpowers/
