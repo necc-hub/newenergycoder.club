@@ -1,37 +1,231 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { useSearchParams, Link } from 'react-router-dom'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { ExternalLink, Calendar, User, ChevronDown, ChevronUp } from 'lucide-react'
+import { Input } from '@/components/ui/input'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import {
+  ArrowUpRight,
+  Calendar,
+  Check,
+  CheckCircle2,
+  Code2,
+  ExternalLink,
+  FolderGit2,
+  HandHeart,
+  Link2,
+  PackageOpen,
+  Search,
+  Sparkles,
+  User,
+  Users,
+} from 'lucide-react'
 import { GiteeIcon } from '@/components/ui/gitee-icon'
-import { useTranslation } from '@/contexts/LanguageContext'
+import { useLanguage, useTranslation } from '@/contexts/LanguageContext'
 import { PageLayout } from '@/components/layout/PageLayout'
 import SEO from '@/components/SEO'
-import { FloatingControls, type AspectRatio } from '@/components/ui/floating-controls'
+import { type AspectRatio } from '@/components/ui/floating-controls'
 import { ProjectImage } from '@/components/ui/project-image'
-import { projects as mockProjects, type ProjectCategory } from '@/data/projects'
+import {
+  projects,
+  type Project,
+  type ProjectCategory,
+  type ProjectStatus,
+} from '@/data/projects'
+import { projectDetails } from '@/lib/i18n/locales/projectDetails'
 
-const categoryFilters = [
-  { key: 'all' as ProjectCategory, labelKey: 'filterAll' },
-  { key: 'ai' as ProjectCategory, labelKey: 'filterAI' },
-  { key: 'iot' as ProjectCategory, labelKey: 'filterIoT' },
-  { key: 'embedded' as ProjectCategory, labelKey: 'filterEmbedded' },
-  { key: 'robotics' as ProjectCategory, labelKey: 'filterRobotics' },
-  { key: 'research' as ProjectCategory, labelKey: 'filterResearch' },
-  { key: 'web' as ProjectCategory, labelKey: 'filterWeb' },
-  { key: 'mobile' as ProjectCategory, labelKey: 'filterMobile' },
-  { key: 'other' as ProjectCategory, labelKey: 'filterOther' }
+const categoryFilters: { key: ProjectCategory; labelKey: string }[] = [
+  { key: 'all', labelKey: 'filterAll' },
+  { key: 'web', labelKey: 'filterWeb' },
+  { key: 'robotics', labelKey: 'filterRobotics' },
+  { key: 'embedded', labelKey: 'filterEmbedded' },
+  { key: 'iot', labelKey: 'filterIoT' },
+  { key: 'research', labelKey: 'filterResearch' },
+  { key: 'ai', labelKey: 'filterAI' },
+  { key: 'docs', labelKey: 'filterDocs' },
 ]
 
-export function ProjectsPage() {
-  const [selectedCategory, setSelectedCategory] = useState<ProjectCategory>('all')
-  const [selectedRatio, setSelectedRatio] = useState<AspectRatio>('aspect-[21/9]')
-  const [isFilterExpanded, setIsFilterExpanded] = useState(true)
-  const t = useTranslation()
+const statusStyles: Record<ProjectStatus, string> = {
+  active: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/20',
+  development: 'bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/20',
+  seasonal: 'bg-sky-500/10 text-sky-700 dark:text-sky-300 border-sky-500/20',
+  archived: 'bg-slate-500/10 text-slate-600 dark:text-slate-300 border-slate-500/20',
+}
 
-  const filteredProjects = selectedCategory === 'all' 
-    ? mockProjects 
-    : mockProjects.filter(project => project.category === selectedCategory)
+const statusDot: Record<ProjectStatus, string> = {
+  active: 'bg-emerald-500',
+  development: 'bg-amber-500',
+  seasonal: 'bg-sky-500',
+  archived: 'bg-slate-400',
+}
+
+/** 无实拍封面的项目：用仓库排版做一张"代码封面"，比无关图库图更真实 */
+function RepoCover({ project }: { project: Project }) {
+  const repoPath = project.githubUrl
+    ?.replace(/^https?:\/\/(github\.com|gitee\.com)\//, '')
+    .replace(/\/(tree|blob)\/[^/]+\//, ' › ')
+  return (
+    <div className="h-full w-full bg-[radial-gradient(ellipse_at_top_left,hsl(var(--primary)/0.16),transparent_60%),radial-gradient(ellipse_at_bottom_right,hsl(var(--accent)/0.14),transparent_55%)] p-5 flex flex-col justify-between">
+      <div className="flex items-center gap-2 text-xs text-muted-foreground font-mono">
+        <FolderGit2 className="h-4 w-4 text-primary" />
+        <span className="truncate">{repoPath}</span>
+      </div>
+      <div className="space-y-2">
+        <div className="font-mono text-xs text-primary/70">README.md</div>
+        <p className="text-sm leading-relaxed text-foreground/80 line-clamp-3">
+          {projectDetails.zh[project.id]?.tagline}
+        </p>
+      </div>
+      <div className="flex flex-wrap gap-1.5">
+        {project.technologies.slice(0, 3).map(tech => (
+          <span
+            key={tech}
+            className="rounded border border-border/60 bg-background/50 px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground"
+          >
+            {tech}
+          </span>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function ProjectStatusBadge({
+  status,
+  label,
+}: {
+  status: ProjectStatus
+  label: string
+}) {
+  return (
+    <span
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-medium ${statusStyles[status]}`}
+    >
+      <span className={`h-1.5 w-1.5 rounded-full ${statusDot[status]}`} />
+      {label}
+    </span>
+  )
+}
+
+export function ProjectsPage() {
+  const t = useTranslation()
+  const { language } = useLanguage()
+  const [selectedCategory, setSelectedCategory] = useState<ProjectCategory>('all')
+  const [query, setQuery] = useState('')
+  const [selectedRatio, setSelectedRatio] = useState<AspectRatio>('aspect-video')
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [copiedId, setCopiedId] = useState<string | null>(null)
+
+  const detailId = searchParams.get('p')
+  const detailProject = detailId ? projects.find(p => p.id === detailId) : undefined
+
+  const statusLabels: Record<ProjectStatus, string> = {
+    active: t.projects.statusActive,
+    development: t.projects.statusDevelopment,
+    seasonal: t.projects.statusSeasonal,
+    archived: t.projects.statusArchived,
+  }
+
+  const filteredProjects = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    return projects.filter(project => {
+      if (selectedCategory !== 'all' && project.category !== selectedCategory) {
+        // system（MICA）与 aerospace（飞控）归入科研/机器人筛选组，避免空分类
+        const alias: Record<string, ProjectCategory> = { system: 'research', aerospace: 'robotics' }
+        if (alias[project.category] !== selectedCategory) return false
+      }
+      if (!q) return true
+      const copy = projectDetails[language][project.id]
+      const haystack = [
+        project.title,
+        copy?.tagline,
+        copy?.summary,
+        project.author,
+        project.technologies.join(' '),
+      ]
+        .join(' ')
+        .toLowerCase()
+      return haystack.includes(q)
+    })
+  }, [query, selectedCategory, language])
+
+  const openDetails = (project: Project) => {
+    setSearchParams(prev => {
+      const next = new URLSearchParams(prev)
+      next.set('p', project.id)
+      return next
+    })
+  }
+
+  const closeDetails = () => {
+    setSearchParams(prev => {
+      const next = new URLSearchParams(prev)
+      next.delete('p')
+      return next
+    })
+  }
+
+  // 支持 /projects#project-<id> 的既有锚点（成员页代表作跳转）
+  useEffect(() => {
+    const hash = window.location.hash
+    const match = hash.match(/^#project-(.+)$/)
+    if (match) {
+      const target = projects.find(p => p.id === match[1])
+      if (target) openDetails(target)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const copyProjectLink = async (project: Project) => {
+    const url = `${window.location.origin}/projects?p=${project.id}`
+    try {
+      await navigator.clipboard.writeText(url)
+      setCopiedId(project.id)
+      setTimeout(() => setCopiedId(null), 2000)
+    } catch {
+      // 剪贴板不可用时静默失败
+    }
+  }
+
+  const renderActions = (project: Project) => (
+    <>
+      {project.projectUrl && (
+        <Button size="sm" asChild className="gap-1.5">
+          <a
+            href={project.projectUrl}
+            target={project.projectUrl.startsWith('http') ? '_blank' : undefined}
+            rel="noopener noreferrer"
+          >
+            <ExternalLink className="h-3.5 w-3.5" />
+            {t.projects.liveDemo}
+          </a>
+        </Button>
+      )}
+      {project.githubUrl && (
+        <Button size="sm" variant="outline" asChild className="gap-1.5">
+          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+            <Code2 className="h-3.5 w-3.5" />
+            {t.projects.viewCode}
+          </a>
+        </Button>
+      )}
+      {project.giteeUrl && (
+        <Button size="sm" variant="outline" asChild className="gap-1.5">
+          <a href={project.giteeUrl} target="_blank" rel="noopener noreferrer">
+            <GiteeIcon className="h-3.5 w-3.5" />
+            Gitee
+          </a>
+        </Button>
+      )}
+    </>
+  )
 
   return (
     <PageLayout
@@ -40,194 +234,383 @@ export function ProjectsPage() {
       onAspectRatioChange={setSelectedRatio}
     >
       <SEO
-        title="项目展示"
-        description="新能源编程俱乐部成员的开源项目展示：嵌入式系统、机器人、AI 物联网、Web 与移动应用等创新实践。"
+        title={t.projects.title}
+        description={t.projects.description}
         path="/projects"
       />
-      {/* 主容器div - 设置最小高度为全屏，添加从背景色到强调色的渐变背景 */}
       <div className="min-h-screen bg-gradient-to-br from-background to-accent/5">
-      {/* Hero Section - 页面顶部英雄区域 */}
-      <section className="py-16 lg:py-24 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 relative overflow-hidden">
-        {/* 背景装饰div - 创建径向渐变背景效果，绝对定位覆盖整个section */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,hsl(var(--primary)/0.1),transparent_50%),radial-gradient(circle_at_75%_75%,hsl(var(--accent)/0.1),transparent_50%)]"></div>
-        
-        {/* 内容容器div - 相对定位，z-index为10确保在背景之上，文本居中对齐 */}
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-3xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              {t.projects.title}
-            </h1>
-            <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-              {t.projects.description}
-            </p>
-          </div>
-        </div>
-      </section>
-
-{/* ProjectsPage 组件
-├── useState 管理 selectedRatio 状态
-├── 通过 PageLayout 传递属性
-│   ├── showAspectRatio={true}
-│   ├── aspectRatio={selectedRatio}
-│   └── onAspectRatioChange={setSelectedRatio}
-└── 在项目卡片中应用：className={`${selectedRatio} overflow-hidden relative`} */}
-
-
-      {/* Filter Section - 筛选器区域 */}
-      <section className="py-8">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap gap-2 justify-center">
-            {categoryFilters.map((filter) => (
-              <Button
-                key={filter.key}
-                variant={selectedCategory === filter.key ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setSelectedCategory(filter.key)}
-                className="transition-all duration-200 hover-lift"
-              >
-                {t.projects[filter.labelKey]}
-              </Button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Projects Grid - 项目网格区域 */}
-      <section className="py-16">
-        {/* 项目网格容器div - 使用container类进行响应式布局 */}
-        <div className="container">
-          {/* 项目网格div - 网格布局，间距为6，响应式列数：小屏1列，中屏2列，大屏3列 */}
-          <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {filteredProjects.map((project) => (
-              <Card key={project.id} className="glass-card hover-lift glow-hover group overflow-hidden">
-                {/* 项目图片容器div - 使用选定的宽高比，隐藏溢出内容，相对定位 */}
-                <div className={`${selectedRatio} overflow-hidden relative`}>
-                  <ProjectImage 
-                    src={project.image}
-                    alt={project.title}
-                    className="h-full w-full"
-                  />
-                  {/* 
-                    悬停遮罩层 - 项目卡片图片的交互遮罩效果
-                    - absolute inset-0: 绝对定位，覆盖整个父容器（图片区域）
-                    - bg-gradient-to-t: 从底部到顶部的渐变背景
-                    - from-black/60: 渐变起点为60%透明度的黑色
-                    - via-transparent: 渐变中间为完全透明
-                    - to-transparent: 渐变终点为完全透明
-                    - opacity-0: 默认状态下完全透明（不可见）
-                    - group-hover:opacity-100: 当父元素（.group）被悬停时，遮罩变为完全不透明
-                    - transition-opacity duration-300: 透明度变化的过渡动画，持续300毫秒
-                    作用：为项目卡片提供优雅的悬停视觉反馈，增强用户交互体验
-                  */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  
-                  {/* 
-                    悬停按钮容器 - 项目操作按钮的定位容器
-                    - absolute: 绝对定位，脱离文档流
-                    - bottom-4 left-4 right-4: 距离底部、左侧、右侧各16px（4 * 4px）
-                    - opacity-0: 默认状态下完全透明（隐藏按钮）
-                    - group-hover:opacity-100: 悬停时显示按钮（完全不透明）
-                    - transition-opacity duration-300: 透明度变化的平滑过渡动画
-                    作用：在用户悬停项目卡片时，在图片底部显示操作按钮
-                  */}
-                  <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {/* 
-                      按钮组布局容器 - 水平排列多个操作按钮
-                      - flex: 弹性布局，子元素水平排列
-                      - gap-2: 子元素之间的间距为8px（2 * 4px）
-                      作用：确保多个按钮之间有适当的间距，保持整齐的布局
-                    */}
-                    <div className="flex gap-2">
-                      {/* 条件渲染：只有当项目有项目链接时才显示查看项目按钮 */}
-                      {project.projectUrl && (
-                        /* 
-                          查看项目按钮 - 跳转到项目详情页面的操作按钮
-                          - size="sm": 小尺寸按钮，适合在卡片中使用
-                          - bg-white/20: 20%透明度的白色背景
-                          - backdrop-blur-sm: 小程度的背景模糊效果（毛玻璃效果）
-                          - hover:bg-white/30: 悬停时背景透明度增加到30%
-                          - ExternalLink图标: 表示外部链接的视觉提示
-                          - mr-2: 图标右侧边距8px，与文字保持间距
-                          作用：提供访问项目详情的快捷入口，视觉效果现代且优雅
-                        */
-                        <Button 
-                          size="sm" 
-                          className="bg-white/20 backdrop-blur-sm hover:bg-white/30"
-                          onClick={() => window.open(project.projectUrl, '_blank')}
-                        >
-                          <ExternalLink className="h-4 w-4 mr-2" />
-                          {t.projects.viewProject}
-                        </Button>
-                      )}
-                      {project.githubUrl && (
-                        /* 查看代码按钮 - 小尺寸，轮廓样式，半透明背景，点击打开新窗口 */
-                        <Button size="sm" variant="outline" className="bg-white/20 backdrop-blur-sm hover:bg-white/30 border-white/30" onClick={() => window.open(project.githubUrl, '_blank')}>
-                          <GiteeIcon className="h-4 w-4 mr-2" />
-                          {t.projects.viewCode}
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-                
-                <CardHeader className="pb-3">
-                  <h3 className="font-bold text-xl mb-2">{project.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {project.description}
-                  </p>
-                </CardHeader>
-                
-                <CardContent className="space-y-4">
-                  {/* 技术栈区域div - 包含标题和技术标签 */}
-                  <div>
-                    <h4 className="text-sm font-semibold mb-2 text-primary">{t.projects.technologies}</h4>
-                    {/* 技术标签容器div - 水平排列可换行，间距为1 */}
-                    <div className="flex flex-wrap gap-1">
-                      {project.technologies.map((tech) => (
-                        <Badge key={tech} variant="secondary" className="text-xs">
-                          {tech}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                  
-
-                  {/* 项目状态区域div - 柔和背景，圆角，内边距，小字体 */}
-                  <div className="bg-muted/50 rounded-lg p-3 text-sm">
-                    <p className="text-muted-foreground">项目状态: 开发中</p>
-                  </div>
-                  
-                  {/* 项目信息底部区域div - 水平排列两端对齐，顶部边框，内边距 */}
-                  <div className="flex items-center justify-between text-sm text-muted-foreground pt-2 border-t">
-                    {/* 作者信息容器div - 水平排列居中对齐，间距为1 */}
-                    <div className="flex items-center gap-1">
-                      <User className="h-4 w-4" />
-                      <span>{project.author}</span>
-                    </div>
-                    {/* 日期信息容器div - 水平排列居中对齐，间距为1 */}
-                    <div className="flex items-center gap-1">
-                      <Calendar className="h-4 w-4" />
-                      <span>{new Date(project.date).toLocaleDateString()}</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-          
-          {/* 空状态提示 - 当筛选结果为空时显示 */}
-          {filteredProjects.length === 0 && (
-            /* 空状态容器div - 文本居中，垂直内边距为16 */
-            <div className="text-center py-16">
-              <p className="text-muted-foreground text-lg">
-                No projects found in this category.
+        {/* Hero */}
+        <section className="relative overflow-hidden border-b border-border/40 py-14 lg:py-20">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,hsl(var(--primary)/0.10),transparent_50%),radial-gradient(circle_at_80%_80%,hsl(var(--accent)/0.10),transparent_50%)]" />
+          <div className="container relative z-10 mx-auto px-4">
+            <div className="mx-auto max-w-3xl text-center">
+              <span className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-medium text-primary">
+                <Sparkles className="h-3.5 w-3.5" />
+                {t.projects.heroBadge}
+              </span>
+              <h1 className="mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text pb-1 text-3xl font-bold leading-[1.2] text-transparent lg:text-5xl">
+                {t.projects.title}
+              </h1>
+              <p className="mb-3 text-base leading-relaxed text-muted-foreground lg:text-lg">
+                {t.projects.description}
               </p>
+              <p className="text-sm text-muted-foreground/80">{t.projects.heroHint}</p>
+
+              {/* 真实统计：从项目数据实时计算，不写死数字 */}
+              <div className="mt-8 grid grid-cols-3 gap-3 text-center">
+                {[
+                  { value: projects.length, label: t.projects.statProjects },
+                  {
+                    value: new Set(projects.map(p => p.category)).size,
+                    label: t.projects.statDomains,
+                  },
+                  {
+                    value: projects.filter(p => p.projectUrl?.startsWith('http')).length,
+                    label: t.projects.statLive,
+                  },
+                ].map(stat => (
+                  <div
+                    key={stat.label}
+                    className="rounded-xl border border-border/50 bg-background/50 py-3 backdrop-blur"
+                  >
+                    <div className="text-2xl font-bold text-primary">{stat.value}</div>
+                    <div className="text-xs text-muted-foreground">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
-          )}
-        </div>
-      </section>
-      {/* 主容器div结束标签 */}
+          </div>
+        </section>
+
+        {/* 搜索 + 分类筛选 */}
+        <section className="border-b border-border/40 bg-background/60 py-4">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <div className="relative w-full lg:max-w-xs">
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  value={query}
+                  onChange={e => setQuery(e.target.value)}
+                  placeholder={t.projects.searchPlaceholder}
+                  className="pl-9"
+                />
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {categoryFilters.map(filter => (
+                  <Button
+                    key={filter.key}
+                    variant={selectedCategory === filter.key ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setSelectedCategory(filter.key)}
+                    className="transition-all duration-200"
+                  >
+                    {t.projects[filter.labelKey]}
+                  </Button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 项目网格 */}
+        <section className="py-10 lg:py-14">
+          <div className="container mx-auto px-4">
+            <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+              {filteredProjects.map(project => {
+                const copy = projectDetails[language][project.id]
+                return (
+                  <Card
+                    key={project.id}
+                    id={`project-${project.id}`}
+                    className="glass-card group flex h-full flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => openDetails(project)}
+                      className={`${selectedRatio} relative block w-full overflow-hidden text-left`}
+                      aria-label={`${project.title} · ${t.projects.viewDetails}`}
+                    >
+                      {project.image ? (
+                        <ProjectImage src={project.image} alt={project.title} className="h-full w-full" />
+                      ) : (
+                        <RepoCover project={project} />
+                      )}
+                      <div className="absolute left-3 top-3">
+                        <ProjectStatusBadge status={project.status} label={statusLabels[project.status]} />
+                      </div>
+                      {project.featured && (
+                        <span className="absolute right-3 top-3 rounded-full bg-background/80 px-2.5 py-0.5 text-[11px] font-medium text-primary backdrop-blur">
+                          ★ NEC HUB
+                        </span>
+                      )}
+                    </button>
+
+                    <CardHeader className="pb-2">
+                      <button
+                        type="button"
+                        onClick={() => openDetails(project)}
+                        className="text-left"
+                      >
+                        <h3 className="mb-1 text-lg font-bold leading-snug transition-colors group-hover:text-primary">
+                          {project.title}
+                        </h3>
+                        <p className="text-xs font-medium text-primary/80">{copy?.tagline}</p>
+                      </button>
+                      <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
+                        {copy?.summary}
+                      </p>
+                    </CardHeader>
+
+                    <CardContent className="mt-auto space-y-3 pt-0">
+                      <div className="flex flex-wrap gap-1">
+                        {project.technologies.slice(0, 4).map(tech => (
+                          <Badge key={tech} variant="secondary" className="text-[11px] font-normal">
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
+                      <div className="flex items-center justify-between border-t border-border/50 pt-3">
+                        <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                          <User className="h-3.5 w-3.5" />
+                          <span className="max-w-[150px] truncate">{project.author}</span>
+                        </span>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => openDetails(project)}
+                          className="h-7 gap-1 px-2 text-xs text-primary"
+                        >
+                          {t.projects.viewDetails}
+                          <ArrowUpRight className="h-3.5 w-3.5" />
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )
+              })}
+            </div>
+
+            {filteredProjects.length === 0 && (
+              <div className="py-20 text-center">
+                <PackageOpen className="mx-auto mb-4 h-10 w-10 text-muted-foreground/50" />
+                <p className="mb-4 text-muted-foreground">{t.projects.noResults}</p>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setQuery('')
+                    setSelectedCategory('all')
+                  }}
+                >
+                  {t.projects.resetFilters}
+                </Button>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* 参与 CTA */}
+        <section className="pb-16">
+          <div className="container mx-auto px-4">
+            <div className="relative overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 via-background to-accent/10 p-8 lg:p-12">
+              <div className="relative z-10 flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between">
+                <div className="max-w-2xl">
+                  <h2 className="mb-3 flex items-center gap-2 text-2xl font-bold">
+                    <HandHeart className="h-6 w-6 text-primary" />
+                    {t.projects.ctaTitle}
+                  </h2>
+                  <p className="leading-relaxed text-muted-foreground">{t.projects.ctaDescription}</p>
+                </div>
+                <div className="flex shrink-0 flex-wrap gap-3">
+                  <Button size="lg" asChild>
+                    <Link to="/join">
+                      <Users className="mr-2 h-4 w-4" />
+                      {t.projects.ctaButton}
+                    </Link>
+                  </Button>
+                  <Button size="lg" variant="outline" asChild>
+                    <a
+                      href="https://docs.newenergycoder.club/contributing/guidelines"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {t.projects.ctaContribute}
+                      <ArrowUpRight className="ml-2 h-4 w-4" />
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
-      </PageLayout>
+
+      {/* 项目详情 */}
+      <Dialog open={Boolean(detailProject)} onOpenChange={open => !open && closeDetails()}>
+        <DialogContent className="block max-h-[88vh] w-full max-w-3xl gap-0 overflow-y-auto p-0">
+          {detailProject &&
+            (() => {
+              const copy = projectDetails[language][detailProject.id]
+              return (
+                <>
+                  <div className="relative aspect-[21/8] w-full overflow-hidden">
+                    {detailProject.image ? (
+                      <ProjectImage
+                        src={detailProject.image}
+                        alt={detailProject.title}
+                        className="h-full w-full"
+                      />
+                    ) : (
+                      <RepoCover project={detailProject} />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+                  </div>
+                  <div className="px-6 pb-6">
+                    <DialogHeader className="space-y-3 text-left">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <ProjectStatusBadge
+                          status={detailProject.status}
+                          label={statusLabels[detailProject.status]}
+                        />
+                        <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                          <Calendar className="h-3.5 w-3.5" />
+                          {t.projects.startedLabel} {detailProject.date}
+                        </span>
+                      </div>
+                      <DialogTitle className="text-2xl leading-tight">
+                        {detailProject.title}
+                      </DialogTitle>
+                      <DialogDescription className="text-sm text-primary/90">
+                        {copy?.tagline}
+                      </DialogDescription>
+                    </DialogHeader>
+
+                    <div className="mt-4 flex flex-wrap gap-2">{renderActions(detailProject)}</div>
+
+                    <div className="mt-6 space-y-6">
+                      <section>
+                        <h3 className="mb-2 flex items-center gap-2 text-sm font-semibold">
+                          <FolderGit2 className="h-4 w-4 text-primary" />
+                          {t.projects.overviewTitle}
+                        </h3>
+                        <p className="text-sm leading-relaxed text-muted-foreground">
+                          {copy?.overview}
+                        </p>
+                      </section>
+
+                      <section className="rounded-xl border border-border/60 bg-muted/30 p-4">
+                        <h3 className="mb-1 flex items-center gap-2 text-sm font-semibold">
+                          <PackageOpen className="h-4 w-4 text-primary" />
+                          {t.projects.sharedTitle}
+                        </h3>
+                        <p className="mb-3 text-xs text-muted-foreground/80">
+                          {t.projects.sharedHint}
+                        </p>
+                        <ul className="space-y-2.5">
+                          {copy?.shared.map(item => (
+                            <li key={item} className="flex gap-2 text-sm leading-relaxed">
+                              <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary/70" />
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </section>
+
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        <section>
+                          <h3 className="mb-2 flex items-center gap-2 text-sm font-semibold">
+                            <Users className="h-4 w-4 text-primary" />
+                            {t.projects.audienceTitle}
+                          </h3>
+                          <p className="text-sm leading-relaxed text-muted-foreground">
+                            {copy?.audience}
+                          </p>
+                        </section>
+                        <section>
+                          <h3 className="mb-2 flex items-center gap-2 text-sm font-semibold">
+                            <HandHeart className="h-4 w-4 text-primary" />
+                            {t.projects.contributeTitle}
+                          </h3>
+                          <p className="text-sm leading-relaxed text-muted-foreground">
+                            {copy?.contribute}
+                          </p>
+                        </section>
+                      </div>
+
+                      <section>
+                        <h3 className="mb-2 text-sm font-semibold">{t.projects.technologies}</h3>
+                        <div className="flex flex-wrap gap-1.5">
+                          {detailProject.technologies.map(tech => (
+                            <Badge key={tech} variant="secondary" className="font-normal">
+                              {tech}
+                            </Badge>
+                          ))}
+                        </div>
+                      </section>
+
+                      {detailProject.extraLinks && detailProject.extraLinks.length > 0 && (
+                        <section>
+                          <h3 className="mb-2 flex items-center gap-2 text-sm font-semibold">
+                            <Link2 className="h-4 w-4 text-primary" />
+                            {t.projects.linksTitle}
+                          </h3>
+                          <div className="flex flex-wrap gap-2">
+                            {detailProject.extraLinks.map(link => (
+                              <a
+                                key={link.url}
+                                href={link.url}
+                                target={link.url.startsWith('http') ? '_blank' : undefined}
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1.5 rounded-lg border border-border/60 px-3 py-1.5 text-xs text-foreground/80 transition-colors hover:border-primary/40 hover:text-primary"
+                              >
+                                {link.label[language]}
+                                <ArrowUpRight className="h-3 w-3" />
+                              </a>
+                            ))}
+                          </div>
+                        </section>
+                      )}
+
+                      <div className="flex flex-col gap-3 border-t border-border/50 pt-4 text-xs text-muted-foreground">
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                          <span className="flex items-center gap-1.5">
+                            <User className="h-3.5 w-3.5" />
+                            {detailProject.author}
+                          </span>
+                          <span>
+                            {t.projects.statusLabel}：{copy?.statusNote}
+                          </span>
+                        </div>
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                          <p className="max-w-md leading-relaxed text-muted-foreground/70">
+                            {t.projects.sourceNote}
+                          </p>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-7 gap-1.5 px-2 text-xs"
+                            onClick={() => copyProjectLink(detailProject)}
+                          >
+                            {copiedId === detailProject.id ? (
+                              <>
+                                <Check className="h-3.5 w-3.5 text-primary" />
+                                {t.projects.copied}
+                              </>
+                            ) : (
+                              <>
+                                <Link2 className="h-3.5 w-3.5" />
+                                {t.projects.copyLink}
+                              </>
+                            )}
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )
+            })()}
+        </DialogContent>
+      </Dialog>
+    </PageLayout>
   )
 }
