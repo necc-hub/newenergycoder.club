@@ -18,7 +18,7 @@ import { Button } from '@/components/ui/button';
 
 // 代码块组件
 interface CodeBlockProps {
-  children: string;
+  children?: React.ReactNode;
   className?: string;
   inline?: boolean;
   config: MarkdownConfig;
@@ -64,7 +64,7 @@ function CodeBlock({ children, className, inline, config }: CodeBlockProps) {
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(children);
+      await navigator.clipboard.writeText(String(children ?? ''));
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
@@ -169,6 +169,9 @@ function TableHead({ children }: { children: React.ReactNode }) {
   );
 }
 
+/** react-markdown 传入的自定义组件 props（仅取用到的字段） */
+type MDNodeProps = { children?: React.ReactNode; className?: string; [key: string]: unknown };
+
 function TableRow({ children }: { children: React.ReactNode }) {
   return (
     <tr className="border-b border-border hover:bg-muted/30 transition-colors">
@@ -177,7 +180,7 @@ function TableRow({ children }: { children: React.ReactNode }) {
   );
 }
 
-function TableCell({ children, ...props }: { children: React.ReactNode; [key: string]: any }) {
+function TableCell({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) {
   const { isHeader, ...domProps } = props;
   const Component = isHeader ? 'th' : 'td';
   
@@ -261,7 +264,7 @@ export function MarkdownRenderer({
 
   // 自定义组件映射
   const components = useMemo(() => ({
-    code: ({ children, className, ...props }: any) => (
+    code: ({ children, className, ...props }: MDNodeProps) => (
       <CodeBlock
         className={className}
         config={mergedConfig}
@@ -271,7 +274,7 @@ export function MarkdownRenderer({
         {children}
       </CodeBlock>
     ),
-    a: ({ href, children }: any) => (
+    a: ({ href, children }: { href?: string; children?: React.ReactNode }) => (
       <Link href={href} config={mergedConfig}>
         {children}
       </Link>
@@ -279,9 +282,9 @@ export function MarkdownRenderer({
     table: Table,
     thead: TableHead,
     tr: TableRow,
-    td: (props: any) => <TableCell {...props} />,
-    th: (props: any) => <TableCell {...props} isHeader />,
-    li: ({ children, className, ...props }: any) => {
+    td: (props: MDNodeProps & { children?: React.ReactNode }) => <TableCell {...(props as { children?: React.ReactNode })} />,
+    th: (props: MDNodeProps & { children?: React.ReactNode }) => <TableCell {...(props as { children?: React.ReactNode })} isHeader />,
+    li: ({ children, className, ...props }: MDNodeProps) => {
       // 检查是否是任务列表项
       if (className?.includes('task-list-item')) {
         const checked = props['data-checked'] !== undefined;
@@ -289,40 +292,40 @@ export function MarkdownRenderer({
       }
       return <li className="ml-4" {...props}>{children}</li>;
     },
-    h1: ({ children }: any) => (
+    h1: ({ children }: MDNodeProps) => (
       <h1 className="text-3xl font-bold mt-8 mb-4 first:mt-0">{children}</h1>
     ),
-    h2: ({ children }: any) => (
+    h2: ({ children }: MDNodeProps) => (
       <h2 className="text-2xl font-semibold mt-6 mb-3">{children}</h2>
     ),
-    h3: ({ children }: any) => (
+    h3: ({ children }: MDNodeProps) => (
       <h3 className="text-xl font-semibold mt-5 mb-2">{children}</h3>
     ),
-    h4: ({ children }: any) => (
+    h4: ({ children }: MDNodeProps) => (
       <h4 className="text-lg font-semibold mt-4 mb-2">{children}</h4>
     ),
-    h5: ({ children }: any) => (
+    h5: ({ children }: MDNodeProps) => (
       <h5 className="text-base font-semibold mt-3 mb-1">{children}</h5>
     ),
-    h6: ({ children }: any) => (
+    h6: ({ children }: MDNodeProps) => (
       <h6 className="text-sm font-semibold mt-2 mb-1">{children}</h6>
     ),
-    p: ({ children }: any) => (
+    p: ({ children }: MDNodeProps) => (
       <p className="mb-4 leading-7">{children}</p>
     ),
-    blockquote: ({ children }: any) => (
+    blockquote: ({ children }: MDNodeProps) => (
       <blockquote className="border-l-4 border-primary/30 pl-4 my-4 italic text-muted-foreground">
         {children}
       </blockquote>
     ),
-    ul: ({ children }: any) => (
+    ul: ({ children }: MDNodeProps) => (
       <ul className="list-disc list-inside mb-4 space-y-1">{children}</ul>
     ),
-    ol: ({ children }: any) => (
+    ol: ({ children }: MDNodeProps) => (
       <ol className="list-decimal list-inside mb-4 space-y-1">{children}</ol>
     ),
     hr: () => <hr className="my-8 border-border" />,
-    img: ({ src, alt }: any) => (
+    img: ({ src, alt }: { src?: string; alt?: string }) => (
       <img
         src={src}
         alt={alt}

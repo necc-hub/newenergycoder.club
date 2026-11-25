@@ -1,5 +1,5 @@
-import React, { Suspense, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { Suspense } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // Lazy load pages for code splitting
 const HomePage = React.lazy(() => import("@/pages/HomePage"));
@@ -11,11 +11,7 @@ const ProjectsPage = React.lazy(() => import("@/pages/ProjectsPage").then(module
 const EventsPage = React.lazy(() => import("@/pages/EventsPage").then(module => ({ default: module.EventsPage })));
 const ResourcesPage = React.lazy(() => import("@/pages/ResourcesPage").then(module => ({ default: module.ResourcesPage })));
 const ContactPage = React.lazy(() => import("@/pages/ContactPage").then(module => ({ default: module.ContactPage })));
-const EmbeddedDetailPage = React.lazy(() => import("@/pages/EmbeddedDetailPage"));
-const MechanicalDetailPage = React.lazy(() => import("@/pages/MechanicalDetailPage"));
-const GuiDetailPage = React.lazy(() => import("@/pages/GuiDetailPage"));
-const AlgorithmDetailPage = React.lazy(() => import("@/pages/AlgorithmDetailPage"));
-const DesignerDetailPage = React.lazy(() => import("@/pages/DesignerDetailPage"));
+const LearningDetailPage = React.lazy(() => import("@/pages/LearningDetailPage"));
 const TeamPage = React.lazy(() => import("@/pages/TeamPage").then(module => ({ default: module.TeamPage })));
 const RecruitRosterPage = React.lazy(() => import("@/pages/RecruitRosterPage"));
 const MemberProfilePage = React.lazy(() => import("@/pages/MemberProfilePage").then(module => ({ default: module.MemberProfilePage })));
@@ -41,13 +37,6 @@ import { initFontOptimization } from "@/utils/fontOptimization";
 import './styles/LinkDetection.css'
 
 
-
-function ExternalRedirect({ to }: { to: string }) {
-  useEffect(() => {
-    window.location.replace(to);
-  }, [to]);
-  return null;
-}
 
 function App() {
   // 初始化字体优化
@@ -79,12 +68,8 @@ function App() {
             <Route path="/team/roster" element={<PageLayout><RecruitRosterPage /></PageLayout>} />
             <Route path="/gallery" element={<PageLayout><GalleryPage /></PageLayout>} />
             <Route path="/innovation" element={<PageLayout><InnovationShowcasePage /></PageLayout>} />
-            <Route path="/getting-started" element={<ExternalRedirect to="https://docs.newenergycoder.club/start-here" />} />
-            <Route path="/learning/embedded" element={<PageLayout><EmbeddedDetailPage /></PageLayout>} />
-            <Route path="/learning/mechanical" element={<PageLayout><MechanicalDetailPage /></PageLayout>} />
-            <Route path="/learning/gui" element={<PageLayout><GuiDetailPage /></PageLayout>} />
-            <Route path="/learning/algorithm" element={<PageLayout><AlgorithmDetailPage /></PageLayout>} />
-            <Route path="/learning/designer" element={<PageLayout><DesignerDetailPage /></PageLayout>} />
+            <Route path="/learning" element={<Navigate to="/learning/embedded" replace />} />
+            <Route path="/learning/:slug" element={<PageLayout><LearningDetailPage /></PageLayout>} />
             
             {/* Document Routes */}
             <Route path="/docs/technical" element={<PageLayout><TechnicalDocsLayout /></PageLayout>} />

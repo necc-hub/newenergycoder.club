@@ -58,7 +58,7 @@ interface FloatingControlsProps {
  * getAspectRatioOptions(t) → map渲染 → 用户点击 → setSelectedAspectRatio → 
  * → localStorage存储 → 应用到document.documentElement.className
  */
-export const getAspectRatioOptions = (t: any): { value: AspectRatio; label: string }[] => [
+export const getAspectRatioOptions = (t: { displayRatio: { aspectRatios: Record<string, string>; aspectRatioLabel: string } }): { value: AspectRatio; label: string }[] => [
   // 正方形比例 - 适用于头像、图标等需要等宽高的元素
   { value: 'aspect-square', label: t.displayRatio.aspectRatios.square },
   
@@ -78,7 +78,7 @@ export const getAspectRatioOptions = (t: any): { value: AspectRatio; label: stri
   { value: 'aspect-[21/9]', label: t.displayRatio.aspectRatios.ultrawide }
 ]
 
-// DisplayRatioPage 组件
+// 显示比例选择（原 DisplayRatioPage 演示页已移除，保留于此的说明仅供实现参考）
 // ├── useState 管理 selectedRatio 状态（默认：'aspect-[3/4]'）
 // ├── 通过 PageLayout 传递属性
 // │   ├── showAspectRatio={true}
@@ -163,7 +163,7 @@ export function FloatingControls({
   const [lastScrollY, setLastScrollY] = useState(0)
   
   // 滚动状态标识 - 用于检测用户是否正在滚动页面
-  const [_isScrolling, setIsScrolling] = useState(false)
+  const [, setIsScrolling] = useState(false)
   
   // 滚动检测定时器 - 用于延迟判断滚动结束状态
   const [scrollTimeout, setScrollTimeout] = useState<NodeJS.Timeout | null>(null)

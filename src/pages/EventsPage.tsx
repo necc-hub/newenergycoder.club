@@ -220,14 +220,10 @@ export function EventsPage() {
   const {
     focusedFilterIndex,
     announcement,
-    keyboardNavigationActive: _keyboardNavigationActive,
-    showSkipLink: _showSkipLink,
     handleKeyNavigation,
     setFilterRef,
-    handleFilterFocus: _handleFilterFocus,
     handleFilterBlur,
-    announceFilterChange,
-    handleSkipToContent: _handleSkipToContent
+    announceFilterChange
   } = useAccessibility()
 
   const filterEvents = (status: EventStatus) => {

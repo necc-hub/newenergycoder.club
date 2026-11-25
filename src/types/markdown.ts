@@ -87,6 +87,34 @@ export interface MarkdownViewerProps {
 }
 
 // useMarkdown Hook返回值接口
+/**
+ * Markdown 统计信息（由 useMarkdownStats 计算）
+ */
+export interface MarkdownStats {
+  lines: number;
+  words: number;
+  characters: number;
+  charactersNoSpaces: number;
+  headings: { h1: number; h2: number; h3: number; h4: number; h5: number; h6: number };
+  links: number;
+  images: number;
+  codeBlocks: number;
+  inlineCode: number;
+  tables: number;
+  blockquotes: number;
+  lists: number;
+  readingTime: number;
+}
+
+/**
+ * Markdown 历史记录条目
+ */
+export interface MarkdownHistoryEntry {
+  content: string;
+  timestamp: number;
+  id: string;
+}
+
 export interface UseMarkdownReturn {
   // 当前内容
   content: string;
@@ -99,7 +127,7 @@ export interface UseMarkdownReturn {
   // 最后保存时间
   lastSaved: Date | null;
   // 统计信息
-  stats: any;
+  stats: MarkdownStats;
   // 更新内容函数
   updateContent: (content: string, addToHistory?: boolean) => void;
   // 更新配置函数
@@ -119,7 +147,7 @@ export interface UseMarkdownReturn {
   // 清空存储
   clearStorage: () => void;
   // 历史记录
-  history: any[] | null;
+  history: MarkdownHistoryEntry[] | null;
   // 清空历史
   clearHistory: (() => void) | null;
   // 从历史恢复

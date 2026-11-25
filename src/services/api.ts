@@ -3,7 +3,7 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api'
 
 // API响应类型定义
-interface ApiResponse<T = any> {
+interface ApiResponse<T = unknown> {
   success: boolean
   data?: T
   message?: string
@@ -18,7 +18,7 @@ export interface EventRegistration {
   userEmail?: string
   userName?: string
   timestamp: string
-  formData?: Record<string, any>
+  formData?: Record<string, unknown>
 }
 
 export interface EventData {
@@ -224,7 +224,7 @@ export const contactApi = {
 // 飞书集成API调用
 export const feishuApi = {
   // 提交飞书表单数据
-  submitForm: (formData: Record<string, any>) => 
+  submitForm: (formData: Record<string, unknown>) => 
     apiCall<{ submissionId: string }>('/feishu/submit', {
       method: 'POST',
       body: JSON.stringify(formData),
@@ -232,7 +232,7 @@ export const feishuApi = {
   
   // 获取飞书表单配置
   getFormConfig: (formId: string) => 
-    apiCall<{ formUrl: string; fields: any[] }>(`/feishu/forms/${formId}`),
+    apiCall<{ formUrl: string; fields: Array<{ name: string; label?: string; type?: string; required?: boolean }> }>(`/feishu/forms/${formId}`),
 }
 
 // 统计数据API调用
@@ -243,7 +243,7 @@ export const analyticsApi = {
     totalEvents: number
     totalProjects: number
     totalResources: number
-    recentActivity: any[]
+    recentActivity: Array<{ type: string; title?: string; timestamp?: string }>
   }>('/analytics/stats'),
   
   // 记录页面访问

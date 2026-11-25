@@ -20,7 +20,6 @@ import {
   MATURITY_LEVELS,
   InnovationFilters
 } from '@/types/innovation';
-import { useTranslation } from '@/contexts/LanguageContext';
 import SEO from '@/components/SEO';
 
 // 图标映射
@@ -220,7 +219,6 @@ const mockTechnologies: InnovationTechnology[] = [
 ];
 
 export function InnovationShowcasePage() {
-  const _t = useTranslation();
   const [filters, setFilters] = useState<InnovationFilters>({
     categories: [],
     maturity: [],
@@ -228,14 +226,14 @@ export function InnovationShowcasePage() {
     sortBy: 'name',
     sortOrder: 'asc'
   });
-  const [_selectedTechnology, setSelectedTechnology] = useState<InnovationTechnology | null>(null);
+  const [, setSelectedTechnology] = useState<InnovationTechnology | null>(null);
   const [comparisonMode, setComparisonMode] = useState(false);
   const [selectedForComparison, setSelectedForComparison] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState('showcase');
 
   // 过滤和排序技术
   const filteredTechnologies = useMemo(() => {
-    let filtered = mockTechnologies.filter(tech => {
+    const filtered = mockTechnologies.filter(tech => {
       const matchesCategory = filters.categories.length === 0 || filters.categories.includes(tech.category);
       const matchesMaturity = filters.maturity.length === 0 || filters.maturity.includes(tech.maturity);
       const matchesSearch = filters.searchQuery === '' || 
@@ -256,10 +254,11 @@ export function InnovationShowcasePage() {
         case 'date':
           comparison = new Date(a.lastUpdated).getTime() - new Date(b.lastUpdated).getTime();
           break;
-        case 'maturity':
+        case 'maturity': {
           const maturityOrder = [TechnologyMaturity.RESEARCH, TechnologyMaturity.PROTOTYPE, TechnologyMaturity.PILOT, TechnologyMaturity.COMMERCIAL];
           comparison = maturityOrder.indexOf(a.maturity) - maturityOrder.indexOf(b.maturity);
           break;
+        }
         case 'category':
           comparison = a.category.localeCompare(b.category);
           break;
@@ -384,7 +383,7 @@ export function InnovationShowcasePage() {
                         name="sortBy"
                         aria-label="排序方式"
                         value={filters.sortBy}
-                        onChange={(e) => setFilters(prev => ({ ...prev, sortBy: e.target.value as any }))}
+                        onChange={(e) => setFilters(prev => ({ ...prev, sortBy: e.target.value as InnovationFilters['sortBy'] }))}
                         className="px-3 py-2 border rounded-md bg-background"
                       >
                         <option value="name">按名称排序</option>

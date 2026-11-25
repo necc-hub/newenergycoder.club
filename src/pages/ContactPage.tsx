@@ -72,7 +72,7 @@ export function ContactPage() {
         title: t.contact.form.messageSent,
         description: "We'll get back to you as soon as possible.",
       })
-    } catch (_error) {
+    } catch {
       toast({
         title: t.contact.form.messageError,
         description: "Please check your connection and try again.",

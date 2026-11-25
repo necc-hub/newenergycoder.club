@@ -12,7 +12,7 @@ import { TOCItem } from '../types/document';
 export const TechnicalDocsLayout: React.FC = () => {
   const { slug } = useParams();
   const [toc, setToc] = useState<TOCItem[]>([]);
-  const [_loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
   
   const documentLoader = DocumentLoader.getInstance();
 

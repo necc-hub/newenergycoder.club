@@ -42,7 +42,7 @@ export const initSentry = () => {
             }
           }
           return event;
-        } catch (_e) {
+        } catch {
           // 任何过滤逻辑异常不应影响事件上报
           return event;
         }
@@ -55,11 +55,11 @@ export const initSentry = () => {
 };
 
 // 手动捕获错误的工具函数
-export const captureError = (error: Error, context?: Record<string, any>) => {
+export const captureError = (error: Error, context?: Record<string, unknown>) => {
   Sentry.withScope((scope) => {
     if (context) {
       Object.keys(context).forEach(key => {
-        scope.setTag(key, context[key]);
+        scope.setTag(key, String(context[key]));
       });
     }
     Sentry.captureException(error);

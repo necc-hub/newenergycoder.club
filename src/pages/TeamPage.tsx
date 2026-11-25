@@ -29,7 +29,7 @@ import { Flip } from 'gsap/Flip'
 import { flushSync } from 'react-dom'
 import type { TeamMember as TeamMemberType } from '@/lib/i18n/types/translations'
 import type { Sponsor, SponsorLevel } from '@/lib/i18n/constants/team'
-import { maintainers, developers, designers, contributors, sponsorMetas } from '@/lib/i18n/constants/team'
+import { sponsorMetas } from '@/lib/i18n/constants/team'
 import { MemberCard } from '@/components/team/MemberCard'
 
 // 样式常量定义

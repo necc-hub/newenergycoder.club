@@ -63,7 +63,7 @@ export class LinkTransformer {
     difficulty?: DocumentDifficulty;
     section?: string;
   }): ProcessedLink[] {
-    return links.map((link, _index) => 
+    return links.map((link) => 
       this.transform(link.url, link.text, context)
     );
   }
@@ -302,13 +302,14 @@ export class LinkTransformer {
         }
         break;
       
-      case LinkType.FILE:
+      case LinkType.FILE: {
         const fileExt = this.getFileExtension(url);
         const fileIcon = this.getFileIcon(fileExt);
         if (fileIcon && !enhancedText.includes(fileIcon)) {
           enhancedText = `${fileIcon} ${enhancedText}`;
         }
         break;
+      }
     }
     
     return enhancedText;

@@ -84,7 +84,7 @@ export interface DocumentContext {
   /** 最后修改时间 */
   lastModified?: string;
   /** 文档元数据 */
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 /**
@@ -259,7 +259,7 @@ export interface UseLinkProcessorReturn {
  * 缓存条目接口
  * 用于链接处理结果的缓存
  */
-export interface CacheEntry<T = any> {
+export interface CacheEntry<T = unknown> {
   /** 缓存的数据 */
   data: T;
   /** 缓存时间戳 */
@@ -318,7 +318,7 @@ export interface EventData {
   /** 事件时间戳 */
   timestamp: number;
   /** 事件数据载荷 */
-  payload: any;
+  payload: unknown;
   /** 事件来源 */
   source?: string;
 }

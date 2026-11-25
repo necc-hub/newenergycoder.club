@@ -514,7 +514,7 @@ export class LinkProcessor implements ILinkDetectionService {
             title: '',
             language: 'zh-CN'
           };
-          return await this.processLinks([item.content], defaultContext);
+          return await this.processLinks([String(item.content)], defaultContext);
         })
       );
 

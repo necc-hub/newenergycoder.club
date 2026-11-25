@@ -42,11 +42,11 @@ export interface DropdownItem {
 }
 
 // 表格列定义
-export interface TableColumn<T = any> {
+export interface TableColumn<T = unknown> {
   key: string
   title: string
   dataIndex?: keyof T
-  render?: (value: any, record: T, index: number) => React.ReactNode
+  render?: (value: unknown, record: T, index: number) => React.ReactNode
   width?: number | string
   align?: 'left' | 'center' | 'right'
 }
@@ -110,7 +110,7 @@ export type Shadow = 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
 export type Transition = 'none' | 'all' | 'colors' | 'opacity' | 'shadow' | 'transform'
 
 // 通用事件处理器
-export type EventHandler<T = any> = (event: T) => void
+export type EventHandler<T = unknown> = (event: T) => void
 
 // 通用回调函数
 export type Callback<T = void> = () => T
@@ -122,7 +122,7 @@ export type AsyncCallback<T = void> = () => Promise<T>
 export type OptionalAsyncCallback<T = void> = AsyncCallback<T> | undefined
 
 // 渲染函数类型
-export type RenderFunction<T = any> = (props: T) => React.ReactNode
+export type RenderFunction<T = unknown> = (props: T) => React.ReactNode
 
 // 条件渲染类型
 export type ConditionalRender = boolean | (() => boolean)
@@ -150,12 +150,12 @@ export interface FormField {
     maxLength?: number
     min?: number
     max?: number
-    custom?: (value: any) => boolean | string
+    custom?: (value: unknown) => boolean | string
   }
 }
 
 // 表单数据类型
-export type FormData = Record<string, any>
+export type FormData = Record<string, unknown>
 
 // 表单错误类型
 export type FormErrors = Record<string, string>
